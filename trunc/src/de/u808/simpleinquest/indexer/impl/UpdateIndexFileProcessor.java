@@ -199,6 +199,7 @@ public class UpdateIndexFileProcessor implements FileProcessor{
 				}
 			}
 		}
+		indexWriter.close(true);
 	}
 
 	public void dispose() {
