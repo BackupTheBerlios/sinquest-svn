@@ -10,7 +10,6 @@ import de.u808.simpleinquest.indexer.ContentHandler;
 
 public class WordContentHandler implements ContentHandler{
 
-	@Override
 	public String extractContent(File file) throws Exception {
 		WordTextExtractorFactory fab = new WordTextExtractorFactory();
 		TextExtractor extractor = fab.textExtractor(new FileInputStream(file));

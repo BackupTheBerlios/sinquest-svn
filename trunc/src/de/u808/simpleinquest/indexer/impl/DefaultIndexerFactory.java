@@ -61,7 +61,6 @@ public class DefaultIndexerFactory implements IndexerFactory{
 		return factory;
 	}
 
-	@Override
 	public Indexer getIndexer(File file) throws IOException {
 		String mimeType = MimeUtil.getMimeType(file);
 		return indexerMap.get(mimeType);

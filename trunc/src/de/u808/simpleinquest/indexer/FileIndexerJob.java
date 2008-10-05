@@ -21,7 +21,6 @@ public class FileIndexerJob implements Job {
 
 	}
 
-	@Override
 	public void execute(JobExecutionContext context)
 			throws JobExecutionException {
 		log.info("File indexer started");

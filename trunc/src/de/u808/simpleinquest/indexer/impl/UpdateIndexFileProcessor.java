@@ -64,7 +64,6 @@ public class UpdateIndexFileProcessor implements FileProcessor{
 		}
 	}
 
-	@Override
 	public void processFile(File file) {
 		//TODO Fileliste aus dem Index laden
 		//Listen vergleichen
@@ -197,7 +196,6 @@ public class UpdateIndexFileProcessor implements FileProcessor{
 		}
 	}
 
-	@Override
 	public void dispose() {
 		//TODO 1. delete deleted and modified files with IndexReader
 		//     2. index modified and new files with IndexWriter

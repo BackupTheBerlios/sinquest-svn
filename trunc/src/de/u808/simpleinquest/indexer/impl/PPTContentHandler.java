@@ -21,7 +21,6 @@ public class PPTContentHandler implements ContentHandler, POIFSReaderListener{
 
     private ByteArrayOutputStream writer;
 
-	@Override
 	public String extractContent(File file) throws IOException {
 		String contents = "";
     	POIFSReader reader = new POIFSReader();
@@ -32,7 +31,6 @@ public class PPTContentHandler implements ContentHandler, POIFSReaderListener{
 		return contents;
 	}
 
-	@Override
 	public void processPOIFSReaderEvent(POIFSReaderEvent event) {
 		try {
 			if (!event.getName().equalsIgnoreCase("PowerPoint Document"))
