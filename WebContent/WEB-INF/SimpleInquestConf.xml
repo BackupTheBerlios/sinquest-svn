@@ -1,0 +1,14 @@
+<configuration>
+   <simpleInquestHome>C:\SimpleInquestHome</simpleInquestHome>
+   <indexerConfiguration>
+      <indexerClassName mimeType="application/pdf">de.u808.simpleinquest.indexer.impl.PDFIndexer</indexerClassName>
+      <indexerClassName mimeType="application/msword">de.u808.simpleinquest.indexer.impl.MSWordIndexer</indexerClassName>
+      <indexerClassName mimeType="application/vnd.sun.xml.writer">de.u808.simpleinquest.indexer.impl.OOIndexer</indexerClassName>
+      <indexerClassName mimeType="application/vnd.oasis.opendocument.text">de.u808.simpleinquest.indexer.impl.OOIndexer2</indexerClassName>
+   </indexerConfiguration>
+   <directoriesToIndexList length="2">
+      <directoryToIndex>C:\Users\friedel\workspace\JKnowledgeMap\Sample</directoryToIndex>
+      <directoryToIndex>C:\SimpleInquestHome</directoryToIndex>
+   </directoriesToIndexList>
+   //TODO add HSQL Properties
+</configuration>

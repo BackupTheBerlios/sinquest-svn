@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+                                         "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+ <session-factory name="mySessionFactory">
+  <!-- property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property -->
+  <property name="dialect">org.hibernate.dialect.HSQLDialect</property>
+  <property name="default_schema">public</property>
+  <property name="show_sql">true</property>
+  <property name="cache.provider_class">org.hibernate.cache.EhCacheProvider</property>
+  
+  <property name="hbm2ddl.auto">update</property>
+  <mapping package="de.u808.simpleinquest.domain"/>
+  <mapping class="de.u808.simpleinquest.domain.Appointment"/>
+  <mapping class="de.u808.simpleinquest.domain.Customer"/>
+  <mapping class="de.u808.simpleinquest.domain.Person"/>
+  <mapping class="de.u808.simpleinquest.domain.TimeRecord"/>
+  <mapping class="de.u808.simpleinquest.domain.User"/>
+  
+ </session-factory>
+</hibernate-configuration>

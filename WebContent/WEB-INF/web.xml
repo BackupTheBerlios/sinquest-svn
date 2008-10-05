@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+	version="2.4">
+
+	<display-name>Simple Inquest</display-name>
+
+	<context-param>
+		<param-name>locatorFactorySelector</param-name>
+		<param-value>classpath*:**/beanRef*.xml</param-value>
+	</context-param>
+	<context-param>
+		<param-name>parentContextKey</param-name>
+		<param-value>de.u808.simpleinquest</param-value>
+	</context-param>
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			/WEB-INF/simpleinquest-servlet.xml
+			/WEB-INF/applicationContext-security.xml
+		</param-value>
+	</context-param>
+	
+	<filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+    <filter-mapping>
+      <filter-name>springSecurityFilterChain</filter-name>
+      <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+	<jsp-config>
+		<taglib>
+			<taglib-uri>http://jakarta.apache.org/taglibs/c</taglib-uri>
+			<taglib-location>/WEB-INF/c.tld</taglib-location>
+		</taglib>
+	</jsp-config>
+
+	<listener>
+		<listener-class>
+			org.springframework.web.context.ContextLoaderListener
+		</listener-class>
+	</listener>
+	
+	<listener>
+		<listener-class>
+			org.apache.tiles.web.startup.TilesListener
+		</listener-class>
+	</listener>
+
+	<servlet>
+		<servlet-name>simpleinquest</servlet-name>
+		<servlet-class>
+			de.u808.simpleinquest.web.SimpleInquestServlet
+		</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
+	<servlet>
+    	<servlet-name>tiles</servlet-name>
+    	<servlet-class>org.apache.tiles.web.startup.TilesServlet</servlet-class>
+    	<init-param>
+        	<param-name>
+          		org.apache.tiles.impl.BasicTilesContainer.DEFINITIONS_CONFIG
+        	</param-name>
+        	<param-value>
+          		/WEB-INF/tiles.xml
+        	</param-value>
+    	</init-param>
+    	<load-on-startup>2</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>simpleinquest</servlet-name>
+		<url-pattern>*.htm</url-pattern>
+	</servlet-mapping>
+
+	<welcome-file-list>
+		<welcome-file>search.jsp</welcome-file>
+	</welcome-file-list>
+
+</web-app>
