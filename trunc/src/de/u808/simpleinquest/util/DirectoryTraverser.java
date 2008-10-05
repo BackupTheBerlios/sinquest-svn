@@ -29,31 +29,37 @@ public class DirectoryTraverser {
 		this.fileProcessor = fileProcessor;
 	}
 	
-	private void processDirectory(File dir){
-		//TODO DKB is ignored check
+	private void processRootDirectory(File dir){
 		String[] files = dir.list();
 		for(String fileName : files){
 			File file = new File(dir, fileName);
-			if(!file.isHidden()){
-				if(file.isDirectory()){
-					if(traversalMode.equals(TraversalMode.FilesAndDirectories) || traversalMode.equals(TraversalMode.JustDirectories)){
-						this.fileProcessor.processFile(file);
-					}
-					processDirectory(file);
-				}
-				else if(traversalMode.equals(TraversalMode.JustFiles) || traversalMode.equals(TraversalMode.FilesAndDirectories)){
+			this.processFile(file);
+		}
+	}
+	
+	private void processFile(File file){
+		if(!file.isHidden()){
+			if(file.isDirectory()){
+				if(traversalMode.equals(TraversalMode.FilesAndDirectories) || traversalMode.equals(TraversalMode.JustDirectories)){
 					this.fileProcessor.processFile(file);
 				}
+				if(!file.equals(this.rootDir)){
+					processRootDirectory(file);
+				}
 			}
-			else{
-				log.info("Ignoring hidden file: " + file.getPath());
+			else if(traversalMode.equals(TraversalMode.JustFiles) || traversalMode.equals(TraversalMode.FilesAndDirectories)){
+				this.fileProcessor.processFile(file);
 			}
+		}
+		else{
+			log.info("Ignoring hidden file: " + file.getPath());
 		}
 	}
 	
 	public void startTraversal(){
-		processDirectory(rootDir);
-		fileProcessor.dispose();
+		this.processFile(rootDir);
+		this.processRootDirectory(rootDir);
+		this.fileProcessor.dispose();
 	}
 
 }

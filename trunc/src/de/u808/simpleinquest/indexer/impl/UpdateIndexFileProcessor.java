@@ -83,9 +83,8 @@ public class UpdateIndexFileProcessor implements FileProcessor{
 				else {
 					//New dir, add all
 					this.newFiles.add(file);
-					String[] fileNames = file.list();
-					for(String s : fileNames){
-						File f = new File(file, s);
+					File[] files = file.listFiles();
+					for(File f : files){
 						this.newFiles.add(f);
 					}
 				}
