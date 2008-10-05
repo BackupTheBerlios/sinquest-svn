@@ -186,8 +186,14 @@ public class UpdateIndexFileProcessor implements FileProcessor{
 			else {
 				Indexer indexer = indexerFactory.getIndexer(file);
 				if(indexer != null){
-					indexWriter.addDocument(indexer.indexFile(file));
-					log.info("Indexing file: " + file.getPath());
+					Document document = indexer.indexFile(file);
+					if(document != null){
+						log.info("Indexing file: " + file.getPath());
+						indexWriter.addDocument(indexer.indexFile(file));
+					}
+					else{
+						log.warn("Indexer " + indexer.getClass() + " returned no content to index");
+					}
 				}
 				else{
 					log.debug("No indexer for file: " + file.getPath());
@@ -211,7 +217,9 @@ public class UpdateIndexFileProcessor implements FileProcessor{
 			documentsToIndex.addAll(this.newFiles);
 			documentsToIndex.addAll(this.modifiedFiles);
 			this.indexDocuments(documentsToIndex);
-			this.indexSearcher.close();
+			if(indexSearcher != null){
+				this.indexSearcher.close();
+			}
 		} catch (CorruptIndexException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

@@ -39,25 +39,27 @@ public class OOIndexer2 extends OOIndexer {
 		org.jdom.Document xmlMeta = new org.jdom.Document();
 		try {
 			List files = unzip(is);
-			SAXBuilder builder = new SAXBuilder();
-			builder.setEntityResolver(new OpenOfficeEntityResolver());
-			builder.setValidation(false);
-			File fileContent = File.createTempFile("tmp", "liusOOContent.xml");
-			copyInputStream((InputStream) files.get(0),
-					new BufferedOutputStream(new FileOutputStream(fileContent)));
-			xmlDocContent = builder.build(fileContent);
-			File fileMeta = File.createTempFile("tmp", "liusOOMeta.xml");
-			copyInputStream((InputStream) files.get(1),
-					new BufferedOutputStream(new FileOutputStream(fileMeta)));
-			xmlMeta = builder.build(fileMeta);
-			Element rootMeta = xmlMeta.getRootElement();
-			Element meta = null;
-			List ls = new ArrayList();
-			if ((ls = rootMeta.getChildren()).size() > 0) {
-				meta = (Element) ls.get(0);
+			if(files != null && files.size() >= 2){
+				SAXBuilder builder = new SAXBuilder();
+				builder.setEntityResolver(new OpenOfficeEntityResolver());
+				builder.setValidation(false);
+				File fileContent = File.createTempFile("tmp", "liusOOContent.xml");
+				copyInputStream((InputStream) files.get(0),
+						new BufferedOutputStream(new FileOutputStream(fileContent)));
+				xmlDocContent = builder.build(fileContent);
+				File fileMeta = File.createTempFile("tmp", "liusOOMeta.xml");
+				copyInputStream((InputStream) files.get(1),
+						new BufferedOutputStream(new FileOutputStream(fileMeta)));
+				xmlMeta = builder.build(fileMeta);
+				Element rootMeta = xmlMeta.getRootElement();
+				Element meta = null;
+				List ls = new ArrayList();
+				if ((ls = rootMeta.getChildren()).size() > 0) {
+					meta = (Element) ls.get(0);
+				}
+				xmlDocContent.getRootElement().addContent(meta.detach());
+				xmlDocContent.getRootElement().addNamespaceDeclaration(NS_DC);
 			}
-			xmlDocContent.getRootElement().addContent(meta.detach());
-			xmlDocContent.getRootElement().addNamespaceDeclaration(NS_DC);
 		} catch (JDOMException e) {
 			log.error(e.getMessage());
 		} catch (IOException e) {
