@@ -85,7 +85,9 @@ public class UpdateIndexFileProcessor implements FileProcessor{
 					this.newFiles.add(file);
 					File[] files = file.listFiles();
 					for(File f : files){
-						this.newFiles.add(f);
+						if(f.isFile()){
+							this.newFiles.add(f);
+						}
 					}
 				}
 			} catch (IOException e) {
