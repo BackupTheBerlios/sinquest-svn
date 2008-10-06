@@ -16,11 +16,7 @@ public class PDFIndexer extends AbstractIndexer{
 //		Document document;
 		try {
 			this.document = LucenePDFDocument.getDocument(file);
-//			if(document != null && document.getField(Indexer.CONTENT_FIELD_NAME) != null){
-//				this.document.add(document.getField(Indexer.CONTENT_FIELD_NAME));
-//				this.document.add(document.getField(Indexer.AUTOR_FIELD_NAME));
-//				this.document.add(document.getField(Indexer.TITLE_FIELD_NAME));
-//			}
+			this.document = FileDocument.Document(document, file);
 		} catch (IOException e) {
 			log.error("Dokument " + file.toString() + " konnte nicht indexiert werden", e);
 			return;

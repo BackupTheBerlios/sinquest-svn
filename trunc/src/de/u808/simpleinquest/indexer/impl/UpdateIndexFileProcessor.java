@@ -164,7 +164,7 @@ public class UpdateIndexFileProcessor implements FileProcessor{
 	}
 	
 	private void deleteDocuments(List<File> files) throws CorruptIndexException, IOException{
-		if(files.isEmpty() && IndexReader.indexExists(indexDirectory)){
+		if(!files.isEmpty() && IndexReader.indexExists(indexDirectory)){
 			IndexReader indexReader = IndexReader.open(indexDirectory);
 			for(File file: files){
 				Term uidTerm = new Term(Indexer.PATH_FIELD_NAME, file.getPath());
