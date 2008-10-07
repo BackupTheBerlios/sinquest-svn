@@ -37,3 +37,7 @@
 			</c:forEach>
 		</table>
 	</c:if>
+	<c:if test="${search.hits ne null and search.hitsCount eq 0}">
+		Die Suche ergab keine Treffer
+	</c:if>
+	
