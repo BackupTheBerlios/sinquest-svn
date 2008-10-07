@@ -8,23 +8,10 @@
 	
 	<definition name="home" template="/WEB-INF/tiles/tiles-std.jsp">
 		<put-attribute name="content" value="/WEB-INF/jsp/home.jsp"/>
-		<put-attribute name="loginbar" value="/WEB-INF/jsp/loginbar.jsp"/>
-		<put-attribute name="menubar" value="/WEB-INF/jsp/empty.jsp"/>
-		<put-attribute name="navigation" value="/WEB-INF/jsp/navigation.jsp"/>
-	</definition>
-	
-	<definition name="appointments" extends="home">
-		<put-attribute name="content" value="/WEB-INF/jsp/appointments/appointments.jsp"/>
-		<put-attribute name="menubar" value="/WEB-INF/jsp/appointments/menubar.jsp"/>
-	</definition>
-	
-	<definition name="appointmenForm" extends="home">
-		<put-attribute name="content" value="/WEB-INF/jsp/appointments/editAppointment.jsp"/>
 	</definition>
 	
 	<definition name="userList" extends="home">
 		<put-attribute name="content" value="/WEB-INF/jsp/usermanager/userList.jsp"/>
-		<put-attribute name="menubar" value="/WEB-INF/jsp/usermanager/menubar.jsp"/>
 	</definition>
 	
 	<definition name="userForm" extends="home">
