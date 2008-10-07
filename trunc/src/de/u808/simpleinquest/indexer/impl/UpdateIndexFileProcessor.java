@@ -205,9 +205,9 @@ public class UpdateIndexFileProcessor implements FileProcessor{
 	}
 
 	public void dispose() {
-		//TODO 1. delete deleted and modified files with IndexReader
-		//     2. index modified and new files with IndexWriter
-		//     3. set new IndesSearcher in Bean
+		// 1. delete deleted and modified files with IndexReader
+		// 2. index modified and new files with IndexWriter
+		//TODO 3. set new IndesSearcher in Bean
 		try {
 			//1.
 			List<File> documentsToDelete = new LinkedList<File>();

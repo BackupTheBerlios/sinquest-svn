@@ -16,11 +16,7 @@
 		</property>
 		<property name="mappings">
 			<props>
-				<prop key="/home.htm">testController</prop>
-				<prop key="/appointments/appointments.htm">appointmentsController</prop>
-				<prop key="/appointments/editAppointment.htm">appointmentEditController</prop>
-				<prop key="/appointments/appointmentsUpdate*.htm">appointmentsUpdateController</prop>
-				<prop key="/calendar/*.htm">viewController</prop>
+				<prop key="/search.htm">searchController</prop>
 				<prop key="/usermanager/userList.htm">userController</prop>
 				<prop key="/usermanager/editUser.htm">userEditController</prop>
 			</props>

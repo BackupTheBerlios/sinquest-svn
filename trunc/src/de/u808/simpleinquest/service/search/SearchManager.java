@@ -2,6 +2,7 @@ package de.u808.simpleinquest.service.search;
 
 import java.io.IOException;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.queryParser.ParseException;
 import org.apache.lucene.queryParser.QueryParser;
@@ -17,8 +18,10 @@ public class SearchManager {
 	public Search search(String searchString) throws ParseException, IOException{
 		Search search = new Search();
 		search.setSearchString(searchString);
-		Query query = new QueryParser(Indexer.CONTENT_FIELD_NAME, new StandardAnalyzer()).parse(searchString);
-		search.setHits(indexSearchBean.getIndexSearcher().search(query));
+		if(StringUtils.isNotEmpty(searchString)){
+			Query query = new QueryParser(Indexer.CONTENT_FIELD_NAME, new StandardAnalyzer()).parse(searchString);
+			search.setHits(indexSearchBean.getIndexSearcher().search(query));
+		}
 		return search;
 	}
 

@@ -61,7 +61,9 @@
 		<property name="indexSearchBean" ref="indexSearchBean"/>
 	</bean>
 	
-	<bean id="indexSearchBean" class="de.u808.simpleinquest.service.search.IndexSearchBean"/>
+	<bean id="indexSearchBean" class="de.u808.simpleinquest.service.search.IndexSearchBean" depends-on="configBeanResource">
+		<property name="configBeanResource" ref="configBeanResource"/>
+	</bean>
 	
 	<!-- Forms -->
 	<bean id="userEditController"
@@ -73,6 +75,8 @@
 	
 	<bean id="searchController" class="de.u808.simpleinquest.web.search.SearchController">
 		<property name="searchManager" ref="searchManager"/>
+		<property name="formView" value="searchForm"/>
+		<property name="successView" value="self"/>
 	</bean>
 	
 	

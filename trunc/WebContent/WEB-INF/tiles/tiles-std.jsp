@@ -39,20 +39,11 @@
 	<div class="topbox">
 		<table cellspacing="0">
 			<tr>
-				<%-- 
-				<td class="left">
-					<fmt:message key="common.app_title"/>
-				</td>
-				 --%>
-				<td class="right">
-					<tiles:insertAttribute name="loginbar" />
-				</td>
+				<td>&nbsp;</td>
 			</tr>
 		</table>
 	</div>
-	<tiles:insertAttribute name="navigation" />
 	<div id="Content">
-		<div id="menubar"><tiles:insertAttribute name="menubar"/></div>
 		<tiles:insertAttribute name="content" />
 	</div>
 </body>

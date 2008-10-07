@@ -11,10 +11,7 @@
   
   <property name="hbm2ddl.auto">update</property>
   <mapping package="de.u808.simpleinquest.domain"/>
-  <mapping class="de.u808.simpleinquest.domain.Appointment"/>
-  <mapping class="de.u808.simpleinquest.domain.Customer"/>
   <mapping class="de.u808.simpleinquest.domain.Person"/>
-  <mapping class="de.u808.simpleinquest.domain.TimeRecord"/>
   <mapping class="de.u808.simpleinquest.domain.User"/>
   
  </session-factory>
