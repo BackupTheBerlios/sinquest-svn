@@ -28,20 +28,31 @@
 </c:if>
 <c:if test="${search.hits ne null}">
        <form:form commandName="search">
-			<table>
+			<table style="width: 100%">
+				<colgroup>
+					<col width="150px">
+    				<col width="360px">
+    				<col width="*">
+  				</colgroup>
     			<tr>
     				<td>
+    					<a href="/SimpleInquest/">
+    						<img src="/SimpleInquest/img/Logo_s.jpg" width="136px" height="54" alt=""/>
+    					</a>
+    				</td>    				
+            		<td>
             			<font color="red">
             				<form:errors path="searchString" />
             			</font>
-            		</td>
-            		<td>
             			<form:input path="searchString" size="80" cssStyle="width: 350px;"/>
             		</td>
-            		<td>
+            		<td align="left">
             			<input type="submit" value="Suche">
             		</td>
             	</tr>            	
+            	<tr>
+            		<td colspan="3" style="background-color: gray">&nbsp;</td>
+            	</tr>
 			</table>
        </form:form>	
 	<c:if test="${search.hitsCount gt 0}">
