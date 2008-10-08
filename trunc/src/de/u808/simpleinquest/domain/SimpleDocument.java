@@ -8,8 +8,11 @@ public class SimpleDocument {
 	
 	private Document document;
 	
-	public SimpleDocument(Document document){
+	private float score;
+	
+	public SimpleDocument(Document document, float score){
 		this.document = document;
+		this.score = score;
 	}
 	
 	public String getPath(){
@@ -19,6 +22,14 @@ public class SimpleDocument {
 		else {
 			return null;
 		}
+	}
+
+	public float getScore() {
+		return score;
+	}
+
+	public void setScore(float score) {
+		this.score = score;
 	}
 
 }

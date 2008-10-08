@@ -19,7 +19,7 @@ public class Search {
 	
 	private int first = 0;
 	
-	private int last = 50;
+	private int last = 49;
 
 	public String getSearchString() {
 		return searchString;
@@ -48,6 +48,15 @@ public class Search {
 	public int getLast() {
 		return last;
 	}
+	
+	public int getLastDisplayed() {
+		if(last > this.hits.length()){
+			return this.hits.length();
+		}
+		else{
+			return this.last;
+		}
+	}
 
 	public void setLast(int last) {
 		this.last = last;
@@ -75,7 +84,7 @@ public class Search {
 		}
 		for(int i=this.first; i<max; i++){
 			try {
-				currentResults.add(new SimpleDocument(hits.doc(i)));
+				currentResults.add(new SimpleDocument(hits.doc(i), this.hits.score(i)));
 			} catch (CorruptIndexException e) {
 				log.error("Error fetching result", e);
 			} catch (IOException e) {

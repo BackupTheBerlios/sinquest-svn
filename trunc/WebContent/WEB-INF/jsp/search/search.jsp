@@ -28,7 +28,7 @@
 </c:if>
 <c:if test="${search.hits ne null}">
        <form:form commandName="search">
-			<table style="width: 100%">
+			<table style="width: 100%; border-style: none; border-spacing: 0;">
 				<colgroup>
 					<col width="150px">
     				<col width="360px">
@@ -37,7 +37,7 @@
     			<tr>
     				<td>
     					<a href="/SimpleInquest/">
-    						<img src="/SimpleInquest/img/Logo_s.jpg" width="136px" height="54" alt=""/>
+    						<img src="/SimpleInquest/img/Logo_s.jpg" width="136px" height="54" alt="" border="0"/>
     					</a>
     				</td>    				
             		<td>
@@ -51,14 +51,19 @@
             		</td>
             	</tr>            	
             	<tr>
-            		<td colspan="3" style="background-color: gray">&nbsp;</td>
+            		<td colspan="3" style="background-color: gray;"><div style="color: white; margin: 3px;"> Ergebnisse <c:out value="${search.first + 1}"/> - <c:out value="${search.lastDisplayed}"/> von <c:out value="${search.hitsCount}"/> f&uuml;r <c:out value="${search.searchString}"/></div></td>
             	</tr>
 			</table>
        </form:form>	
 	<c:if test="${search.hitsCount gt 0}">
 		<table id="results">
+			<colgroup>
+				<col width="20px">
+    			<col width="*">
+  			</colgroup>
 			<c:forEach var="document" items="${search.currentResults}">
 			<tr>
+				<td><c:out value="${document.score}"/></td>
 				<td><c:out value="${document.path}"/></td>
 			</tr>
 			</c:forEach>
