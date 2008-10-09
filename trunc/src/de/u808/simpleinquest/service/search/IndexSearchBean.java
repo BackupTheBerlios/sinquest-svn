@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.lucene.index.CorruptIndexException;
+import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.search.IndexSearcher;
 import org.springframework.beans.factory.InitializingBean;
 
@@ -17,8 +18,13 @@ public class IndexSearchBean implements InitializingBean {
 	private ConfigBeanResource configBeanResource;
 	
 	private static Log log = LogFactory.getLog(IndexSearchBean.class);
+	
+	private boolean createOnAccess = false;
 
 	public IndexSearcher getIndexSearcher(){
+		if(createOnAccess){
+			this.initIndexSearcher();
+		}
 		return this.indexSearcher;
 	}
 
@@ -35,8 +41,18 @@ public class IndexSearchBean implements InitializingBean {
 	}
 
 	public void afterPropertiesSet() throws Exception {
+		this.initIndexSearcher();
+	}
+	
+	private void initIndexSearcher(){
 		try {
-			this.indexSearcher = new IndexSearcher(configBeanResource.getSystemConfig().getIndexDirectory().getPath());
+			if (IndexReader.indexExists(configBeanResource.getSystemConfig().getIndexDirectory())){
+				this.indexSearcher = new IndexSearcher(configBeanResource.getSystemConfig().getIndexDirectory().getPath());
+			}
+			else {
+				log.warn("Index does not exist! No search possible");
+				this.createOnAccess = true;
+			}
 		} catch (CorruptIndexException e) {
 			log.error("Index is corrupt! No search possible!", e);
 		} catch (IOException e) {

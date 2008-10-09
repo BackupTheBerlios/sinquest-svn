@@ -88,7 +88,7 @@ public class SimpleInquestServlet extends DispatcherServlet {
 //            cronTrigger.setGroup(INDEXER_GROUP);
             
             //Trigger trigger = TriggerUtils.makeSecondlyTrigger(5);
-            Trigger trigger = TriggerUtils.makeDailyTrigger(FILE_INDEXER_TRIGGER, 1, 0);
+            Trigger trigger = TriggerUtils.makeDailyTrigger(FILE_INDEXER_TRIGGER, 0, 13);
             trigger.setName(FILE_INDEXER_TRIGGER);
             trigger.setGroup(INDEXER_GROUP);
             

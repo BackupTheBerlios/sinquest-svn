@@ -26,6 +26,15 @@ public class SimpleDocument {
 		}
 	}
 	
+	public String getId(){
+		if(document != null){
+			return document.get(Indexer.ID_FIELD_NAME);
+		}
+		else {
+			return null;
+		}
+	}
+	
 	public String getFileName(){
 		if(document != null){
 			String path = document.get(Indexer.PATH_FIELD_NAME);

@@ -23,6 +23,7 @@ import org.apache.lucene.document.DateTools;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 
+import de.u808.common.MD5Util;
 import de.u808.simpleinquest.indexer.Indexer;
 
 /** A utility for making Lucene Documents from a File. */
@@ -70,14 +71,7 @@ public class FileDocument {
 				.timeToString(f.lastModified(), DateTools.Resolution.MINUTE),
 				Field.Store.YES, Field.Index.UN_TOKENIZED));
 
-		// Add the contents of the file to a field named "contents". Specify a
-		// Reader,
-		// so that the text of the file is tokenized and indexed, but not
-		// stored.
-		// Note that FileReader expects the file to be in the system's default
-		// encoding.
-		// If that's not the case searching for special characters will fail.
-		// doc.add(new Field("contents", new FileReader(f)));
+		document.add(new Field(Indexer.ID_FIELD_NAME, MD5Util.getInstance().getMD5Hex(f.getPath()), Field.Store.YES, Field.Index.UN_TOKENIZED));
 
 		// return the document
 		return document;

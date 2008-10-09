@@ -63,10 +63,11 @@
   			</colgroup>
 			<c:forEach var="document" items="${search.currentResults}">
 			<tr>
-				<td colspan="2"><c:out value="${document.fileName}"/> - geändert am <c:out value="${document.lastModified}"/></td>
+				<td>&nbsp;</td>
+				<td><a href="./download/fetchFile.htm?id=<c:out value="${document.id}"/>"> <c:out value="${document.fileName}"/> </a> - geändert am <c:out value="${document.lastModified}"/></td>
 			</tr>
 			<tr>
-				<td><c:out value="${document.score}"/></td>
+				<td>&nbsp;</td>
 				<td><c:out value="${document.path}"/></td>
 			</tr>
 			</c:forEach>

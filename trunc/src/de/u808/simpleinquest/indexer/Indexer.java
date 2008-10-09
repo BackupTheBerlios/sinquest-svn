@@ -9,6 +9,7 @@ public interface Indexer {
 	
 	public static String CONTENT_FIELD_NAME = "contents";
 	public static String PATH_FIELD_NAME = "path";
+	public static String ID_FIELD_NAME = "doc-ID";
 	public static String MODIFIED_FIELD_NAME = "modified";
 	public static String DIRECTORY_LIST_FIELD_NAME = "directoryList";
 	

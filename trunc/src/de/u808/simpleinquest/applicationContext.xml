@@ -47,7 +47,17 @@
 		<property name="sessionFactory" ref="mySessionFactory" />
 	</bean>
 	
-	<!-- Controller -->	
+	<!-- Controller -->
+	<bean id="searchController" class="de.u808.simpleinquest.web.search.SearchController">
+		<property name="searchManager" ref="searchManager"/>
+		<property name="formView" value="searchForm"/>
+		<property name="successView" value="self"/>
+	</bean>
+	
+	<bean id="downloadController" class="de.u808.simpleinquest.web.download.DownloadController">
+		<property name="indexSearchBean" ref="indexSearchBean"/>
+	</bean>
+		
 	<bean id="userController" class="de.u808.simpleinquest.web.usermanagement.UserController">
 		<property name="userManager" ref="userManager"/>
 	</bean>
@@ -72,13 +82,6 @@
 		<property name="formView" value="userForm"/>
 		<property name="successView" value="redirect:userList.htm"/>
 	</bean>
-	
-	<bean id="searchController" class="de.u808.simpleinquest.web.search.SearchController">
-		<property name="searchManager" ref="searchManager"/>
-		<property name="formView" value="searchForm"/>
-		<property name="successView" value="self"/>
-	</bean>
-	
 	
 	<!-- DAOs -->
 	<bean id="userDAO" class="de.u808.simpleinquest.repository.impl.UserDAOImpl">
