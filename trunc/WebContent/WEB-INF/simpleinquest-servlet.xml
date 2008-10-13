@@ -18,8 +18,8 @@
 			<props>
 				<prop key="/search.htm">searchController</prop>
 				<prop key="/download/fetchFile.htm">downloadController</prop>
-				<prop key="/usermanager/userList.htm">userController</prop>
-				<prop key="/usermanager/editUser.htm">userEditController</prop>
+				<prop key="/admin/usermanager/userList.htm">userController</prop>
+				<prop key="/admin/usermanager/editUser.htm">userEditController</prop>
 			</props>
 		</property>
 	</bean>

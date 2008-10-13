@@ -3,6 +3,6 @@
 
 <table>
     <tr>
-      	<td><a href="<c:url value="/usermanager/editUser.htm"/>">Benutzer anlegen</a></td>
+      	<td><a href="<c:url value="/admin/usermanager/editUser.htm"/>">Benutzer anlegen</a></td>
     </tr>
 </table>
