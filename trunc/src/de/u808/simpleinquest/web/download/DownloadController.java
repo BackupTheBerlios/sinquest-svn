@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang.StringUtils;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.Term;
+import org.apache.lucene.search.Hit;
 import org.apache.lucene.search.Hits;
 import org.apache.lucene.search.TermQuery;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.mvc.Controller;
 
 import de.u808.simpleinquest.indexer.Indexer;
 import de.u808.simpleinquest.service.search.IndexSearchBean;
+import eu.medsea.util.MimeUtil;
 
 public class DownloadController implements Controller{
 	
@@ -34,9 +36,16 @@ public class DownloadController implements Controller{
 			TermQuery query = new TermQuery(new Term(Indexer.ID_FIELD_NAME, fileId));
 			Hits hits = indexSearchBean.getIndexSearcher().search(query);
 			if(hits.length() > 0){
-				Document document = (Document) hits.iterator().next();
-				String filePath = document.get(Indexer.PATH_FIELD_NAME);
+				Hit hit = (Hit) hits.iterator().next();
+				String filePath = hit.get(Indexer.PATH_FIELD_NAME);
 				File file = new File(filePath);
+				
+				response.reset();
+    			response.setContentType(MimeUtil.getMimeType(file));
+    			response.setHeader("Pragma", "private");
+    			response.setHeader("Cache-Control", "private, must-revalidate");
+    			response.setHeader("Content-Disposition", "attachment; filename=\""
+    			+ file.getName() + "\"");
 				
 				FileInputStream fis = new FileInputStream(file);
                 OutputStream os = response.getOutputStream();
@@ -45,19 +54,14 @@ public class DownloadController implements Controller{
                 while((len = fis.read(buf)) != -1) {
                     os.write(buf, 0, len);
                 }
-
-			}
-		
-			//Response
-			response.setHeader("Pragma", "private");
-			response.setHeader("Cache-Control", "private, must-revalidate");
-			
+    			
+    			response.getOutputStream().flush();
+    			response.getOutputStream().close();
+			}			
 			return null;
 		}
-		else {
-			//TODO create View
-			return new ModelAndView("fileNotFound");
-		}
+		//TODO create View
+		return new ModelAndView("fileNotFound");
 	}
 
 	public IndexSearchBean getIndexSearchBean() {
