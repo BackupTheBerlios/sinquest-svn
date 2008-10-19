@@ -13,34 +13,35 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
 import de.u808.simpleinquest.domain.Search;
 import de.u808.simpleinquest.service.search.SearchManager;
 
-public class SearchController extends SimpleFormController{
-	
+public class SearchController extends SimpleFormController {
+
 	private SearchManager searchManager;
 	
 	private static Log log = LogFactory.getLog(SearchController.class);
 
-	public SearchController(){
+	public SearchController() {
 		setCommandClass(Search.class);
 		setCommandName("search");
-	}	
-
-	@Override
-	protected Object formBackingObject(HttpServletRequest request)
-		throws Exception {
-		return new Search();
 	}
 
+	protected boolean isFormSubmission(HttpServletRequest request) {
+		if (request.getParameter("searchString") != null || request.getParameter("pageIndex") != null ){
+			return true;
+		}
+		return false;
+	}
 
-	protected ModelAndView onSubmit(Object command){
+	protected ModelAndView onSubmit(Object command) {
 		Search search = (Search) command;
 		try {
-			search = searchManager.search(search.getSearchString());
+			//search = searchManager.search(search.getSearchString());
+			search.setHits(searchManager.search("a*"));
 		} catch (ParseException e) {
 			log.error("Can´t execute search", e);
 		} catch (IOException e) {
 			log.error("Can´t execute search", e);
 		}
-		return new ModelAndView("searchForm", "search", search );
+		return new ModelAndView("searchForm", "search", search);
 	}
 
 	public SearchManager getSearchManager() {
@@ -50,5 +51,5 @@ public class SearchController extends SimpleFormController{
 	public void setSearchManager(SearchManager searchManager) {
 		this.searchManager = searchManager;
 	}
-	
+
 }

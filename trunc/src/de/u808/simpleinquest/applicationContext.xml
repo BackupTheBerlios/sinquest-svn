@@ -50,6 +50,8 @@
 	<!-- Controller -->
 	<bean id="searchController" class="de.u808.simpleinquest.web.search.SearchController">
 		<property name="searchManager" ref="searchManager"/>
+		<property name="commandName" value="search"/>
+		<property name="commandClass" value="de.u808.simpleinquest.domain.Search"/>
 		<property name="formView" value="searchForm"/>
 		<property name="successView" value="self"/>
 	</bean>

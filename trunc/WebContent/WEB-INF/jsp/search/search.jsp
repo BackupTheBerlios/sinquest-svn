@@ -1,10 +1,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="st" uri="SimpleInquestTagsTags"  %> 
 
 <c:if test="${search.hits eq null}">
 <div id="Centerbox">
-	<form:form commandName="search">
+	<form:form commandName="search" method="get">
 			<table style="width: 500px; table-layout: fixed; border-style: none; padding:0px; margin: 0px; border-spacing: 0px;">
 				<tr>
 					<td style="width: 500px; height: 99px; background-image: url('/SimpleInquest/img/Headline.jpg'); background-repeat: no-repeat;">&nbsp;</td>
@@ -27,7 +28,7 @@
 </div>
 </c:if>
 <c:if test="${search.hits ne null}">
-       <form:form commandName="search">
+       <form:form commandName="search" method="get">
 			<table style="width: 100%; border-style: none; border-spacing: 0;">
 				<colgroup>
 					<col width="150px">
@@ -51,7 +52,7 @@
             		</td>
             	</tr>            	
             	<tr>
-            		<td colspan="3" style="background-color: gray;"><div style="color: white; margin: 3px;"> Ergebnisse <c:out value="${search.first + 1}"/> - <c:out value="${search.lastDisplayed}"/> von <c:out value="${search.hitsCount}"/> f&uuml;r <c:out value="${search.searchString}"/></div></td>
+            		<td colspan="3" style="background-color: gray;"><div style="color: white; margin: 3px;"> Ergebnisse <c:out value="${search.currentPage.first + 1}"/> - <c:out value="${search.currentPage.last + 1}"/> von <c:out value="${search.hitsCount}"/> f&uuml;r <c:out value="${search.searchString}"/></div></td>
             	</tr>
 			</table>
        </form:form>	
@@ -61,7 +62,7 @@
 				<col width="20px">
     			<col width="*">
   			</colgroup>
-			<c:forEach var="document" items="${search.currentResults}">
+			<c:forEach var="document" items="${search.currentPage.results}">
 			<tr>
 				<td>&nbsp;</td>
 				<td><a href="./download/fetchFile.htm?id=<c:out value="${document.id}"/>"> <c:out value="${document.fileName}"/> </a> - geändert am <c:out value="${document.lastModified}"/></td>
@@ -72,6 +73,20 @@
 			</tr>
 			</c:forEach>
 		</table>
+		
+		<div id="navigation">
+			<table style="width: 100%; border-style: none; border-spacing: 0;">
+				<tr>
+            		<td align="center" style="background-color: gray;">
+            			<div style="color: white; margin: 3px;">
+            				<form:form commandName="nav">
+            					<st:nav search="${search}"/>
+            				</form:form>
+            			</div>
+            		</td>
+            	</tr>
+			</table>
+		</div>		
 	</c:if>
 	<c:if test="${search.hitsCount eq 0}">
 		Die Suche ergab keine Treffer

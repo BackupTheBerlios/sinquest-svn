@@ -1,12 +1,7 @@
 package de.u808.simpleinquest.domain;
 
-import java.io.IOException;
-import java.util.Collection;
-import java.util.LinkedList;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.lucene.index.CorruptIndexException;
 import org.apache.lucene.search.Hits;
 
 public class Search {
@@ -17,9 +12,9 @@ public class Search {
 	
 	private Hits hits;
 	
-	private int first = 0;
+	private int pageIndex = 0;
 	
-	private int last = 49;
+	private int resultsPerPage = 10;
 
 	public String getSearchString() {
 		return searchString;
@@ -36,31 +31,6 @@ public class Search {
 	public void setHits(Hits hits) {
 		this.hits = hits;
 	}
-	
-	public long getFirst() {
-		return first;
-	}
-
-	public void setFirst(int first) {
-		this.first = first;
-	}
-
-	public int getLast() {
-		return last;
-	}
-	
-	public int getLastDisplayed() {
-		if(last > this.hits.length()){
-			return this.hits.length();
-		}
-		else{
-			return this.last;
-		}
-	}
-
-	public void setLast(int last) {
-		this.last = last;
-	}
 
 	public int getHitsCount(){
 		if(hits == null){
@@ -70,27 +40,29 @@ public class Search {
 			return hits.length();
 		}
 	}
-
-	public Collection<SimpleDocument> getCurrentResults(){
-		LinkedList<SimpleDocument> currentResults = new LinkedList<SimpleDocument>();
-		long max = this.first;
-		if(hits != null){
-			if (hits.length() > this.last){
-				max = this.last;
-			}
-			else{
-				max = this.hits.length();
-			}
+	
+	public int getPageCount(){
+		int pages = this.getHitsCount() / this.resultsPerPage;
+		if(this.getHitsCount() % this.resultsPerPage != 0){
+			pages = pages + 1;
 		}
-		for(int i=this.first; i<max; i++){
-			try {
-				currentResults.add(new SimpleDocument(hits.doc(i), this.hits.score(i)));
-			} catch (CorruptIndexException e) {
-				log.error("Error fetching result", e);
-			} catch (IOException e) {
-				log.error("Error fetching result", e);
-			}
-		}
-		return currentResults;
+		return pages;
 	}
+	
+	public int getPageIndex() {
+		return pageIndex;
+	}
+
+	public void setPageIndex(int pageIndex) {
+		this.pageIndex = pageIndex;
+	}
+
+	public PageModel getCurrentPage(){
+		int first = pageIndex * resultsPerPage;
+		if(first < this.hits.length()){
+			return new PageModel(this.hits, first, this.resultsPerPage);
+		}
+		else return null;
+	}
+
 }
