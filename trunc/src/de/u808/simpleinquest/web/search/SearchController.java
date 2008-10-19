@@ -34,8 +34,7 @@ public class SearchController extends SimpleFormController {
 	protected ModelAndView onSubmit(Object command) {
 		Search search = (Search) command;
 		try {
-			//search = searchManager.search(search.getSearchString());
-			search.setHits(searchManager.search("a*"));
+			search.setHits(searchManager.search(search.getSearchString()));
 		} catch (ParseException e) {
 			log.error("Can´t execute search", e);
 		} catch (IOException e) {
