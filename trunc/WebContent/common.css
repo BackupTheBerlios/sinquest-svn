@@ -62,3 +62,32 @@ div#json {
 div#menubar {
 	background-color: graytext;
 }
+
+a:link { 
+	text-decoration:none; color:#ff890a; 
+}
+a:visited { 
+	text-decoration:none; color:#BDBDBD; 
+}
+a:hover { 
+	text-decoration:none; text-decoration: underline;
+}
+a:active { 
+	text-decoration:none;
+}
+a:focus { 
+	text-decoration:none; 
+}
+
+div#resultnav {
+	color: white;
+	margin-top: 3px; 
+}
+
+div#resultnav img {
+	vertical-align: middle;
+}
+
+img {
+	border-style: none;
+}

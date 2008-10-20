@@ -21,12 +21,42 @@ public class HitsNavigationTag extends SimpleTagSupport {
 	}
 
 	public void doTag() throws JspException {
-
 		PageContext pageContext = (PageContext) getJspContext();
 		JspWriter out = pageContext.getOut();
 		try {
+			boolean isFirstPage = search.getPageIndex() == 0;
+			boolean isLastPage = search.getPageIndex() == search.getPageCount()-1;
+			if(!isFirstPage){
+				out.println("<a href=\"search.htm?searchString=" +  search.getSearchString()+ "&pageIndex=0\"> ");
+			}
+			out.println("<img src=\"/SimpleInquest/img/start.gif\" alt=\"Erste Seite\"/>");
+			if(!isFirstPage){
+				out.println("</a>");
+				out.println("<a href=\"search.htm?searchString=" +  search.getSearchString()+ "&pageIndex=" + (search.getPageIndex()-1) + "\"> ");
+			}
+			out.println("<img src=\"/SimpleInquest/img/left.gif\" alt=\"Vorherige Seite\"/>");
+			if(!isFirstPage){
+				out.println("</a>");
+			}
 			for(int i=0; i< search.getPageCount(); i++){
-				out.println("<a href=\"search.htm?searchString=" +  search.getSearchString()+ "&pageIndex=" + i + "\"> " + i + "</a>");
+				if(i != search.getPageIndex()){
+					out.println("<a href=\"search.htm?searchString=" +  search.getSearchString()+ "&pageIndex=" + i + "\"> " + (i+1) + "</a>");
+				}
+				else{
+					out.print(i+1);
+				}
+			}
+			if(!isLastPage){
+				out.println("<a href=\"search.htm?searchString=" +  search.getSearchString()+ "&pageIndex=" + (search.getPageIndex()+1) + "\"> ");
+			}
+			out.println("<img src=\"/SimpleInquest/img/right.gif\" alt=\"Folgende Seite\"/>");
+			if(!isLastPage){
+				out.println("</a>");
+				out.println("<a href=\"search.htm?searchString=" +  search.getSearchString()+ "&pageIndex=" + (search.getPageCount()-1) + "\"> ");
+			}
+			out.println("<img src=\"/SimpleInquest/img/end.gif\" alt=\"Letzte Seite\"/>");
+			if(!isLastPage){
+				out.println("</a>");
 			}
 		} catch (Exception e) {
 			log.error("Tag error", e);

@@ -78,7 +78,7 @@
 			<table style="width: 100%; border-style: none; border-spacing: 0;">
 				<tr>
             		<td align="center" style="background-color: gray;">
-            			<div style="color: white; margin: 3px;">
+            			<div id="resultnav">
             				<form:form commandName="nav">
             					<st:nav search="${search}"/>
             				</form:form>
