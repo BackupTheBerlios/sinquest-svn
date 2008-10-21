@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+       http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-2.0.1.xsd">
+
+
 
 <!--
 	- Web Application Context definition for "Simpleinquest" DispatcherServlet.
 -->
-<beans>
 
-	<bean id="dataBase" class="org.springmodules.db.hsqldb.ServerBean" singleton="true" lazy-init="false">
+	<bean id="dataBase" class="org.springmodules.db.hsqldb.ServerBean" scope="singleton" lazy-init="false">
 		<property name="configBeanResource" ref="configBeanResource"/>
     	<property name="dataSource"><ref local="myDataSource"/></property>
         <property name="serverProperties">
@@ -48,7 +56,7 @@
 	</bean>
 	
 	<!-- Controller -->
-	<bean id="searchController" class="de.u808.simpleinquest.web.search.SearchController">
+	<bean id="searchController" class="de.u808.simpleinquest.web.search.SearchController" lazy-init="false">
 		<property name="searchManager" ref="searchManager"/>
 		<property name="commandName" value="search"/>
 		<property name="commandClass" value="de.u808.simpleinquest.domain.Search"/>
@@ -69,8 +77,9 @@
 		<property name="userDAO" ref="userDAO"/>
 	</bean>
 	
-	<bean id="searchManager" class="de.u808.simpleinquest.service.search.SearchManager">
+	<bean id="searchManager" class="de.u808.simpleinquest.service.search.SearchManager" lazy-init="false">
 		<property name="indexSearchBean" ref="indexSearchBean"/>
+		<property name="searchCach" ref="sessionRequestCach"/>
 	</bean>
 	
 	<bean id="indexSearchBean" class="de.u808.simpleinquest.service.search.IndexSearchBean" depends-on="configBeanResource">
@@ -92,7 +101,30 @@
 	
 	<!-- Resources -->
 	<bean id="configBeanResource" class="de.u808.simpleinquest.web.ConfigBeanResource">
-		<constructor-arg value="../SimpleInquestConf.xml"/>
+		<constructor-arg value="WEB-INF/SimpleInquestConf.xml"/>
+	</bean>
+	
+	<!-- Application Stuff -->
+	<bean id="sessionRequestCach" class="de.u808.common.LinearCachMap" scope="session">
+		<property name="maxEntries" value="10" />
+		<aop:scoped-proxy/>
+	</bean>
+	
+	<!-- Security -->
+	<security:global-method-security secured-annotations="enabled">
+		<!-- AspectJ pointcut expression that locates our "post" method and applies security that way
+		<protect-pointcut expression="execution(* bigbank.*Service.post*(..))" access="ROLE_TELLER"/>
+		-->
+	</security:global-method-security>
+
+    <security:http auto-config="true" session-fixation-protection="none">
+    	<security:intercept-url pattern="/admin/**" access="ROLE_USER" />
+    </security:http>
+	
+	<security:authentication-provider user-service-ref='myUserDetailsService'/>
+	
+	<bean id="myUserDetailsService" class="de.u808.simpleinquest.service.impl.HibernateDAOUserDetailsService" >
+		<property name="userManager" ref="userManager"/>	
 	</bean>
 	
 </beans>

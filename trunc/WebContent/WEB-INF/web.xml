@@ -6,22 +6,6 @@
 	version="2.4">
 
 	<display-name>Simple Inquest</display-name>
-
-	<context-param>
-		<param-name>locatorFactorySelector</param-name>
-		<param-value>classpath*:**/beanRef*.xml</param-value>
-	</context-param>
-	<context-param>
-		<param-name>parentContextKey</param-name>
-		<param-value>de.u808.simpleinquest</param-value>
-	</context-param>
-	<context-param>
-		<param-name>contextConfigLocation</param-name>
-		<param-value>
-			/WEB-INF/simpleinquest-servlet.xml
-			/WEB-INF/applicationContext-security.xml
-		</param-value>
-	</context-param>
 	
 	<filter>
         <filter-name>springSecurityFilterChain</filter-name>
@@ -31,13 +15,15 @@
       <filter-name>springSecurityFilterChain</filter-name>
       <url-pattern>/*</url-pattern>
     </filter-mapping>
-
-	<jsp-config>
-		<taglib>
-			<taglib-uri>http://jakarta.apache.org/taglibs/c</taglib-uri>
-			<taglib-location>/WEB-INF/c.tld</taglib-location>
-		</taglib>
-	</jsp-config>
+    
+    <filter> 
+    	<filter-name>requestContextFilter</filter-name> 
+    	<filter-class>org.springframework.web.filter.RequestContextFilter</filter-class>
+  	</filter> 
+  	<filter-mapping> 
+    	<filter-name>requestContextFilter</filter-name> 
+    	<url-pattern>/*</url-pattern>
+  	</filter-mapping>
 
 	<listener>
 		<listener-class>

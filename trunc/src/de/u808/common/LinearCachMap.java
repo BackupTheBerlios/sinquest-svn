@@ -3,15 +3,16 @@ package de.u808.common;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class CachMap<K,V> extends LinkedHashMap<K,V> implements Map<K,V> {
+public class LinearCachMap<K,V> extends LinkedHashMap<K,V> implements Map<K,V> {
 	
-	private int maxEntries = -1;
-
-	public CachMap(){
+	private int maxEntries = 10;
+	
+	public LinearCachMap() {
 		
 	}
 	
-	public CachMap(int maxEntries) {
+	
+	public LinearCachMap(int maxEntries) {
 		this.maxEntries = maxEntries;
 	}
 

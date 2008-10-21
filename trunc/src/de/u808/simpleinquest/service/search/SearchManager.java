@@ -11,8 +11,7 @@ import org.apache.lucene.queryParser.QueryParser;
 import org.apache.lucene.search.Hits;
 import org.apache.lucene.search.Query;
 
-import de.u808.common.CachMap;
-import de.u808.simpleinquest.domain.Search;
+import de.u808.common.LinearCachMap;
 import de.u808.simpleinquest.indexer.Indexer;
 
 public class SearchManager {
@@ -23,7 +22,7 @@ public class SearchManager {
 	 * The searchCach caches the result of 1000 queries;
 	 */
 	//TODO invalidate after IndexSearcher update;
-	private CachMap<String, Hits> searchCach = new CachMap<String, Hits>(1000);
+	private LinearCachMap<String, Hits> searchCach;
 	
 	public Hits search(String searchString) throws ParseException, IOException{
 		Hits hits = null;
@@ -53,6 +52,14 @@ public class SearchManager {
 
 	public void setIndexSearchBean(IndexSearchBean indexSearchBean) {
 		this.indexSearchBean = indexSearchBean;
+	}
+
+	public LinearCachMap<String, Hits> getSearchCach() {
+		return searchCach;
+	}
+
+	public void setSearchCach(LinearCachMap<String, Hits> searchCach) {
+		this.searchCach = searchCach;
 	}
 
 }

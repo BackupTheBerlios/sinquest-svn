@@ -52,10 +52,5 @@
 		<property name="preparerFactoryClass"
        		value="org.springframework.web.servlet.view.tiles2.SpringBeanPreparerFactory"/>
 	</bean>
-	
-	<bean id="myUserDetailsService"
-		class="de.u808.simpleinquest.service.impl.HibernateDAOUserDetailsService" >
-		<property name="userManager" ref="userManager"/>	
-	</bean>
 
 </beans>
