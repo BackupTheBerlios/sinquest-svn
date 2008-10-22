@@ -3,3 +3,4 @@ mime-util.jar							Apache V2.0						Abhängigkeite
 stax-1.2.0.jar 							Apache ASL 2.1					simple
 stax-api-1.0.1.jar						Apache ASL 2.1					simple
 tm-extractors-1.0.jar					LGPL							Word indexing
+shiftone-cache-2.0b						LGPL 2.1						Search Cach

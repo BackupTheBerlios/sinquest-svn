@@ -64,12 +64,11 @@
   			</colgroup>
 			<c:forEach var="document" items="${search.currentPage.results}">
 			<tr>
-				<td>&nbsp;</td>
+				<td rowspan="2"><a href="./download/fetchFile.htm?id=<c:out value="${document.id}"/>"><img src="/SimpleInquest/img/mime/22/text-generic.gif" alt="" border="0"/></a></td>
 				<td><a href="./download/fetchFile.htm?id=<c:out value="${document.id}"/>"> <c:out value="${document.fileName}"/> </a> - geändert am <c:out value="${document.lastModified}"/></td>
 			</tr>
 			<tr>
-				<td>&nbsp;</td>
-				<td><c:out value="${document.path}"/></td>
+				<td><div id="path"><c:out value="${document.path}"/></div></td>
 			</tr>
 			</c:forEach>
 		</table>
@@ -79,9 +78,7 @@
 				<tr>
             		<td align="center" style="background-color: gray;">
             			<div id="resultnav">
-            				<form:form commandName="nav">
-            					<st:nav search="${search}"/>
-            				</form:form>
+            				<st:nav search="${search}"/>
             			</div>
             		</td>
             	</tr>

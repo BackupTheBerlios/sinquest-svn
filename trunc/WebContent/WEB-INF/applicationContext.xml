@@ -8,12 +8,6 @@
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-2.0.1.xsd">
 
-
-
-<!--
-	- Web Application Context definition for "Simpleinquest" DispatcherServlet.
--->
-
 	<bean id="dataBase" class="org.springmodules.db.hsqldb.ServerBean" scope="singleton" lazy-init="false">
 		<property name="configBeanResource" ref="configBeanResource"/>
     	<property name="dataSource"><ref local="myDataSource"/></property>
@@ -79,7 +73,7 @@
 	
 	<bean id="searchManager" class="de.u808.simpleinquest.service.search.SearchManager" lazy-init="false">
 		<property name="indexSearchBean" ref="indexSearchBean"/>
-		<property name="searchCach" ref="sessionRequestCach"/>
+		<property name="searchCach" ref="sessionSearchCache"/>
 	</bean>
 	
 	<bean id="indexSearchBean" class="de.u808.simpleinquest.service.search.IndexSearchBean" depends-on="configBeanResource">
@@ -104,8 +98,8 @@
 		<constructor-arg value="WEB-INF/SimpleInquestConf.xml"/>
 	</bean>
 	
-	<!-- Application Stuff -->
-	<bean id="sessionRequestCach" class="de.u808.common.LinearCachMap" scope="session">
+	<!-- Search Cache -->
+	<bean id="sessionSearchCache" class="de.u808.common.LeastRecentlyUsedCacheMap" scope="session">
 		<property name="maxEntries" value="10" />
 		<aop:scoped-proxy/>
 	</bean>

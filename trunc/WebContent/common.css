@@ -88,6 +88,14 @@ div#resultnav img {
 	vertical-align: middle;
 }
 
+div#path {
+	font-size: 0.8em;	
+}
+
+body {
+	font-family: sans-serif;
+}
+
 img {
 	border-style: none;
 }
