@@ -15,5 +15,16 @@
        <required>true</required>
     </attribute> 
  </tag>
+ 
+ <tag>
+   	<name>mimeIcon</name>
+	<tag-class>de.u808.simpleinquest.web.tags.MimeIconTag</tag-class>
+	<body-content>empty</body-content>
+	<attribute>
+       <name>filename</name>
+       <rtexprvalue>true</rtexprvalue>
+       <required>true</required>
+    </attribute>
+ </tag>
 
 </taglib>

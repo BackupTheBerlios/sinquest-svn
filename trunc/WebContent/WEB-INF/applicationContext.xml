@@ -80,6 +80,10 @@
 		<property name="configBeanResource" ref="configBeanResource"/>
 	</bean>
 	
+	<bean id="mimeIconRegistry" class="de.u808.simpleinquest.service.impl.DefaultMimeIconRegistry">
+		<property name="configBeanResource" ref="configBeanResource"/>
+	</bean>
+	
 	<!-- Forms -->
 	<bean id="userEditController"
 		class="de.u808.simpleinquest.web.usermanagement.UserEditController">

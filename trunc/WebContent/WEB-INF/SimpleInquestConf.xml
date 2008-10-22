@@ -6,9 +6,14 @@
       <indexerClassName mimeType="application/vnd.sun.xml.writer">de.u808.simpleinquest.indexer.impl.OOIndexer</indexerClassName>
       <indexerClassName mimeType="application/vnd.oasis.opendocument.text">de.u808.simpleinquest.indexer.impl.OOIndexer2</indexerClassName>
    </indexerConfiguration>
+   <mimeIconMap>
+      <property mimeType="application/vnd.oasis.opendocument.text">/SimpleInquest/img/mime/22/office-document.gif</property>
+      <property mimeType="application/pdf">/SimpleInquest/img/mime/22/pdf.gif</property>
+      <property mimeType="application/msword">/SimpleInquest/img/mime/22/office-document.gif</property>
+      <property mimeType="application/unknown">/SimpleInquest/img/mime/22/text-generic.gif</property>
+   </mimeIconMap>
    <directoriesToIndexList length="2">
       <directoryToIndex>C:\Users\friedel\workspace\JKnowledgeMap\Sample</directoryToIndex>
       <directoryToIndex>C:\SimpleInquestHome</directoryToIndex>
    </directoriesToIndexList>
-   //TODO add HSQL Properties
 </configuration>

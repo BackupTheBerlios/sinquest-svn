@@ -12,6 +12,9 @@ public class Configuration {
 	
 	@Element
 	private IndexerConfiguration indexerConfiguration;
+	
+	@Element
+	private MimeIconMap mimeIconMap;
 
 	
 	@ElementArray(entry="directoryToIndex")
@@ -41,6 +44,14 @@ public class Configuration {
 		this.indexerConfiguration = indexerConfiguration;
 	}
 	
+	public MimeIconMap getMimeIconMap() {
+		return mimeIconMap;
+	}
+
+	public void setMimeIconMap(MimeIconMap mimeIconMap) {
+		this.mimeIconMap = mimeIconMap;
+	}
+
 	public String toString(){
 		StringBuilder stringBuilder = new StringBuilder();
 		stringBuilder.append("SimpleInquestHome: ");
