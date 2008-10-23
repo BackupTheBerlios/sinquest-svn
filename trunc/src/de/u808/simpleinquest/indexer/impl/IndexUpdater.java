@@ -26,18 +26,23 @@ import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.store.LockObtainFailedException;
 
-import de.u808.simpleinquest.config.SystemConfig;
+import de.u808.common.GlobalSearchCache;
+import de.u808.common.SessionSearchCache;
 import de.u808.simpleinquest.indexer.Indexer;
 import de.u808.simpleinquest.indexer.IndexerFactory;
+import de.u808.simpleinquest.service.search.IndexSearchBean;
 import de.u808.simpleinquest.util.FileProcessor;
+import de.u808.simpleinquest.web.ConfigBeanResource;
 
-public class UpdateIndexFileProcessor implements FileProcessor{
+public class IndexUpdater implements FileProcessor{
 	
-	private static Log log = LogFactory.getLog(UpdateIndexFileProcessor.class);
+	private static Log log = LogFactory.getLog(IndexUpdater.class);
 	private IndexSearcher indexSearcher;
+	private IndexSearchBean indexSearchBean;
 	private Directory indexDirectory;
-	//TODO Spring Bean
 	private IndexerFactory indexerFactory;
+	private GlobalSearchCache globalSearchCache;
+	private SessionSearchCache sessionSearchCache;
 	
 	private List<File> newFiles = new LinkedList<File>();
 	private List<File> modifiedFiles = new LinkedList<File>();
@@ -45,11 +50,9 @@ public class UpdateIndexFileProcessor implements FileProcessor{
 	
 	private boolean newIndex = false;
 	
-	public UpdateIndexFileProcessor (){
+	public IndexUpdater (ConfigBeanResource configBeanResource){
 		try {			
-			//TODO Spring bean
-			indexerFactory = DefaultIndexerFactory.getInstance();
-			indexDirectory = FSDirectory.getDirectory(SystemConfig.getInstance().getIndexDirectory());
+			indexDirectory = FSDirectory.getDirectory(configBeanResource.getSystemConfig().getIndexDirectory());
 			//
 			if(IndexReader.indexExists(indexDirectory)){
 				indexSearcher = new IndexSearcher(indexDirectory);
@@ -65,7 +68,6 @@ public class UpdateIndexFileProcessor implements FileProcessor{
 	}
 
 	public void processFile(File file) {
-		//TODO Fileliste aus dem Index laden
 		//Listen vergleichen
 		//File in die entsprechenden Listen sortieren
 		if(file != null && file.canRead() && !file.isHidden()){
@@ -222,11 +224,49 @@ public class UpdateIndexFileProcessor implements FileProcessor{
 			if(indexSearcher != null){
 				this.indexSearcher.close();
 			}
+			//set new IndexSearcher
+			this.performIndexSearchUpdate();
 		} catch (CorruptIndexException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private void performIndexSearchUpdate(){
+		try {
+			log.info("Create new IndesSearcher");
+			indexSearcher = new IndexSearcher(indexDirectory);
+			log.info("IndesSearcher created");
+			indexSearchBean.setIndexSearcher(indexSearcher);
+			this.globalSearchCache.invalidate();
+			this.sessionSearchCache.invalidate();
+			log.info("Caches invalidated");
+		} catch (CorruptIndexException e) {
+			log.error("Index corrupted", e);
+		} catch (IOException e) {
+			log.error("IOException while opening index", e);
+		}
+	}
+
+	public IndexerFactory getIndexerFactory() {
+		return indexerFactory;
+	}
+
+	public void setIndexerFactory(IndexerFactory indexerFactory) {
+		this.indexerFactory = indexerFactory;
+	}
+
+	public void setIndexSearchBean(IndexSearchBean indexSearchBean) {
+		this.indexSearchBean = indexSearchBean;
+	}
+
+	public void setGlobalSearchCache(GlobalSearchCache globalSearchCache) {
+		this.globalSearchCache = globalSearchCache;
+	}
+
+	public void setSessionSearchCache(SessionSearchCache sessionSearchCache) {
+		this.sessionSearchCache = sessionSearchCache;
 	}
 
 }

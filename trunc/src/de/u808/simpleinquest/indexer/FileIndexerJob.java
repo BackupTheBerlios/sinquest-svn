@@ -7,18 +7,21 @@ import org.apache.commons.logging.LogFactory;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
+import org.springframework.context.ApplicationContext;
 
 import de.u808.simpleinquest.config.SystemConfig;
-import de.u808.simpleinquest.indexer.impl.UpdateIndexFileProcessor;
+import de.u808.simpleinquest.indexer.impl.IndexUpdater;
 import de.u808.simpleinquest.util.DirectoryTraverser;
 import de.u808.simpleinquest.util.InvalidArgumentException;
 
 public class FileIndexerJob implements Job {
 
-	Log log = LogFactory.getLog(this.getClass());
+	private final static Log log = LogFactory.getLog(FileIndexerJob.class);
+	
+	private IndexUpdater indexUpdater;
 
-	public FileIndexerJob() {
-
+	public FileIndexerJob(ApplicationContext applicationContext) {
+		indexUpdater = (IndexUpdater) applicationContext.getBean("indexUpdater");
 	}
 
 	public void execute(JobExecutionContext context)
@@ -33,7 +36,7 @@ public class FileIndexerJob implements Job {
 				.getDirectoriesToIndexList()) {
 			try {
 				new DirectoryTraverser(new File(rootDir),
-						new UpdateIndexFileProcessor(),
+						indexUpdater,
 						DirectoryTraverser.TraversalMode.JustDirectories)
 						.startTraversal();
 			} catch (InvalidArgumentException e) {

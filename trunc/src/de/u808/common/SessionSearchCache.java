@@ -3,11 +3,11 @@ package de.u808.common;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class LeastRecentlyUsedCacheMap<K,V> extends LinkedHashMap<K,V> implements Map<K,V> {
+public class SessionSearchCache<K,V> extends LinkedHashMap<K,V> implements Map<K,V> {
 	
 	private int maxEntries = 100;
 	
-	public LeastRecentlyUsedCacheMap() {
+	public SessionSearchCache() {
 		super(101, .75F, true);
 	}
 
@@ -24,5 +24,7 @@ public class LeastRecentlyUsedCacheMap<K,V> extends LinkedHashMap<K,V> implement
 		return size() > maxEntries;
      }
 
-	
+	public void invalidate(){
+		this.clear();
+	}	
 }

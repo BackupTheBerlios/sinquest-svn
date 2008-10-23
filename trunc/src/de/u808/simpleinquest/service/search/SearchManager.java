@@ -2,6 +2,8 @@ package de.u808.simpleinquest.service.search;
 
 import java.io.IOException;
 
+import net.sf.ehcache.Element;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
@@ -11,34 +13,45 @@ import org.apache.lucene.queryParser.QueryParser;
 import org.apache.lucene.search.Hits;
 import org.apache.lucene.search.Query;
 
-import de.u808.common.LeastRecentlyUsedCacheMap;
+import de.u808.common.GlobalSearchCache;
+import de.u808.common.SessionSearchCache;
 import de.u808.simpleinquest.indexer.Indexer;
 
 public class SearchManager {
-	
-	private IndexSearchBean indexSearchBean;
-	
 
-	//TODO invalidate after IndexSearcher update;
-	private LeastRecentlyUsedCacheMap<String, Hits> searchCach;
-	
+	private IndexSearchBean indexSearchBean;
+
+	// TODO invalidate after IndexSearcher update;
+	private SessionSearchCache<String, Hits> searchCach;
+
+	private GlobalSearchCache globalSearchCache;
+
 	public Hits search(String searchString) throws ParseException, IOException{
 		Hits hits = null;
 		if(StringUtils.isNotEmpty(searchString)){
 			if(searchCach.containsKey(searchString)){
 				return searchCach.get(searchString);
 			}
-			else{
-				//Query query = new QueryParser(Indexer.CONTENT_FIELD_NAME, new StandardAnalyzer()).parse(searchString);
-				//search.setHits(indexSearchBean.getIndexSearcher().search(query));
+			else{ 
+				Element element = globalSearchCache.getCache().get(searchString);
+				if(element != null ){
+					hits = (Hits) element.getObjectValue();
+					searchCach.put(searchString, hits);
+				}
+				else{
+					// Query query = new QueryParser(Indexer.CONTENT_FIELD_NAME, new
+					// StandardAnalyzer()).parse(searchString);
+					// search.setHits(indexSearchBean.getIndexSearcher().search(query));
 			
-				String[] fields = {Indexer.AUTOR_FIELD_NAME, Indexer.CONTENT_FIELD_NAME, Indexer.TITLE_FIELD_NAME};
-				Analyzer analyzer = new StandardAnalyzer();
-				QueryParser qp = new MultiFieldQueryParser(fields, analyzer);
-				qp.setDefaultOperator(QueryParser.Operator.AND);
-				Query query = qp.parse(searchString);
-				hits = indexSearchBean.getIndexSearcher().search(query);
-				searchCach.put(searchString, hits);
+					String[] fields = {Indexer.AUTOR_FIELD_NAME, Indexer.CONTENT_FIELD_NAME, Indexer.TITLE_FIELD_NAME};
+					Analyzer analyzer = new StandardAnalyzer();
+					QueryParser qp = new MultiFieldQueryParser(fields, analyzer);
+					qp.setDefaultOperator(QueryParser.Operator.AND);
+					Query query = qp.parse(searchString);
+					hits = indexSearchBean.getIndexSearcher().search(query);
+					searchCach.put(searchString, hits);
+					globalSearchCache.getCache().put(new Element(searchString, hits));
+				}
 			}
 		}
 		return hits;
@@ -52,12 +65,20 @@ public class SearchManager {
 		this.indexSearchBean = indexSearchBean;
 	}
 
-	public LeastRecentlyUsedCacheMap<String, Hits> getSearchCach() {
+	public SessionSearchCache<String, Hits> getSearchCach() {
 		return searchCach;
 	}
 
-	public void setSearchCach(LeastRecentlyUsedCacheMap<String, Hits> searchCach) {
+	public void setSearchCach(SessionSearchCache<String, Hits> searchCach) {
 		this.searchCach = searchCach;
+	}
+
+	public GlobalSearchCache getGlobalSearchCache() {
+		return globalSearchCache;
+	}
+
+	public void setGlobalSearchCache(GlobalSearchCache globalSearchCache) {
+		this.globalSearchCache = globalSearchCache;
 	}
 
 }

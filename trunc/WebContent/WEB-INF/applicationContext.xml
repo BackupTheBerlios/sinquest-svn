@@ -74,6 +74,7 @@
 	<bean id="searchManager" class="de.u808.simpleinquest.service.search.SearchManager" lazy-init="false">
 		<property name="indexSearchBean" ref="indexSearchBean"/>
 		<property name="searchCach" ref="sessionSearchCache"/>
+		<property name="globalSearchCache" ref="globalSearchCache"/>
 	</bean>
 	
 	<bean id="indexSearchBean" class="de.u808.simpleinquest.service.search.IndexSearchBean" depends-on="configBeanResource">
@@ -102,8 +103,25 @@
 		<constructor-arg value="WEB-INF/SimpleInquestConf.xml"/>
 	</bean>
 	
-	<!-- Search Cache -->
-	<bean id="sessionSearchCache" class="de.u808.common.LeastRecentlyUsedCacheMap" scope="session">
+	<!-- FactoryBeans -->
+	<bean id="indexerFactory" class="de.u808.simpleinquest.indexer.impl.DefaultIndexerFactory">
+		<property name="configBeanResource" ref="configBeanResource"/>
+	</bean>
+	
+	<!-- Search -->
+	<bean id="indexUpdater" class="de.u808.simpleinquest.indexer.impl.IndexUpdater" depends-on="indexerFactory">
+		<constructor-arg><ref bean="configBeanResource"/></constructor-arg>
+		<property name="indexerFactory" ref="indexerFactory"/>
+		<property name="indexSearchBean" ref="indexSearchBean"/>
+	</bean>
+	
+	<bean id="cacheManager" class="de.u808.simpleinquest.web.ApplicationCachManager"/>
+	
+	<bean id="globalSearchCache" class="de.u808.common.GlobalSearchCache">
+		<property name="cachManager" ref="cacheManager"/>
+	</bean>
+	
+	<bean id="sessionSearchCache" class="de.u808.common.SessionSearchCache" scope="session">
 		<property name="maxEntries" value="10" />
 		<aop:scoped-proxy/>
 	</bean>

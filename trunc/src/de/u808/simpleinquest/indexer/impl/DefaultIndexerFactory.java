@@ -8,25 +8,23 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.InitializingBean;
 
 import de.u808.simpleinquest.config.SystemConfig;
 import de.u808.simpleinquest.indexer.Indexer;
 import de.u808.simpleinquest.indexer.IndexerFactory;
+import de.u808.simpleinquest.web.ConfigBeanResource;
 import eu.medsea.util.MimeUtil;
 
-public class DefaultIndexerFactory implements IndexerFactory{
+public class DefaultIndexerFactory implements IndexerFactory, InitializingBean {
 	
 	static Logger log = Logger.getLogger(DefaultIndexerFactory.class);
-	protected static DefaultIndexerFactory factory = null;
-	protected MSWordIndexer poiHelper = new MSWordIndexer();
 	private Map<String, Indexer> indexerMap = null;
-	
-	private DefaultIndexerFactory (){
-		this.initIndexerMap();
-	}
+	private ConfigBeanResource configBeanResource;
 	
 	private void initIndexerMap(){
-		Map<String, String> mimeTypeIndexerMap = SystemConfig.getInstance().getConfiguration().getIndexerConfiguration().getMimeTypeIndexerMap();
+		Map<String, String> mimeTypeIndexerMap = configBeanResource.getSystemConfig().getConfiguration().getIndexerConfiguration().getMimeTypeIndexerMap();
+		//Map<String, String> mimeTypeIndexerMap = SystemConfig.getInstance().getConfiguration().getIndexerConfiguration().getMimeTypeIndexerMap();
 		this.indexerMap = new LinkedHashMap<String, Indexer>();
 		for( String typeKey : mimeTypeIndexerMap.keySet()){
 			String indexerClassName = mimeTypeIndexerMap.get(typeKey);
@@ -56,14 +54,22 @@ public class DefaultIndexerFactory implements IndexerFactory{
 		}
 	}
 	
-	public static DefaultIndexerFactory getInstance(){
-		if (factory == null) factory = new DefaultIndexerFactory();
-		return factory;
-	}
+//	public static DefaultIndexerFactory getInstance(){
+//		if (factory == null) factory = new DefaultIndexerFactory();
+//		return factory;
+//	}
 
 	public Indexer getIndexer(File file) throws IOException {
 		String mimeType = MimeUtil.getMimeType(file);
 		return indexerMap.get(mimeType);
+	}
+
+	public void setConfigBeanResource(ConfigBeanResource configBeanResource) {
+		this.configBeanResource = configBeanResource;
+	}
+
+	public void afterPropertiesSet() throws Exception {
+		this.initIndexerMap();
 	}
 
 }
