@@ -22,7 +22,7 @@ public class MSWordIndexer extends AbstractIndexer {
     private String getContents() throws Exception {
         String contents = "";
         String fileExtention = MimeUtil.getFileExtension(this.file);
-        if("pps".equals(fileExtention)){
+        if("ppt".equals(fileExtention) || "pps".equals(fileExtention)){
         	contents = pptContentHandler.extractContent(file);
         }
         else if("doc".equals(fileExtention)){

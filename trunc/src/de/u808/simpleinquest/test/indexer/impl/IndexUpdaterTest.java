@@ -14,7 +14,7 @@ import de.u808.simpleinquest.indexer.impl.IndexUpdater;
 import de.u808.simpleinquest.util.DirectoryTraverser;
 import de.u808.simpleinquest.util.InvalidArgumentException;
 
-public class UpdateIndexFileProcessorTest {
+public class IndexUpdaterTest {
 	
 	private static IndexUpdater INDEX_UPDATER;
 	
@@ -30,6 +30,7 @@ public class UpdateIndexFileProcessorTest {
 	public void testUpdate(){
 		Exception exception = null;
 		String rootDir = "C:/Users/friedel/workspace/JKnowledgeMap/Sample";
+		//String rootDir = "C:/Users/friedel/workspace/JKnowledgeMap/Sample/test";
 		try {
 			new DirectoryTraverser(new File(rootDir), INDEX_UPDATER, DirectoryTraverser.TraversalMode.JustDirectories).startTraversal();
 		} catch (InvalidArgumentException e) {

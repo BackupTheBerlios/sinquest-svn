@@ -48,10 +48,14 @@ public class IndexUpdater implements FileProcessor{
 	private List<File> modifiedFiles = new LinkedList<File>();
 	private List<File> deletedFiles = new LinkedList<File>();
 	
+	private int fileCount = 0;
+	private int refreschLimit;
+	
 	private boolean newIndex = false;
 	
 	public IndexUpdater (ConfigBeanResource configBeanResource){
-		try {			
+		try {
+			this.refreschLimit = configBeanResource.getSystemConfig().getConfiguration().getIndexerConfiguration().getIndexSearchRefreshCount();
 			indexDirectory = FSDirectory.getDirectory(configBeanResource.getSystemConfig().getIndexDirectory());
 			//
 			if(IndexReader.indexExists(indexDirectory)){
@@ -85,10 +89,12 @@ public class IndexUpdater implements FileProcessor{
 				else {
 					//New dir, add all
 					this.newFiles.add(file);
+					this.processFileCount();
 					File[] files = file.listFiles();
 					for(File f : files){
 						if(f.isFile()){
 							this.newFiles.add(f);
+							this.processFileCount();
 						}
 					}
 				}
@@ -112,6 +118,7 @@ public class IndexUpdater implements FileProcessor{
 				if(fileToCheck.exists()){
 					if(this.isDocumentIndexedAndModified(fileToCheck, new Term(Indexer.PATH_FIELD_NAME, fileToCheck.getPath()))){
 						this.modifiedFiles.add(fileToCheck);
+						this.processFileCount();
 					}
 				}
 				else{
@@ -126,6 +133,7 @@ public class IndexUpdater implements FileProcessor{
 					//File is new
 					log.debug("New File : " + s);
 					this.newFiles.add(new File(file, s));
+					this.processFileCount();
 				}
 			}
 		}
@@ -203,13 +211,20 @@ public class IndexUpdater implements FileProcessor{
 				}
 			}
 		}
+		log.info("Optimizing index");
+		indexWriter.optimize();
+		log.info("Index optimized");
 		indexWriter.close(true);
 	}
 
 	public void dispose() {
+		this.refreschIndex();
+	}
+	
+	private void refreschIndex(){
 		// 1. delete deleted and modified files with IndexReader
 		// 2. index modified and new files with IndexWriter
-		//TODO 3. set new IndesSearcher in Bean
+		// 3. set new IndesSearcher in Bean
 		try {
 			//1.
 			List<File> documentsToDelete = new LinkedList<File>();
@@ -221,6 +236,11 @@ public class IndexUpdater implements FileProcessor{
 			documentsToIndex.addAll(this.newFiles);
 			documentsToIndex.addAll(this.modifiedFiles);
 			this.indexDocuments(documentsToIndex);
+			//clear local Lists
+			this.newFiles.clear();
+			this.modifiedFiles.clear();
+			this.deletedFiles.clear();
+			//3.
 			if(indexSearcher != null){
 				this.indexSearcher.close();
 			}
@@ -230,6 +250,14 @@ public class IndexUpdater implements FileProcessor{
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
+		}		
+	}
+	
+	private void processFileCount(){
+		this.fileCount = fileCount + 1;
+		if(fileCount >= this.refreschLimit){
+			this.refreschIndex();
+			this.fileCount = 0;
 		}
 	}
 	
@@ -239,8 +267,12 @@ public class IndexUpdater implements FileProcessor{
 			indexSearcher = new IndexSearcher(indexDirectory);
 			log.info("IndesSearcher created");
 			indexSearchBean.setIndexSearcher(indexSearcher);
-			this.globalSearchCache.invalidate();
-			this.sessionSearchCache.invalidate();
+			if(this.globalSearchCache != null){
+				this.globalSearchCache.invalidate();
+			}
+			if(this.sessionSearchCache != null){
+				this.sessionSearchCache.invalidate();
+			}
 			log.info("Caches invalidated");
 		} catch (CorruptIndexException e) {
 			log.error("Index corrupted", e);

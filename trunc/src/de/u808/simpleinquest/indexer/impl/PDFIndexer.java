@@ -12,14 +12,14 @@ public class PDFIndexer extends AbstractIndexer{
 	Log log = LogFactory.getLog(this.getClass());
 
 	@Override
-	public void setContentsFild(File file) {
+	public void setContentsFild(File file) throws IndexerException {
 //		Document document;
 		try {
 			this.document = LucenePDFDocument.getDocument(file);
 			this.document = FileDocument.Document(document, file);
 		} catch (IOException e) {
-			log.error("Dokument " + file.toString() + " konnte nicht indexiert werden", e);
-			return;
+			String msg = "Dokument " + file.toString() + " konnte nicht indexiert werden. Ursache: " + e.getMessage(); 
+			throw new IndexerException(msg, e);
 		}
 	}
 

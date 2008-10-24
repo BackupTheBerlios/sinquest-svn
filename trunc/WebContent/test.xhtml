@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ml="http://www.origostandards.com/schema/ml/v1" xmlns:qnb="http://origoservices.com/qnb/imaginary" xmlns:html="http://www.w3.org/1999/xhtml">
+
+
+<xforms:model>
+  <xforms:instance>
+    <xforms:group wcpforms:layout="vertical" id="xbody_group" wcpforms:labelalign="">
+      <xforms:group appearance="box" id="NewHire" model="NewHireModel" wcpforms:layout="vertical" wcpforms:class="v_layout" wcpforms:size="null 400" wcpforms:labelalign="ontop">
+        <xforms:label wcpforms:class="groupheader">Groupbox1</xforms:label>
+        <xforms:input id="mailSystem" doEBIValidate="false" model="NewHireModel" ref="mailSystem" wcpforms:textalign="left_align" wcpforms:class="v_layout">
+          <xforms:label wcpforms:class="v_label">Account in the mail System</xforms:label>
+          <xforms:hint>Account in the mail system</xforms:hint>
+        </xforms:input>
+        <xforms:output id="phoneNeeded" doEBIValidate="false" ref="phoneNeeded" wcpforms:textalign="left_align" wcpforms:class="v_layout">
+          <xforms:label wcpforms:class="v_label">Phone needed?</xforms:label>
+          <xforms:hint>Is a phone number needed.</xforms:hint>
+        </xforms:output>
+        <xforms:input id="phoneNumber" doEBIValidate="false" ref="phoneNumber" wcpforms:textalign="left_align" wcpforms:class="v_layout">
+          <xforms:label wcpforms:class="v_label">Phone number</xforms:label>
+          <xforms:hint>New business telefone number</xforms:hint>
+        </xforms:input>
+        <xforms:output id="firstName" doEBIValidate="false" ref="firstName" wcpforms:textalign="left_align" wcpforms:class="v_layout">
+          <xforms:label wcpforms:class="v_label">First name</xforms:label>
+          <xforms:hint>First name of the new employee</xforms:hint>
+        </xforms:output>
+        <xforms:output id="lastName" doEBIValidate="false" ref="lastName" wcpforms:textalign="left_align" wcpforms:class="v_layout">
+          <xforms:label wcpforms:class="v_label">Last name</xforms:label>
+          <xforms:hint>Last name of the employee</xforms:hint>
+        </xforms:output>
+        <xforms:output id="infix" doEBIValidate="false" ref="infix" wcpforms:textalign="left_align" wcpforms:class="v_layout">
+          <xforms:label wcpforms:class="v_label">Infix</xforms:label>
+          <xforms:hint>The infix of the new employee</xforms:hint>
+        </xforms:output>
+      </xforms:group>
+    </xforms:group>
+  </xbody>
+  <xformsscript />
+  </xforms:instance>
+<xforms:model>
+
+</html>

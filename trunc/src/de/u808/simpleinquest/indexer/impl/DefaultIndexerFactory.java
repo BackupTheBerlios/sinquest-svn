@@ -61,7 +61,18 @@ public class DefaultIndexerFactory implements IndexerFactory, InitializingBean {
 
 	public Indexer getIndexer(File file) throws IOException {
 		String mimeType = MimeUtil.getMimeType(file);
-		return indexerMap.get(mimeType);
+		if(mimeType.contains(",")){
+			String[] mimeTypes= mimeType.split(",");
+			for(String type : mimeTypes){
+				if(indexerMap.containsKey(type)){
+					return indexerMap.get(type);
+				}
+			}
+			return null;
+		}
+		else {
+			return indexerMap.get(mimeType);
+		}
 	}
 
 	public void setConfigBeanResource(ConfigBeanResource configBeanResource) {

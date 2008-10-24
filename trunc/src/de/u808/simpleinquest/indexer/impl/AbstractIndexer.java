@@ -23,6 +23,8 @@ public abstract class AbstractIndexer implements Indexer{
 		this.document = FileDocument.Document(file);
 		try{
 			this.setContentsFild(file);
+		} catch (IndexerException ie){
+			log.error(ie.getMessage());
 		} catch (Exception e) {
 			log.error("Exception while fetch content of file: " + file.toString(), e);
 			return null;

@@ -1,8 +1,11 @@
 <configuration>
    <simpleInquestHome>C:\SimpleInquestHome</simpleInquestHome>
    <indexerConfiguration>
+      <indexSearchRefreshCount>50</indexSearchRefreshCount>
       <indexerClassName mimeType="application/pdf">de.u808.simpleinquest.indexer.impl.PDFIndexer</indexerClassName>
       <indexerClassName mimeType="application/msword">de.u808.simpleinquest.indexer.impl.MSWordIndexer</indexerClassName>
+      <indexerClassName mimeType="application/mspowerpoint">de.u808.simpleinquest.indexer.impl.MSWordIndexer</indexerClassName>
+      <indexerClassName mimeType="application/x-msexcel">de.u808.simpleinquest.indexer.impl.MSWordIndexer</indexerClassName>
       <indexerClassName mimeType="application/vnd.sun.xml.writer">de.u808.simpleinquest.indexer.impl.OOIndexer</indexerClassName>
       <indexerClassName mimeType="application/vnd.oasis.opendocument.text">de.u808.simpleinquest.indexer.impl.OOIndexer2</indexerClassName>
    </indexerConfiguration>
@@ -10,6 +13,8 @@
       <property mimeType="application/vnd.oasis.opendocument.text">/SimpleInquest/img/mime/22/office-document.gif</property>
       <property mimeType="application/pdf">/SimpleInquest/img/mime/22/pdf.gif</property>
       <property mimeType="application/msword">/SimpleInquest/img/mime/22/office-document.gif</property>
+      <property mimeType="application/mspowerpoint">/SimpleInquest/img/mime/22/office-presentation.gif</property>
+      <property mimeType="application/x-msexcel">/SimpleInquest/img/mime/22/office-spreadsheet.gif</property>
       <property mimeType="application/unknown">/SimpleInquest/img/mime/22/text-generic.gif</property>
    </mimeIconMap>
    <directoriesToIndexList length="2">

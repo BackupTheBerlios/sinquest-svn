@@ -14,6 +14,7 @@ import org.simpleframework.xml.load.Persister;
 
 import de.u808.simpleinquest.config.Configuration;
 import de.u808.simpleinquest.config.IndexerConfiguration;
+import de.u808.simpleinquest.config.MimeIconMap;
 
 public class ConfigurationTest {
 	
@@ -24,8 +25,15 @@ public class ConfigurationTest {
 		configuration.setSimpleInquestHome("C:\\SimpleInquestHome");
 		String[] dirs = {"C:\\Users\\friedel\\workspace\\JKnowledgeMap\\Sample", "C:\\SimpleInquestHome"};
 		configuration.setDirectoriesToIndexList(dirs);
+		MimeIconMap mimeIconMap = new MimeIconMap();
+		Map<String, String> map = new LinkedHashMap<String, String>();
+		map.put("html", "bla.gif");
+		map.put("pdf", "blub.gif");
+		mimeIconMap.setMap(map);
+		configuration.setMimeIconMap(mimeIconMap);
 		
 		IndexerConfiguration indexerConfiguration = new IndexerConfiguration();
+		indexerConfiguration.setIndexSearchRefreshCount(50);
 		Map<String, String> testMimetypeMapping = new LinkedHashMap<String, String>();
 		testMimetypeMapping.put("application/pdf", "de.ex.PDFIndexer");
 		testMimetypeMapping.put("application/msword", "de.exe.MSWordIndexer");
