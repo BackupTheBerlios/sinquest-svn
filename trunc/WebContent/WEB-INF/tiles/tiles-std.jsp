@@ -14,7 +14,7 @@
 	<div class="topbox">
 		<table cellspacing="0">
 			<tr>
-				<td>&nbsp;</td>
+				<td><tiles:insertAttribute name="top" /></td>
 			</tr>
 		</table>
 	</div>

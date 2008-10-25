@@ -65,8 +65,8 @@
 			<c:forEach var="document" items="${search.currentPage.results}">
 			<tr>
 				<td rowspan="2"><a href="./download/fetchFile.htm?id=<c:out value="${document.id}"/>"><st:mimeIcon filename="${document.fileName}" /></a></td>
-				<td><a href="./download/fetchFile.htm?id=<c:out value="${document.id}"/>"> <c:out value="${document.fileName}"/> </a> - geändert am <c:out value="${document.lastModified}"/></td>
-			</tr>
+				<td><a href="./download/fetchFile.htm?id=<c:out value="${document.id}"/>"> <c:out value="${document.fileName}"/> </a> - geändert am <fmt:formatDate pattern="dd.MM.yyyy - HH:mm" value="${document.lastModified}"/></td>
+			</tr>																																		
 			<tr>
 				<td><div id="path"><c:out value="${document.path}"/></div></td>
 			</tr>

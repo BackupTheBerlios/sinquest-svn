@@ -1,7 +1,10 @@
 package de.u808.simpleinquest.domain;
 
 import java.io.File;
+import java.text.ParseException;
+import java.util.Date;
 
+import org.apache.lucene.document.DateTools;
 import org.apache.lucene.document.Document;
 
 import de.u808.simpleinquest.indexer.Indexer;
@@ -46,9 +49,13 @@ public class SimpleDocument {
 		return null;
 	}
 	
-	public String getLastModified(){
+	public Date getLastModified(){
 		if(document != null){
-			return document.get(Indexer.MODIFIED_FIELD_NAME);
+			try {
+				return DateTools.stringToDate(document.get(Indexer.MODIFIED_FIELD_NAME));
+			} catch (ParseException e) {
+				return null;
+			}
 		}
 		else {
 			return null;

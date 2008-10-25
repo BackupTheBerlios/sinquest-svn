@@ -20,6 +20,7 @@
 				<prop key="/download/fetchFile.htm">downloadController</prop>
 				<prop key="/admin/usermanager/userList.htm">userController</prop>
 				<prop key="/admin/usermanager/editUser.htm">userEditController</prop>
+				<prop key="/admin/index.htm">viewController</prop>
 			</props>
 		</property>
 	</bean>
