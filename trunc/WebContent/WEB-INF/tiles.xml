@@ -8,6 +8,8 @@
 	
 	<definition name="home" template="/WEB-INF/tiles/tiles-std.jsp">
 		<put-attribute name="top" value="/WEB-INF/jsp/empty.jsp"/>
+		<put-attribute name="navigation" value="/WEB-INF/jsp/empty.jsp"/>
+		<put-attribute name="adminContent" value="/WEB-INF/jsp/empty.jsp"/>		
 		<put-attribute name="content" value="/WEB-INF/jsp/home.jsp"/>
 	</definition>
 	
@@ -17,22 +19,24 @@
 	
 	<definition name="admin" template="/WEB-INF/tiles/tiles-std.jsp">
 		<put-attribute name="top" value="/WEB-INF/jsp/admin/header.jsp"/>
+		<put-attribute name="navigation" value="/WEB-INF/jsp/admin/nav.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/empty.jsp"/>
 	</definition>
 	
 	<definition name="admin/index" extends="admin">
-		<put-attribute name="content" value="/WEB-INF/jsp/admin/index.jsp"/>
+		<put-attribute name="adminContent" value="/WEB-INF/jsp/admin/index.jsp"/>
 	</definition>
 	
 	<definition name="userList" extends="admin">
-		<put-attribute name="content" value="/WEB-INF/jsp/admin/usermanager/userList.jsp"/>
+		<put-attribute name="adminContent" value="/WEB-INF/jsp/admin/usermanager/userList.jsp"/>
 	</definition>
 	
 	<definition name="userForm" extends="admin">
-		<put-attribute name="content" value="/WEB-INF/jsp/admin/usermanager/editUser.jsp"/>
+		<put-attribute name="adminContent" value="/WEB-INF/jsp/admin/usermanager/editUser.jsp"/>
 	</definition>
 	
 	<definition name="taskOverview" extends="admin">
-		<put-attribute name="content" value="/WEB-INF/jsp/admin/tasks/taskoverview.jsp"/>
+		<put-attribute name="adminContent" value="/WEB-INF/jsp/admin/tasks/taskoverview.jsp"/>
 	</definition>
 
 </tiles-definitions>

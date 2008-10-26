@@ -25,6 +25,11 @@ ul#Navigation a:hover {
 ul#Navigation a:active {
   color: white; background-color: gray;
 }
+div#AdminContent {
+  margin-left: 22em;
+  margin-right: 1em;
+  padding: 2 2em;
+}
 div#Content {
   width: 100%;
   margin-left: auto;
