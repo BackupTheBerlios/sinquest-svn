@@ -20,7 +20,8 @@
 	<definition name="admin" template="/WEB-INF/tiles/tiles-std.jsp">
 		<put-attribute name="top" value="/WEB-INF/jsp/admin/header.jsp"/>
 		<put-attribute name="navigation" value="/WEB-INF/jsp/admin/nav.jsp"/>
-		<put-attribute name="content" value="/WEB-INF/jsp/empty.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/empty.jsp"/>	
+		<put-attribute name="adminContent" value="/WEB-INF/jsp/empty.jsp"/>
 	</definition>
 	
 	<definition name="admin/index" extends="admin">
