@@ -52,7 +52,11 @@
             		</td>
             	</tr>            	
             	<tr>
-            		<td colspan="3" style="background-color: gray;"><div style="color: white; margin: 3px;"> Ergebnisse <c:out value="${search.currentPage.first + 1}"/> - <c:out value="${search.currentPage.last + 1}"/> von <c:out value="${search.hitsCount}"/> f&uuml;r <c:out value="${search.searchString}"/></div></td>
+            		<td colspan="3" style="background-color: gray;">
+            		   <div style="color: white; margin: 3px;"> 
+            		      Ergebnisse <c:out value="${search.currentPage.first + 1}"/> - <c:out value="${search.currentPage.last + 1}"/> von <c:out value="${search.hitsCount}"/> f&uuml;r <c:out value="${search.searchString}"/>
+            		   </div>
+            		</td>
             	</tr>
 			</table>
        </form:form>	
