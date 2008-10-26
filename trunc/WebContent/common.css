@@ -2,7 +2,7 @@ ul#Navigation {
   font-size: 0.91em;
   float: left; width: 22em;
   margin: 0; padding: 0;
-  border: 1px dashed silver;
+  border: 1px solid silver;
 }
 ul#Navigation li {
   list-style: none;
@@ -20,18 +20,22 @@ ul#Navigation a:visited {
   color: #666; background-color: #eee;
 }
 ul#Navigation a:hover {
-  color: black; background-color: white;
+  color: black;
 }
 ul#Navigation a:active {
   color: white; background-color: gray;
 }
 div#AdminContent {
-  margin-left: 22em;
+  margin-left: 21em;
   margin-right: 1em;
   padding: 2 2em;
 }
+div#buttons {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 div#Content {
-  width: 100%;
   margin-left: auto;
   margin-right: auto;
   padding: 2 2em;
