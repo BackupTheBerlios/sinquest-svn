@@ -35,7 +35,7 @@ public class IndexerTest {
 		try {
 			//File fileToIndex = new File(sampleDir, "Geboren_vor_1978.pps");
 			//File fileToIndex = new File(sampleDir, "testOO2.odt");
-			File fileToIndex = new File(sampleDir, "Simple Text A.txt");
+			File fileToIndex = new File(sampleDir, "TestAlpha.java");
 			Indexer indexer = indexerFactory.getIndexer(fileToIndex);
 			assertNotNull(indexer);
 			Document document = indexer.indexFile(fileToIndex);

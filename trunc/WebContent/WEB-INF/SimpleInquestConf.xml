@@ -9,6 +9,7 @@
       <indexerClassName mimeType="application/x-msexcel">de.u808.simpleinquest.indexer.impl.MSWordIndexer</indexerClassName>
       <indexerClassName mimeType="application/vnd.sun.xml.writer">de.u808.simpleinquest.indexer.impl.OOIndexer</indexerClassName>
       <indexerClassName mimeType="application/vnd.oasis.opendocument.text">de.u808.simpleinquest.indexer.impl.OOIndexer2</indexerClassName>
+      <indexerClassName mimeType="text/x-java-source">de.u808.simpleinquest.indexer.impl.PlainTextIndexer</indexerClassName>
    </indexerConfiguration>
    <mimeIconMap>
       <property mimeType="application/vnd.oasis.opendocument.text">/SimpleInquest/img/mime/22/office-document.gif</property>
@@ -16,6 +17,7 @@
       <property mimeType="application/msword">/SimpleInquest/img/mime/22/office-document.gif</property>
       <property mimeType="application/mspowerpoint">/SimpleInquest/img/mime/22/office-presentation.gif</property>
       <property mimeType="application/x-msexcel">/SimpleInquest/img/mime/22/office-spreadsheet.gif</property>
+      <property mimeType="text/x-java-source">/SimpleInquest/img/mime/22/java.gif</property>
       <property mimeType="application/unknown">/SimpleInquest/img/mime/22/text-generic.gif</property>
    </mimeIconMap>
    <directoriesToIndexList length="2">
