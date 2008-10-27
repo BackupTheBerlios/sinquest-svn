@@ -13,7 +13,6 @@ public class PDFIndexer extends AbstractIndexer{
 
 	@Override
 	public void setContentsFild(File file) throws IndexerException {
-//		Document document;
 		try {
 			this.document = LucenePDFDocument.getDocument(file);
 			this.document = FileDocument.Document(document, file);

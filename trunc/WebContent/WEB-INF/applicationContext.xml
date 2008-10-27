@@ -126,6 +126,8 @@
 		<aop:scoped-proxy/>
 	</bean>
 	
+	<!-- selectSerachInput -->
+	
 	<!-- Security -->
 	<security:global-method-security secured-annotations="enabled">
 		<!-- AspectJ pointcut expression that locates our "post" method and applies security that way

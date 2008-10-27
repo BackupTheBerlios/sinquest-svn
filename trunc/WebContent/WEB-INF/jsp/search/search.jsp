@@ -6,12 +6,12 @@
 <script type="text/javascript">
 <!--
 	var myHandler_oldOnload = window.onload;
-	function myHandler(){
+	function selectSerachInput(){
   		document.forms[0].searchString.focus();
   		document.forms[0].searchString.select();
 	}
 	window.onload = function(){
-		myHandler();
+		selectSerachInput();
 	}
 //-->
 </script>
