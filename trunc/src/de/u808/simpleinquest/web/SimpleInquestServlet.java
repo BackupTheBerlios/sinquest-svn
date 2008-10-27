@@ -19,8 +19,8 @@ import org.springframework.web.servlet.DispatcherServlet;
 
 import de.u808.simpleinquest.config.SystemConfig;
 import de.u808.simpleinquest.domain.User;
-import de.u808.simpleinquest.indexer.FileIndexerJob;
 import de.u808.simpleinquest.service.UserManager;
+import de.u808.simpleinquest.task.FileIndexerJob;
 
 public class SimpleInquestServlet extends DispatcherServlet {
 	

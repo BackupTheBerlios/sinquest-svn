@@ -3,6 +3,19 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="st" uri="SimpleInquestTagsTags"  %> 
 
+<script type="text/javascript">
+<!--
+	var myHandler_oldOnload = window.onload;
+	function myHandler(){
+  		document.forms[0].searchString.focus();
+  		document.forms[0].searchString.select();
+	}
+	window.onload = function(){
+		myHandler();
+	}
+//-->
+</script>
+
 <c:if test="${search.hits eq null}">
 <div id="Centerbox">
 	<form:form commandName="search" method="get">

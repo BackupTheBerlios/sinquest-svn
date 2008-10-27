@@ -48,6 +48,8 @@ public class IndexUpdater implements FileProcessor{
 	private List<File> modifiedFiles = new LinkedList<File>();
 	private List<File> deletedFiles = new LinkedList<File>();
 	
+	private String statusMessage;
+	
 	private int fileCount = 0;
 	private int refreschLimit;
 	
@@ -99,8 +101,7 @@ public class IndexUpdater implements FileProcessor{
 					}
 				}
 			} catch (IOException e) {
-			// TODO Auto-generated catch block
-				e.printStackTrace();
+				log.error(e);
 			}
 		}
 		else{
@@ -175,12 +176,14 @@ public class IndexUpdater implements FileProcessor{
 	
 	private void deleteDocuments(List<File> files) throws CorruptIndexException, IOException{
 		if(!files.isEmpty() && IndexReader.indexExists(indexDirectory)){
+			this.statusMessage = "Removing deleted files from the index";
 			IndexReader indexReader = IndexReader.open(indexDirectory);
 			for(File file: files){
 				Term uidTerm = new Term(Indexer.PATH_FIELD_NAME, file.getPath());
 				indexReader.deleteDocuments(uidTerm);
 			}
 			indexReader.close();
+			this.statusMessage = "All deleted files removed from index";
 		}
 		else{
 			log.info("Nothing to delete or index does not exist");
@@ -199,11 +202,15 @@ public class IndexUpdater implements FileProcessor{
 				if(indexer != null){
 					Document document = indexer.indexFile(file);
 					if(document != null){
-						log.info("Indexing file: " + file.getPath());
+						String msg = "Indexing file: " + file.getPath();
+						this.statusMessage = msg;
+						log.info(msg);
 						indexWriter.addDocument(indexer.indexFile(file));
 					}
 					else{
-						log.warn("Indexer " + indexer.getClass() + " returned no content to index");
+						String msg = "Indexer " + indexer.getClass() + " returned no content to index";
+						this.statusMessage = msg;
+						log.warn(msg);
 					}
 				}
 				else{
@@ -211,14 +218,19 @@ public class IndexUpdater implements FileProcessor{
 				}
 			}
 		}
-		log.info("Optimizing index");
+		String msg = "Optimizing index";
+		this.statusMessage = msg;
+		log.info(msg);
 		indexWriter.optimize();
-		log.info("Index optimized");
+		msg = "Index optimized";
+		this.statusMessage = msg;
+		log.info(msg);
 		indexWriter.close(true);
 	}
 
 	public void dispose() {
 		this.refreschIndex();
+		this.statusMessage = "Idle";
 	}
 	
 	private void refreschIndex(){
@@ -299,6 +311,10 @@ public class IndexUpdater implements FileProcessor{
 
 	public void setSessionSearchCache(SessionSearchCache sessionSearchCache) {
 		this.sessionSearchCache = sessionSearchCache;
+	}
+
+	public String getStatusMessage() {
+		return statusMessage;
 	}
 
 }
