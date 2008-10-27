@@ -14,7 +14,7 @@ public class Search {
 	
 	private int pageIndex = 0;
 	
-	private int resultsPerPage = 10;
+	private int resultsPerPage = 15;
 
 	public String getSearchString() {
 		return searchString;
@@ -63,6 +63,14 @@ public class Search {
 			return new PageModel(this.hits, first, this.resultsPerPage);
 		}
 		else return null;
+	}
+
+	public int getResultsPerPage() {
+		return resultsPerPage;
+	}
+
+	public void setResultsPerPage(int resultsPerPage) {
+		this.resultsPerPage = resultsPerPage;
 	}
 
 }
