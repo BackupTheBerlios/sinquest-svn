@@ -21,7 +21,6 @@
       <property mimeType="application/unknown">/SimpleInquest/img/mime/22/text-generic.gif</property>
    </mimeIconMap>
    <directoriesToIndexList length="2">
-      <directoryToIndex>C:\Users\friedel\workspace\JKnowledgeMap\Sample</directoryToIndex>
-      <directoryToIndex>C:\SimpleInquestHome</directoryToIndex>
+      <directoryToIndex>C:\Users\friedel\workspace\SimpleInquest\TestDocuments</directoryToIndex>
    </directoriesToIndexList>
 </configuration>

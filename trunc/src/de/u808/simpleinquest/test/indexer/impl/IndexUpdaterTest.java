@@ -13,10 +13,13 @@ import org.springframework.core.io.Resource;
 import de.u808.simpleinquest.indexer.impl.IndexUpdater;
 import de.u808.simpleinquest.util.DirectoryTraverser;
 import de.u808.simpleinquest.util.InvalidArgumentException;
+import de.u808.simpleinquest.web.ConfigBeanResource;
 
 public class IndexUpdaterTest {
 	
 	private static IndexUpdater INDEX_UPDATER;
+	
+	private static ConfigBeanResource CONFIG_BEAN;
 	
 	@BeforeClass
 	public static void init(){
@@ -24,15 +27,17 @@ public class IndexUpdaterTest {
 		Resource res = new FileSystemResource(contextFile);
 		XmlBeanFactory factory = new XmlBeanFactory(res);
         INDEX_UPDATER = (IndexUpdater) factory.getBean("indexUpdater");
+        CONFIG_BEAN = (ConfigBeanResource) factory.getBean("configBeanResource");
 	}
 	
 	@Test
 	public void testUpdate(){
 		Exception exception = null;
-		String rootDir = "C:/Users/friedel/workspace/JKnowledgeMap/Sample";
-		//String rootDir = "C:/Users/friedel/workspace/JKnowledgeMap/Sample/test";
+		String[] dirs = CONFIG_BEAN.getSystemConfig().getConfiguration().getDirectoriesToIndexList();
 		try {
-			new DirectoryTraverser(new File(rootDir), INDEX_UPDATER, DirectoryTraverser.TraversalMode.JustDirectories).startTraversal();
+			for(String dir : dirs){
+				new DirectoryTraverser(new File(dir), INDEX_UPDATER, DirectoryTraverser.TraversalMode.JustDirectories).startTraversal();
+			}
 		} catch (InvalidArgumentException e) {
 			e.printStackTrace();
 			exception = e;
