@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.context.ApplicationContext;
 
 public class SystemConfig {
 
@@ -21,6 +22,8 @@ public class SystemConfig {
 	private List<String> configurationErrors = null;
 	
 	Log log = LogFactory.getLog(this.getClass());
+	
+	private ApplicationContext applicationContext;
 	
 	public SystemConfig (Configuration configuration) {
 		this.configuration = configuration;
@@ -91,6 +94,14 @@ public class SystemConfig {
 			this.indexDirectory = new File(configuration.getSimpleInquestHome(), INDEX_DIRECTORY);
 		}
 		return indexDirectory;
+	}
+
+	public ApplicationContext getApplicationContext() {
+		return applicationContext;
+	}
+
+	public void setApplicationContext(ApplicationContext applicationContext) {
+		this.applicationContext = applicationContext;
 	}
 	
 }

@@ -2,6 +2,7 @@ package de.u808.simpleinquest.task;
 
 import java.io.File;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.quartz.JobExecutionContext;
@@ -19,7 +20,8 @@ public class FileIndexerJob implements Task {
 	
 	private IndexUpdater indexUpdater;
 
-	public FileIndexerJob(ApplicationContext applicationContext) {
+	public FileIndexerJob() {
+		ApplicationContext applicationContext = SystemConfig.getInstance().getApplicationContext();
 		indexUpdater = (IndexUpdater) applicationContext.getBean("indexUpdater");
 	}
 
@@ -34,10 +36,15 @@ public class FileIndexerJob implements Task {
 		for (String rootDir : SystemConfig.getInstance().getConfiguration()
 				.getDirectoriesToIndexList()) {
 			try {
-				new DirectoryTraverser(new File(rootDir),
+				if(StringUtils.isNotEmpty(rootDir)){
+					new DirectoryTraverser(new File(rootDir),
 						indexUpdater,
 						DirectoryTraverser.TraversalMode.JustDirectories)
 						.startTraversal();
+				}
+				else{
+					log.warn("Empty root directory string in config. Maybe the attribute \"directoriesToIndexList\" is set to a wrong value");
+				}
 			} catch (InvalidArgumentException e) {
 				log.error("Error during directory traversal", e);
 			}

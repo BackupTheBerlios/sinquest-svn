@@ -7,17 +7,22 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.load.Persister;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.io.Resource;
 
 import de.u808.simpleinquest.config.Configuration;
 import de.u808.simpleinquest.config.SystemConfig;
 
-public class ConfigBeanResource implements InitializingBean{
+public class ConfigBeanResource implements InitializingBean, ApplicationContextAware{
 
     private Resource configResource;
     
     private SystemConfig systemConfig;
+
+	private ApplicationContext applicationContext;
     
     private final static Log log = LogFactory.getLog(ConfigBeanResource.class);
 	
@@ -38,6 +43,7 @@ public class ConfigBeanResource implements InitializingBean{
 			}
 			Configuration conf = serializer.read(Configuration.class, configFile);
 			this.systemConfig = new SystemConfig(conf);
+			this.systemConfig.setApplicationContext(this.applicationContext);
 		} catch (Exception e) {
 			log.error("Can´t load system config", e);
 		}
@@ -60,6 +66,11 @@ public class ConfigBeanResource implements InitializingBean{
 
 	public void afterPropertiesSet() throws Exception {
 		this.readSystemConfig();
+	}
+
+	public void setApplicationContext(ApplicationContext applicationContext)
+			throws BeansException {
+		this.applicationContext = applicationContext;
 	}
 
 }

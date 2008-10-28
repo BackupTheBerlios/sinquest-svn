@@ -10,6 +10,7 @@ import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.queryParser.MultiFieldQueryParser;
 import org.apache.lucene.queryParser.ParseException;
 import org.apache.lucene.queryParser.QueryParser;
+import org.apache.lucene.search.BooleanQuery;
 import org.apache.lucene.search.Hits;
 import org.apache.lucene.search.Query;
 
@@ -42,6 +43,9 @@ public class SearchManager {
 					// Query query = new QueryParser(Indexer.CONTENT_FIELD_NAME, new
 					// StandardAnalyzer()).parse(searchString);
 					// search.setHits(indexSearchBean.getIndexSearcher().search(query));
+					
+					//TEST
+					BooleanQuery.setMaxClauseCount(Integer.MAX_VALUE);
 			
 					String[] fields = {Indexer.AUTOR_FIELD_NAME, Indexer.CONTENT_FIELD_NAME, Indexer.TITLE_FIELD_NAME};
 					Analyzer analyzer = new StandardAnalyzer();

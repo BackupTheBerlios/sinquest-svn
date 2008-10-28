@@ -39,11 +39,11 @@ public class MSWordIndexer extends AbstractIndexer {
     }
 
 	@Override
-	public void setContentsFild(File file) {
+	public void setContentsFild(File file) throws IndexerException {
 		try {
 			this.document.add(new Field(Indexer.CONTENT_FIELD_NAME, new StringReader(getContents())));
 		} catch (Exception e) {
-			log.error("Error while indexing " + file.getName(), e);
+			throw new IndexerException(e.getMessage(), e);
 		}
 	}
 }
