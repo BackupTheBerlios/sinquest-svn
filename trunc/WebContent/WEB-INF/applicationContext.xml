@@ -1,148 +1,186 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:aop="http://www.springframework.org/schema/aop"
-       xmlns:security="http://www.springframework.org/schema/security"
-       xsi:schemaLocation="
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-2.0.1.xsd">
 
-	<bean id="dataBase" class="org.springmodules.db.hsqldb.ServerBean" scope="singleton" lazy-init="false">
-		<property name="configBeanResource" ref="configBeanResource"/>
-    	<property name="dataSource"><ref local="myDataSource"/></property>
-        <property name="serverProperties">
-        	<props>
-            	<prop key="server.port">9003</prop>
-                <prop key="server.database.0">/db/simpleDB</prop>
-                <prop key="server.dbname.0">simpleDB</prop>
-            </props>
-        </property>
-    </bean>
-
-	<bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource">
-   		<property name="driverClassName" value="org.hsqldb.jdbcDriver" />
-   		<property name="url" value="jdbc:hsqldb:hsql://localhost:9003/simpleDB" />
-   		<property name="username" value="sa" />
-   		<property name="password" value="" />
+	<bean id="dataBase" class="org.springmodules.db.hsqldb.ServerBean"
+		scope="singleton" lazy-init="false">
+		<property name="configBeanResource" ref="configBeanResource" />
+		<property name="dataSource">
+			<ref local="myDataSource" />
+		</property>
+		<property name="serverProperties">
+			<props>
+				<prop key="server.port">9003</prop>
+				<prop key="server.database.0">/db/simpleDB</prop>
+				<prop key="server.dbname.0">simpleDB</prop>
+			</props>
+		</property>
 	</bean>
 
-	<bean id="mySessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
-      	<property name="dataSource" ref="myDataSource" />
-      	<property name="configLocation">
-         	<value>classpath:hibernate.cfg.xml</value>
-      	</property>
-   	</bean>
-   	
-   	<bean id="customDateEditor"
-     	class="org.springframework.beans.propertyeditors.CustomDateEditor">
-    	<constructor-arg >
-      		<bean class="java.text.SimpleDateFormat">
-        		<constructor-arg><value>dd.MM.yyyy HH:mm</value></constructor-arg>
-      		</bean>
-    	</constructor-arg>
-    	<constructor-arg ><value>true</value></constructor-arg>
-  	</bean>
+	<bean id="myDataSource"
+		class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="org.hsqldb.jdbcDriver" />
+		<property name="url"
+			value="jdbc:hsqldb:hsql://localhost:9003/simpleDB" />
+		<property name="username" value="sa" />
+		<property name="password" value="" />
+	</bean>
+
+	<bean id="mySessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="myDataSource" />
+		<property name="configLocation">
+			<value>classpath:hibernate.cfg.xml</value>
+		</property>
+	</bean>
+
+	<bean id="customDateEditor"
+		class="org.springframework.beans.propertyeditors.CustomDateEditor">
+		<constructor-arg>
+			<bean class="java.text.SimpleDateFormat">
+				<constructor-arg>
+					<value>dd.MM.yyyy HH:mm</value>
+				</constructor-arg>
+			</bean>
+		</constructor-arg>
+		<constructor-arg>
+			<value>true</value>
+		</constructor-arg>
+	</bean>
 
 	<bean id="myTxManager"
 		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
 		<property name="sessionFactory" ref="mySessionFactory" />
 	</bean>
-	
+
 	<!-- Controller -->
-	<bean id="searchController" class="de.u808.simpleinquest.web.search.SearchController" lazy-init="false">
-		<property name="searchManager" ref="searchManager"/>
-		<property name="commandName" value="search"/>
-		<property name="commandClass" value="de.u808.simpleinquest.domain.Search"/>
-		<property name="formView" value="searchForm"/>
-		<property name="successView" value="self"/>
+	<bean id="searchController"
+		class="de.u808.simpleinquest.web.search.SearchController"
+		lazy-init="false">
+		<property name="searchManager" ref="searchManager" />
+		<property name="commandName" value="search" />
+		<property name="commandClass"
+			value="de.u808.simpleinquest.domain.Search" />
+		<property name="formView" value="searchForm" />
+		<property name="successView" value="self" />
 	</bean>
-	
-	<bean id="downloadController" class="de.u808.simpleinquest.web.download.DownloadController">
-		<property name="indexSearchBean" ref="indexSearchBean"/>
+
+	<bean id="downloadController"
+		class="de.u808.simpleinquest.web.download.DownloadController">
+		<property name="indexSearchBean" ref="indexSearchBean" />
 	</bean>
-		
-	<bean id="userController" class="de.u808.simpleinquest.web.usermanagement.UserController">
-		<property name="userManager" ref="userManager"/>
+
+	<bean id="userController"
+		class="de.u808.simpleinquest.web.usermanagement.UserController">
+		<property name="userManager" ref="userManager" />
 	</bean>
-	
-	<!-- Manager -->	
-	<bean id="userManager" class="de.u808.simpleinquest.service.impl.HibernateUserManager">
-		<property name="userDAO" ref="userDAO"/>
+
+	<!-- Manager -->
+	<bean id="userManager"
+		class="de.u808.simpleinquest.service.impl.HibernateUserManager">
+		<property name="userDAO" ref="userDAO" />
 	</bean>
-	
-	<bean id="searchManager" class="de.u808.simpleinquest.service.search.SearchManager" lazy-init="false">
-		<property name="indexSearchBean" ref="indexSearchBean"/>
-		<property name="searchCach" ref="sessionSearchCache"/>
-		<property name="globalSearchCache" ref="globalSearchCache"/>
+
+	<bean id="searchManager"
+		class="de.u808.simpleinquest.service.search.SearchManager"
+		lazy-init="false">
+		<property name="indexSearchBean" ref="indexSearchBean" />
+		<property name="searchCach" ref="sessionSearchCache" />
+		<property name="globalSearchCache" ref="globalSearchCache" />
 	</bean>
-	
-	<bean id="indexSearchBean" class="de.u808.simpleinquest.service.search.IndexSearchBean" depends-on="configBeanResource">
-		<property name="configBeanResource" ref="configBeanResource"/>
+
+	<bean id="indexSearchBean"
+		class="de.u808.simpleinquest.service.search.IndexSearchBean"
+		depends-on="configBeanResource">
+		<property name="configBeanResource" ref="configBeanResource" />
 	</bean>
-	
-	<bean id="mimeIconRegistry" class="de.u808.simpleinquest.service.impl.DefaultMimeIconRegistry">
-		<property name="configBeanResource" ref="configBeanResource"/>
+
+	<bean id="mimeIconRegistry"
+		class="de.u808.simpleinquest.service.impl.DefaultMimeIconRegistry">
+		<property name="configBeanResource" ref="configBeanResource" />
 	</bean>
-	
+
 	<!-- Forms -->
 	<bean id="userEditController"
 		class="de.u808.simpleinquest.web.usermanagement.UserEditController">
-		<property name="userManager" ref="userManager"/>
-		<property name="formView" value="userForm"/>
-		<property name="successView" value="redirect:userList.htm"/>
+		<property name="userManager" ref="userManager" />
+		<property name="formView" value="userForm" />
+		<property name="successView" value="redirect:userList.htm" />
 	</bean>
-	
+
 	<!-- DAOs -->
-	<bean id="userDAO" class="de.u808.simpleinquest.repository.impl.UserDAOImpl">
-		<property name="sessionFactory" ref="mySessionFactory"/>
+	<bean id="userDAO"
+		class="de.u808.simpleinquest.repository.impl.UserDAOImpl">
+		<property name="sessionFactory" ref="mySessionFactory" />
 	</bean>
-	
+
 	<!-- Resources -->
-	<bean id="configBeanResource" class="de.u808.simpleinquest.web.ConfigBeanResource">
-		<constructor-arg value="WEB-INF/SimpleInquestConf.xml"/>
+	<bean id="configBeanResource"
+		class="de.u808.simpleinquest.web.ConfigBeanResource">
+		<constructor-arg value="WEB-INF/SimpleInquestConf.xml" />
 	</bean>
-	
+
 	<!-- FactoryBeans -->
-	<bean id="indexerFactory" class="de.u808.simpleinquest.indexer.impl.DefaultIndexerFactory">
-		<property name="configBeanResource" ref="configBeanResource"/>
+	<bean id="indexerFactory"
+		class="de.u808.simpleinquest.indexer.impl.DefaultIndexerFactory">
+		<property name="configBeanResource" ref="configBeanResource" />
 	</bean>
-	
+
 	<!-- Search -->
-	<bean id="indexUpdater" class="de.u808.simpleinquest.indexer.impl.IndexUpdater" depends-on="indexerFactory">
-		<constructor-arg><ref bean="configBeanResource"/></constructor-arg>
-		<property name="indexerFactory" ref="indexerFactory"/>
-		<property name="indexSearchBean" ref="indexSearchBean"/>
+	<bean id="indexUpdater"
+		class="de.u808.simpleinquest.indexer.impl.IndexUpdater"
+		depends-on="indexerFactory">
+		<constructor-arg>
+			<ref bean="configBeanResource" />
+		</constructor-arg>
+		<property name="indexerFactory" ref="indexerFactory" />
+		<property name="indexSearchBean" ref="indexSearchBean" />
 	</bean>
-	
-	<bean id="cacheManager" class="de.u808.simpleinquest.web.ApplicationCachManager"/>
-	
-	<bean id="globalSearchCache" class="de.u808.common.GlobalSearchCache">
-		<property name="cachManager" ref="cacheManager"/>
+
+	<bean id="cacheManager"
+		class="de.u808.simpleinquest.web.ApplicationCachManager" />
+
+	<bean id="globalSearchCache"
+		class="de.u808.common.GlobalSearchCache">
+		<property name="cachManager" ref="cacheManager" />
 	</bean>
-	
-	<bean id="sessionSearchCache" class="de.u808.common.SessionSearchCache" scope="session">
+
+	<bean id="sessionSearchCache"
+		class="de.u808.common.SessionSearchCache" scope="session">
 		<property name="maxEntries" value="10" />
-		<aop:scoped-proxy/>
+		<aop:scoped-proxy />
 	</bean>
-	
-	<!-- selectSerachInput -->
-	
+
+	<!-- Quarz -->
+	<bean id="quarz"
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="quartzProperties"><value>classpath:quartz.properties</value></property>
+	</bean>
+
 	<!-- Security -->
 	<security:global-method-security secured-annotations="enabled">
 		<!-- AspectJ pointcut expression that locates our "post" method and applies security that way
-		<protect-pointcut expression="execution(* bigbank.*Service.post*(..))" access="ROLE_TELLER"/>
+			<protect-pointcut expression="execution(* bigbank.*Service.post*(..))" access="ROLE_TELLER"/>
 		-->
 	</security:global-method-security>
 
-    <security:http auto-config="true" session-fixation-protection="none">
-    	<security:intercept-url pattern="/admin/**" access="ROLE_USER" />
-    </security:http>
-	
-	<security:authentication-provider user-service-ref='myUserDetailsService'/>
-	
-	<bean id="myUserDetailsService" class="de.u808.simpleinquest.service.impl.HibernateDAOUserDetailsService" >
-		<property name="userManager" ref="userManager"/>	
+	<security:http auto-config="true"
+		session-fixation-protection="none">
+		<security:intercept-url pattern="/admin/**" access="ROLE_USER" />
+	</security:http>
+
+	<security:authentication-provider
+		user-service-ref='myUserDetailsService' />
+
+	<bean id="myUserDetailsService"
+		class="de.u808.simpleinquest.service.impl.HibernateDAOUserDetailsService">
+		<property name="userManager" ref="userManager" />
 	</bean>
-	
+
 </beans>

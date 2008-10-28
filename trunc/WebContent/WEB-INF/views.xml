@@ -6,8 +6,8 @@
            http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
            http://www.springframework.org/schema/context
            http://www.springframework.org/schema/context/spring-context-2.5.xsd">
-           <!-- 
-  <bean name="appointmentsJSON" class="org.springframework.web.servlet.view.json.JsonView"/>
-  <bean name="testJSON" class="de.u808.simpleinquest.web.calendar.ui.TestView"/>
-   -->
+
+<!-- 
+   <bean name="tasksJSON" class="org.springframework.web.servlet.view.json.JsonView"/>
+    -->
 </beans>

@@ -12,8 +12,8 @@ import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.Trigger;
 import org.quartz.TriggerUtils;
-import org.quartz.impl.StdSchedulerFactory;
 import org.springframework.context.ApplicationContext;
+import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.servlet.DispatcherServlet;
 
@@ -31,7 +31,7 @@ public class SimpleInquestServlet extends DispatcherServlet {
 	 */
 	private static final long serialVersionUID = 1L;
 	private static Log log = LogFactory.getLog(SimpleInquestServlet.class);
-	private Scheduler scheduler;
+	//private Scheduler scheduler;
 
 	public void init(ServletConfig config) throws ServletException {
 		log.info("------------------------Initializeing Simple Inquest------------------------");
@@ -76,9 +76,12 @@ public class SimpleInquestServlet extends DispatcherServlet {
 
 	private void initQuarz(){
         try {
-            scheduler = StdSchedulerFactory.getDefaultScheduler();
-			// and start it off
-            scheduler.start();
+        	ApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
+        	Scheduler scheduler = (Scheduler)context.getBean("quarz");
+        	
+//            scheduler = StdSchedulerFactory.getDefaultScheduler();
+//			// and start it off
+//            scheduler.start();
 
             //FileIndexer Task
             //for testing
@@ -88,7 +91,7 @@ public class SimpleInquestServlet extends DispatcherServlet {
 //            cronTrigger.setGroup(INDEXER_GROUP);
             
             //Trigger trigger = TriggerUtils.makeSecondlyTrigger(5);
-            Trigger trigger = TriggerUtils.makeDailyTrigger(FILE_INDEXER_TRIGGER, 22, 27);
+            Trigger trigger = TriggerUtils.makeDailyTrigger(FILE_INDEXER_TRIGGER, 00, 40);
             trigger.setName(FILE_INDEXER_TRIGGER);
             trigger.setGroup(INDEXER_GROUP);
             
@@ -96,6 +99,7 @@ public class SimpleInquestServlet extends DispatcherServlet {
                     INDEXER_GROUP,
                     FileIndexerJob.class);
             scheduler.scheduleJob(jobDetail, trigger);
+           // schedulerFactoryBean.setJobDetails(jobs);
             
         } catch (SchedulerException e) {
         	log.error("Error during quarz start", e);
@@ -103,17 +107,17 @@ public class SimpleInquestServlet extends DispatcherServlet {
 
 	}
 
-	@Override
-	public void destroy() {
-		if(scheduler != null){
-			try {
-				scheduler.shutdown();
-			} catch (SchedulerException e) {
-				log.error("Error during quarz shutdown", e);
-			}
-		}
-		super.destroy();
-	}
+//	@Override
+//	public void destroy() {
+//		if(scheduler != null){
+//			try {
+//				scheduler.shutdown();
+//			} catch (SchedulerException e) {
+//				log.error("Error during quarz shutdown", e);
+//			}
+//		}
+//		super.destroy();
+//	}
 	
 	
 
