@@ -13,7 +13,6 @@ import org.quartz.SchedulerException;
 import org.quartz.Trigger;
 import org.quartz.TriggerUtils;
 import org.springframework.context.ApplicationContext;
-import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.servlet.DispatcherServlet;
 
@@ -24,8 +23,8 @@ import de.u808.simpleinquest.task.FileIndexerJob;
 
 public class SimpleInquestServlet extends DispatcherServlet {
 	
-	private static final String FILE_INDEXER_TRIGGER = "FileIndexerTrigger";
-	private static final String INDEXER_GROUP = "IndexerGroup";
+	public static final String FILE_INDEXER_TRIGGER = "FileIndexerTrigger";
+	public static final String INDEXER_GROUP = "IndexerGroup";
 	/**
 	 * 
 	 */

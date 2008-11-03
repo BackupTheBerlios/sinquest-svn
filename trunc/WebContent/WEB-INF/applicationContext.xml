@@ -80,6 +80,12 @@
 		class="de.u808.simpleinquest.web.usermanagement.UserController">
 		<property name="userManager" ref="userManager" />
 	</bean>
+	
+	<bean id="tasksStateController"
+		class="de.u808.simpleinquest.web.tasks.TaskInfoController">
+		<property name="scheduler" ref="quarz"/>
+		<property name="schedulerManager" ref="schedulerManager"/>
+	</bean>
 
 	<!-- Manager -->
 	<bean id="userManager"
@@ -104,6 +110,10 @@
 	<bean id="mimeIconRegistry"
 		class="de.u808.simpleinquest.service.impl.DefaultMimeIconRegistry">
 		<property name="configBeanResource" ref="configBeanResource" />
+	</bean>
+	
+	<bean id="schedulerManager" class="de.u808.simpleinquest.service.scheduler.SchedulerManager">
+		<property name="scheduler" ref="quarz"/>
 	</bean>
 
 	<!-- Forms -->

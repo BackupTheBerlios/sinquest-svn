@@ -5,6 +5,8 @@ import java.io.IOException;
 import net.sf.ehcache.Element;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.queryParser.MultiFieldQueryParser;
@@ -19,10 +21,11 @@ import de.u808.common.SessionSearchCache;
 import de.u808.simpleinquest.indexer.Indexer;
 
 public class SearchManager {
+	
+	protected final static Log log = LogFactory.getLog(SearchManager.class);
 
 	private IndexSearchBean indexSearchBean;
 
-	// TODO invalidate after IndexSearcher update;
 	private SessionSearchCache<String, Hits> searchCach;
 
 	private GlobalSearchCache globalSearchCache;
@@ -45,16 +48,23 @@ public class SearchManager {
 					// search.setHits(indexSearchBean.getIndexSearcher().search(query));
 					
 					//TEST
-					BooleanQuery.setMaxClauseCount(Integer.MAX_VALUE);
+					if(indexSearchBean.getIndexSearcher() != null){
+						BooleanQuery.setMaxClauseCount(Integer.MAX_VALUE);
 			
-					String[] fields = {Indexer.AUTOR_FIELD_NAME, Indexer.CONTENT_FIELD_NAME, Indexer.TITLE_FIELD_NAME};
-					Analyzer analyzer = new StandardAnalyzer();
-					QueryParser qp = new MultiFieldQueryParser(fields, analyzer);
-					qp.setDefaultOperator(QueryParser.Operator.AND);
-					Query query = qp.parse(searchString);
-					hits = indexSearchBean.getIndexSearcher().search(query);
-					searchCach.put(searchString, hits);
-					globalSearchCache.getCache().put(new Element(searchString, hits));
+						String[] fields = {Indexer.AUTOR_FIELD_NAME, Indexer.CONTENT_FIELD_NAME, Indexer.TITLE_FIELD_NAME};
+						Analyzer analyzer = new StandardAnalyzer();
+						QueryParser qp = new MultiFieldQueryParser(fields, analyzer);
+						qp.setDefaultOperator(QueryParser.Operator.AND);
+						Query query = qp.parse(searchString);
+						hits = indexSearchBean.getIndexSearcher().search(query);
+						searchCach.put(searchString, hits);
+						globalSearchCache.getCache().put(new Element(searchString, hits));
+					}
+					else{
+						//TODO check lang
+						log.warn("Index dos not exist! Returning null!");
+						//TODO display Info
+					}
 				}
 			}
 		}
