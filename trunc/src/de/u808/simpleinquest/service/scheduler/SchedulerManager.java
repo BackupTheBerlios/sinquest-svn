@@ -51,7 +51,7 @@ public class SchedulerManager {
 			for(JobExecutionContext jobExecutionContext : runningJobs){
 				TaskInfoModel taskInfoModel = jobsMap.get(jobExecutionContext.getJobDetail().getFullName());
 				if(taskInfoModel != null){
-					taskInfoModel.setActive(true);
+					taskInfoModel.setIsActive(true);
 				}
 				else{
 					log.warn("JobInfoModel not found for Job " + jobExecutionContext.getJobDetail().getName());

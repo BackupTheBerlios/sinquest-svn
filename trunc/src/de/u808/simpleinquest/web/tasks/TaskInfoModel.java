@@ -6,18 +6,18 @@ public class TaskInfoModel {
 	
 	private String name;
 	
-	private boolean active = false;
+	private boolean isActive = false;
 	
 	private String statusMessage;
 	
 	private Date nextExecutionDate;
 
-	public boolean isActive() {
-		return active;
+	public boolean getIsActive() {
+		return isActive;
 	}
 
-	public void setActive(boolean active) {
-		this.active = active;
+	public void setIsActive(boolean active) {
+		this.isActive = active;
 	}
 
 	public String getStatusMessage() {
