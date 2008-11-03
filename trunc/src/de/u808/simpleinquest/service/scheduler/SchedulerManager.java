@@ -35,12 +35,9 @@ public class SchedulerManager {
 		try {
 			jobGroups = scheduler.getJobGroupNames();
 			for (i = 0; i < jobGroups.length; i++) {
-				System.out.println("Group: " + jobGroups[i]
-						+ " contains the following jobs");
 				jobsInGroup = scheduler.getJobNames(jobGroups[i]);
 
 				for (j = 0; j < jobsInGroup.length; j++) {
-					System.out.println("- " + jobsInGroup[j]);
 					TaskInfoModel jobInfo = new TaskInfoModel();
 					jobInfo.setName(jobsInGroup[j]);
 					jobInfo.setNextExecutionDate(this.getNextExecutionDate(scheduler.getTriggersOfJob(jobsInGroup[j], jobGroups[i])));

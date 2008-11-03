@@ -22,8 +22,5 @@
 	<div id="Content">
 		<tiles:insertAttribute name="content" />
 	</div>
-	<div id="AdminContent">
-		<tiles:insertAttribute name="adminContent" />
-	</div>
 </body>
 </html>
