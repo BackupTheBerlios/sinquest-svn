@@ -8,29 +8,29 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title><fmt:message key="common.browser_title"/></title>
-		<script type="text/javascript" src="/DailyWork/scripts/yui/build/yahoo/yahoo.js"></script> 
-	<script type="text/javascript" src="/DailyWork/scripts/yui/build/event/event.js"></script> 
-	<script type="text/javascript" src="/DailyWork/scripts/yui/build/dom/dom.js"></script> 
+	<script type="text/javascript" src="/SimpleInquest/scripts/yui/build/yahoo/yahoo.js"></script> 
+	<script type="text/javascript" src="/SimpleInquest/scripts/yui/build/event/event.js"></script> 
+	<script type="text/javascript" src="/SimpleInquest/scripts/yui/build/dom/dom.js"></script> 
 	
-	<script type="text/javascript" src="/DailyWork/scripts/yui/build/element/element-beta-min.js"></script>
-	<script type="text/javascript" src="/DailyWork/scripts/yui/build/datasource/datasource-beta-min.js"></script>
+	<script type="text/javascript" src="/SimpleInquest/scripts/yui/build/element/element-beta-min.js"></script>
+	<script type="text/javascript" src="/SimpleInquest/scripts/yui/build/datasource/datasource-beta-min.js"></script>
 
 	<!-- OPTIONAL: JSON Utility -->
-	<script type="text/javascript" src="/DailyWork/scripts/yui/build/json/json-min.js"></script>
+	<script type="text/javascript" src="/SimpleInquest/scripts/yui/build/json/json-min.js"></script>
 
 	<!-- OPTIONAL: Connection (enables XHR) -->
-	<script type="text/javascript" src="/DailyWork/scripts/yui/build/connection/connection-min.js"></script>
+	<script type="text/javascript" src="/SimpleInquest/scripts/yui/build/connection/connection-min.js"></script>
 	
 	<!-- Source files -->
-	<script type="text/javascript" src="/DailyWork/scripts/yui/build/datatable/datatable-beta-min.js"></script>
+	<script type="text/javascript" src="/SimpleInquest/scripts/yui/build/datatable/datatable-beta-min.js"></script>
 	
 	<!-- Helper files -->
-	<script type="text/javascript" src="/DailyWork/scripts/CalendarHelper.js"></script>
+	<script type="text/javascript" src="/SimpleInquest/scripts/CalendarHelper.js"></script>
 	 
-	<script type="text/javascript" src="/DailyWork/scripts/yui/build/calendar/calendar.js"></script> 
-	<link type="text/css" rel="stylesheet" href="/DailyWork/scripts/yui/build/calendar/assets/skins/sam/calendar.css"/>
+	<script type="text/javascript" src="/SimpleInquest/scripts/yui/build/calendar/calendar.js"></script> 
+	<link type="text/css" rel="stylesheet" href="/SimpleInquest/scripts/yui/build/calendar/assets/skins/sam/calendar.css"/>
 	<!--CSS file (default YUI Sam Skin) -->
-	<link type="text/css" rel="stylesheet" href="/DailyWork/scripts/yui/build/datatable/assets/skins/sam/datatable.css"/>
+	<link type="text/css" rel="stylesheet" href="/SimpleInquest/scripts/yui/build/datatable/assets/skins/sam/datatable.css"/>
 	<link rel="stylesheet" type="text/css" href="/SimpleInquest/common.css"/>
 </head>
 <body>
