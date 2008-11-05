@@ -39,5 +39,5 @@
 	 
 	YAHOO.util.Event.onDOMReady(updateJobsTable);
  </script>
-
+<h2>Admin Bereich - Jobs</h2>
 <div id="json"></div>

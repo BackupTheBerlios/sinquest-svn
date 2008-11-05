@@ -5,5 +5,5 @@
 <ul id="Navigation">	
   <li><a href="<c:url value="/admin/index.htm"/>">Admin Bereich - Home</a></li>
   <li><a href="<c:url value="/admin/usermanager/userList.htm"/>">Admin Passwort</a></li>
-  <li><a href="<c:url value="/admin/tasks/taskOverview.htm"/>">Indexer Tasks</a></li>
+  <li><a href="<c:url value="/admin/tasks/taskOverview.htm"/>">Indexer Jobs</a></li>
 </ul>

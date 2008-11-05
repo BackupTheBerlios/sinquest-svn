@@ -21,7 +21,7 @@ Weitere Konfigurationsm&ouml;glichkeiten, wie die zu indexierenden Verzeichnisse
     <td>
       <a href="<c:url value="/admin/tasks/taskOverview.htm"/>">
         <img src="/SimpleInquest/img/grey_wheel.jpg">
-      </a> Indexer Tasks starten und stoppen.
+      </a> Indexer Jobs starten und stoppen.
     </td>
   </tr>
 </table>
@@ -29,4 +29,4 @@ Weitere Konfigurationsm&ouml;glichkeiten, wie die zu indexierenden Verzeichnisse
 
 <h3>Build Informationen</h3>
 
-TODO Bildversion
+Simple Inquest 0.1 RC 1 Build TODO
