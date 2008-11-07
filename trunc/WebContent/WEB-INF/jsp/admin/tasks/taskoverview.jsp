@@ -50,7 +50,6 @@
 	function initJobsTable() {
         var myColumnDefs = [
 			{key:"name",label:"Job",sortable:false},
-            {key:"isActive",label:"Aktiv",sortable:false},
             {key:"nextExecutionDate",label:"Next Run",sortable:false},                 
             {key:"id", label:"", formatter: jobActionFormat},
             {key:"statusMessage", label:"Msg"}
