@@ -11,6 +11,9 @@
 <!--CSS file (default YUI Sam Skin) -->
 <link type="text/css" rel="stylesheet"
 	href="/SimpleInquest/scripts/yui/build/datatable/assets/skins/sam/datatable.css">
+	
+<link type="text/css" rel="stylesheet" 
+	href="/SimpleInquest/scripts/yui/build/logger/assets/skins/sam/logger.css"> 
 
 <!-- Dependencies -->
 <script type="text/javascript"
@@ -43,6 +46,9 @@
 <!-- Source files -->
 <script type="text/javascript"
 	src="/SimpleInquest/scripts/yui/build/datatable/datatable-min.js"></script>
+	
+<script type="text/javascript" 
+	src="/SimpleInquest/scripts/yui/build/logger/logger-min.js"></script>
 
 <link rel="stylesheet" type="text/css" href="/SimpleInquest/common.css" />
 </head>

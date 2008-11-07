@@ -86,6 +86,10 @@
 		<property name="scheduler" ref="quarz"/>
 		<property name="schedulerManager" ref="schedulerManager"/>
 	</bean>
+	
+	<bean id="jobCommandController" class="de.u808.simpleinquest.web.tasks.JobCommandController">
+		<property name="schedulerManager" ref="schedulerManager"/>
+	</bean>
 
 	<!-- Manager -->
 	<bean id="userManager"

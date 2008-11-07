@@ -20,7 +20,8 @@
       <property mimeType="text/x-java-source">/SimpleInquest/img/mime/22/java.gif</property>
       <property mimeType="application/unknown">/SimpleInquest/img/mime/22/text-generic.gif</property>
    </mimeIconMap>
-   <directoriesToIndexList length="1">
+   <directoriesToIndexList length="2">
       <directoryToIndex>C:\Documents and Settings\afriedel\My Documents\workspace\SimpleInquest\TestDocuments</directoryToIndex>
+      <directoryToIndex>Z:\Dokumente\IHK\Unterrichtsmaterial Gesammt</directoryToIndex>
    </directoriesToIndexList>
 </configuration>

@@ -25,6 +25,7 @@ ul#Navigation a:hover {
 ul#Navigation a:active {
   color: white; background-color: gray;
 }
+
 div#AdminContent {
   margin-left: 21em;
   margin-right: 1em;
@@ -72,7 +73,7 @@ div#cal1Container {
 }
 
 div#json {
-  margin-left: 1em;
+  margin-bottom: 1em;
 }
 
 div#menubar {
@@ -116,3 +117,6 @@ img {
 	border-style: none;
 }
 
+.XHRRequest {
+	cursor: pointer;
+}

@@ -19,12 +19,11 @@ import org.springframework.web.servlet.DispatcherServlet;
 import de.u808.simpleinquest.config.SystemConfig;
 import de.u808.simpleinquest.domain.User;
 import de.u808.simpleinquest.service.UserManager;
+import de.u808.simpleinquest.service.scheduler.SchedulerManager;
 import de.u808.simpleinquest.task.FileIndexerJob;
 
 public class SimpleInquestServlet extends DispatcherServlet {
 	
-	public static final String FILE_INDEXER_TRIGGER = "FileIndexerTrigger";
-	public static final String INDEXER_GROUP = "IndexerGroup";
 	/**
 	 * 
 	 */
@@ -90,12 +89,12 @@ public class SimpleInquestServlet extends DispatcherServlet {
 //            cronTrigger.setGroup(INDEXER_GROUP);
             
             //Trigger trigger = TriggerUtils.makeSecondlyTrigger(5);
-            Trigger trigger = TriggerUtils.makeDailyTrigger(FILE_INDEXER_TRIGGER, 00, 40);
-            trigger.setName(FILE_INDEXER_TRIGGER);
-            trigger.setGroup(INDEXER_GROUP);
+            Trigger trigger = TriggerUtils.makeDailyTrigger(SchedulerManager.FILE_INDEXER_TRIGGER, 12, 07);
+            trigger.setName(SchedulerManager.FILE_INDEXER_TRIGGER);
+            trigger.setGroup(SchedulerManager.INDEXER_GROUP);
             
             JobDetail jobDetail = new JobDetail("FileIndexerJob",
-                    INDEXER_GROUP,
+            		SchedulerManager.INDEXER_GROUP,
                     FileIndexerJob.class);
             scheduler.scheduleJob(jobDetail, trigger);
            // schedulerFactoryBean.setJobDetails(jobs);

@@ -22,6 +22,7 @@
 				<prop key="/admin/usermanager/editUser.htm">userEditController</prop>
 				<prop key="/admin/index.htm">viewController</prop>
 				<prop key="/admin/tasks/taskOverview.htm">viewController</prop>
+				<prop key="/admin/tasks/jobCommand.htm">jobCommandController</prop>
 				<prop key="/admin/tasks/JSONState.htm">tasksStateController</prop>
 			</props>
 		</property>

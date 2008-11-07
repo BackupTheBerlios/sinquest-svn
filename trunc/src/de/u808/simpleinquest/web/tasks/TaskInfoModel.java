@@ -4,6 +4,8 @@ import java.util.Date;
 
 public class TaskInfoModel {
 	
+	private String id;
+	
 	private String name;
 	
 	private boolean isActive = false;
@@ -11,6 +13,14 @@ public class TaskInfoModel {
 	private String statusMessage;
 	
 	private Date nextExecutionDate;
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public boolean getIsActive() {
 		return isActive;
