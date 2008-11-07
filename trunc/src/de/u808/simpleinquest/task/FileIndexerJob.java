@@ -19,6 +19,8 @@ public class FileIndexerJob implements Task {
 	private final static Log log = LogFactory.getLog(FileIndexerJob.class);
 	
 	private IndexUpdater indexUpdater;
+	
+	private JobExecutionContext context;
 
 	public FileIndexerJob() {
 		ApplicationContext applicationContext = SystemConfig.getInstance().getApplicationContext();
@@ -27,9 +29,14 @@ public class FileIndexerJob implements Task {
 
 	public void execute(JobExecutionContext context)
 			throws JobExecutionException {
-		log.info("File indexer started");
+		indexUpdater.setJobExecutionContext(context);
+		String startMsg = "File indexer started";
+		log.info(startMsg);
+		context.setResult(startMsg);
 		this.updateIndex();
-		log.info("File indexer finished");
+		String endMsg = "File indexer finished";
+		log.info(endMsg);
+		context.setResult(endMsg);
 	}
 
 	private void updateIndex() {
@@ -52,7 +59,10 @@ public class FileIndexerJob implements Task {
 	}
 
 	public String getStatusMessage() {
-		return indexUpdater.getStatusMessage();
+		if(context.getResult() != null){
+			return context.getResult().toString();
+		}
+		else return null;
 	}
 
 }

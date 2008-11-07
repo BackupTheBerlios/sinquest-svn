@@ -51,6 +51,7 @@ public class SchedulerManager {
 					jobInfo.setId(fullName);
 					jobInfo.setName(jobName);
 					jobInfo.setNextExecutionDate(this.getNextExecutionDate(scheduler.getTriggersOfJob(jobsInGroup[j], jobGroups[i])));
+					jobInfo.setStatusMessage("-");
 					jobsMap.put(fullName, jobInfo);
 				}
 			}
@@ -59,6 +60,9 @@ public class SchedulerManager {
 				TaskInfoModel taskInfoModel = jobsMap.get(jobExecutionContext.getJobDetail().getFullName());
 				if(taskInfoModel != null){
 					taskInfoModel.setIsActive(true);
+					if(jobExecutionContext.getResult() != null){
+						taskInfoModel.setStatusMessage(jobExecutionContext.getResult().toString());
+					}					
 				}
 				else{
 					log.warn("JobInfoModel not found for Job " + jobExecutionContext.getJobDetail().getName());

@@ -25,6 +25,7 @@ import org.apache.lucene.search.TermQuery;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.store.LockObtainFailedException;
+import org.quartz.JobExecutionContext;
 
 import de.u808.common.GlobalSearchCache;
 import de.u808.common.SessionSearchCache;
@@ -52,6 +53,8 @@ public class IndexUpdater implements FileProcessor{
 	
 	private int fileCount = 0;
 	private int refreschLimit;
+	
+	private JobExecutionContext jobExecutionContext;
 	
 	private boolean newIndex = false;
 	
@@ -176,14 +179,14 @@ public class IndexUpdater implements FileProcessor{
 	
 	private void deleteDocuments(List<File> files) throws CorruptIndexException, IOException{
 		if(!files.isEmpty() && IndexReader.indexExists(indexDirectory)){
-			this.statusMessage = "Removing deleted files from the index";
+			this.setStatusMessage("Removing deleted files from the index");
 			IndexReader indexReader = IndexReader.open(indexDirectory);
 			for(File file: files){
 				Term uidTerm = new Term(Indexer.PATH_FIELD_NAME, file.getPath());
 				indexReader.deleteDocuments(uidTerm);
 			}
 			indexReader.close();
-			this.statusMessage = "All deleted files removed from index";
+			this.setStatusMessage("All deleted files removed from index");
 		}
 		else{
 			log.info("Nothing to delete or index does not exist");
@@ -203,13 +206,13 @@ public class IndexUpdater implements FileProcessor{
 					Document document = indexer.indexFile(file);
 					if(document != null){
 						String msg = "Indexing file: " + file.getPath();
-						this.statusMessage = msg;
+						this.setStatusMessage(msg);
 						log.info(msg);
 						indexWriter.addDocument(indexer.indexFile(file));
 					}
 					else{
 						String msg = "Indexer " + indexer.getClass() + " returned no content to index";
-						this.statusMessage = msg;
+						this.setStatusMessage(msg);
 						log.warn(msg);
 					}
 				}
@@ -219,18 +222,18 @@ public class IndexUpdater implements FileProcessor{
 			}
 		}
 		String msg = "Optimizing index";
-		this.statusMessage = msg;
+		this.setStatusMessage(msg);
 		log.info(msg);
 		indexWriter.optimize();
 		msg = "Index optimized";
-		this.statusMessage = msg;
+		this.setStatusMessage(msg);
 		log.info(msg);
 		indexWriter.close(true);
 	}
 
 	public void dispose() {
 		this.refreschIndex();
-		this.statusMessage = "Idle";
+		this.setStatusMessage("Idle");
 	}
 	
 	private void refreschIndex(){
@@ -312,9 +315,18 @@ public class IndexUpdater implements FileProcessor{
 	public void setSessionSearchCache(SessionSearchCache sessionSearchCache) {
 		this.sessionSearchCache = sessionSearchCache;
 	}
+	
+	private void setStatusMessage(String msg) {
+		this.statusMessage = msg;
+		this.jobExecutionContext.setResult(msg);
+	}
 
 	public String getStatusMessage() {
 		return statusMessage;
+	}
+
+	public void setJobExecutionContext(JobExecutionContext jobExecutionContext) {
+		this.jobExecutionContext = jobExecutionContext;
 	}
 
 }

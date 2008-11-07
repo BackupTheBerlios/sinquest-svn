@@ -37,7 +37,8 @@
         	{key:"name"},
         	{key:"isActive"},
         	{key:"nextExecutionDate"}, 
-        	{key:"id"}
+        	{key:"id"},
+        	{key:"statusMessage"}
         ]
     };
 
@@ -51,7 +52,8 @@
 			{key:"name",label:"Job",sortable:false},
             {key:"isActive",label:"Aktiv",sortable:false},
             {key:"nextExecutionDate",label:"Next Run",sortable:false},                 
-            {key:"id", label:"", formatter: jobActionFormat}
+            {key:"id", label:"", formatter: jobActionFormat},
+            {key:"statusMessage", label:"Msg"}
         ];
 
         myDataTable = new YAHOO.widget.DataTable("json", myColumnDefs,
