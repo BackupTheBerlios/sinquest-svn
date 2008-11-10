@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.OutputStream;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -40,7 +41,8 @@ public class DownloadController implements Controller{
 				File file = new File(filePath);
 				
 				response.reset();
-    			response.setContentType(MimeUtil.getMimeType(file));
+    			//response.setContentType(MimeUtil.getMimeType(file));
+				response.setContentType(request.getSession().getServletContext().getMimeType(file.getName()));
     			response.setHeader("Pragma", "private");
     			response.setHeader("Cache-Control", "private, must-revalidate");
     			response.setHeader("Content-Disposition", "attachment; filename=\""

@@ -29,4 +29,4 @@ Weitere Konfigurationsm&ouml;glichkeiten, wie die zu indexierenden Verzeichnisse
 
 <h3>Build Informationen</h3>
 
-Simple Inquest 0.1 RC 1 Build TODO
+Simple Inquest 0.1 Beta

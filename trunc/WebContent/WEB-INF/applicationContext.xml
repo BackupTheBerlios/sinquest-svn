@@ -112,7 +112,7 @@
 	</bean>
 
 	<bean id="mimeIconRegistry"
-		class="de.u808.simpleinquest.service.impl.DefaultMimeIconRegistry">
+		class="de.u808.simpleinquest.service.impl.DummyIconRegistry">
 		<property name="configBeanResource" ref="configBeanResource" />
 	</bean>
 	
