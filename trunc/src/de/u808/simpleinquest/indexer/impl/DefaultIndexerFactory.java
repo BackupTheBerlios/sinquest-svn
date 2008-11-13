@@ -13,14 +13,15 @@ import org.springframework.beans.factory.InitializingBean;
 import de.u808.simpleinquest.config.SystemConfig;
 import de.u808.simpleinquest.indexer.Indexer;
 import de.u808.simpleinquest.indexer.IndexerFactory;
+import de.u808.simpleinquest.service.MimeTypeRegistry;
 import de.u808.simpleinquest.web.ConfigBeanResource;
-import eu.medsea.util.MimeUtil;
 
 public class DefaultIndexerFactory implements IndexerFactory, InitializingBean {
 	
 	static Logger log = Logger.getLogger(DefaultIndexerFactory.class);
 	private Map<String, Indexer> indexerMap = null;
 	private ConfigBeanResource configBeanResource;
+	private MimeTypeRegistry mimeTypeRegistry;
 	
 	private void initIndexerMap(){
 		Map<String, String> mimeTypeIndexerMap = configBeanResource.getSystemConfig().getConfiguration().getIndexerConfiguration().getMimeTypeIndexerMap();
@@ -60,7 +61,7 @@ public class DefaultIndexerFactory implements IndexerFactory, InitializingBean {
 //	}
 
 	public Indexer getIndexer(File file) throws IOException {
-		String mimeType = MimeUtil.getMimeType(file);
+		String mimeType = this.mimeTypeRegistry.getMimeType(file);
 		if(mimeType.contains(",")){
 			String[] mimeTypes= mimeType.split(",");
 			for(String type : mimeTypes){
@@ -81,6 +82,10 @@ public class DefaultIndexerFactory implements IndexerFactory, InitializingBean {
 
 	public void afterPropertiesSet() throws Exception {
 		this.initIndexerMap();
+	}
+
+	public void setMimeTypeRegistry(MimeTypeRegistry mimeTypeRegistry) {
+		this.mimeTypeRegistry = mimeTypeRegistry;
 	}
 
 }

@@ -318,7 +318,9 @@ public class IndexUpdater implements FileProcessor{
 	
 	private void setStatusMessage(String msg) {
 		this.statusMessage = msg;
-		this.jobExecutionContext.setResult(msg);
+		if (this.jobExecutionContext != null){
+			this.jobExecutionContext.setResult(msg);
+		}
 	}
 
 	public String getStatusMessage() {

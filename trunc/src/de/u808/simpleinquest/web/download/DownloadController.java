@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.OutputStream;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,7 +17,6 @@ import org.springframework.web.servlet.mvc.Controller;
 
 import de.u808.simpleinquest.indexer.Indexer;
 import de.u808.simpleinquest.service.search.IndexSearchBean;
-import eu.medsea.util.MimeUtil;
 
 public class DownloadController implements Controller{
 	

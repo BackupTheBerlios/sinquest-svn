@@ -112,8 +112,14 @@
 	</bean>
 
 	<bean id="mimeIconRegistry"
-		class="de.u808.simpleinquest.service.impl.DummyIconRegistry">
+		class="de.u808.simpleinquest.service.impl.DefaultMimeIconRegistry">		
 		<property name="configBeanResource" ref="configBeanResource" />
+		<property name="mimeTypeRegistry" ref="mimeTypeRegistry"/>
+	</bean>
+	
+	<bean id="mimeTypeRegistry" 
+		class="de.u808.simpleinquest.service.impl.DefaultMimeTypeRegistry">
+		<constructor-arg value="META-INF/mime.types" />
 	</bean>
 	
 	<bean id="schedulerManager" class="de.u808.simpleinquest.service.scheduler.SchedulerManager">
@@ -144,6 +150,7 @@
 	<bean id="indexerFactory"
 		class="de.u808.simpleinquest.indexer.impl.DefaultIndexerFactory">
 		<property name="configBeanResource" ref="configBeanResource" />
+		<property name="mimeTypeRegistry" ref="mimeTypeRegistry" />
 	</bean>
 
 	<!-- Search -->

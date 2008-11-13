@@ -1,26 +1,31 @@
 package de.u808.simpleinquest.service.impl;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.Map;
+
+import javax.activation.MimetypesFileTypeMap;
 
 import org.apache.commons.lang.StringUtils;
 
-import de.u808.simpleinquest.config.MimeIconMap;
 import de.u808.simpleinquest.service.MimeIconRegistry;
+import de.u808.simpleinquest.service.MimeTypeRegistry;
 import de.u808.simpleinquest.web.ConfigBeanResource;
-import eu.medsea.util.MimeUtil;
 
 public class DefaultMimeIconRegistry implements MimeIconRegistry{
 	
 	private ConfigBeanResource configBeanResource;
+	
+	private MimeTypeRegistry mimeTypeRegistry;
 
-	public String getMimeIcon(String filename) {
-		String mimeType = MimeUtil.getMimeType(filename);
+	public String getMimeIcon(String filename) {		
+		String mimeType = this.mimeTypeRegistry.getMimeType(filename);
 		return getIcon(mimeType);
 	}
 
 	public String getMimeIcon(File file) {
-		String mimeType = MimeUtil.getMimeType(file);
+		String mimeType = this.mimeTypeRegistry.getMimeType(file);
 		return getIcon(mimeType);
 	}
 	
@@ -52,6 +57,10 @@ public class DefaultMimeIconRegistry implements MimeIconRegistry{
 
 	public void setConfigBeanResource(ConfigBeanResource configBeanResource) {
 		this.configBeanResource = configBeanResource;
+	}
+
+	public void setMimeTypeRegistry(MimeTypeRegistry mimeTypeRegistry) {
+		this.mimeTypeRegistry = mimeTypeRegistry;
 	}
 
 }

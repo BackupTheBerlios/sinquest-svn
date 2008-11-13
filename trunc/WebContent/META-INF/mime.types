@@ -1,0 +1,17 @@
+#MS Types
+application/msword doc Doc DOC
+application/mspowerpoint ppt Ppt PPT pps Pps PPS
+application/x-msexcel
+
+#OpenOffice.org Types 
+application/vnd.oasis.opendocument.formula odf Odf ODF
+application/vnd.oasis.opendocument.presentation odp Odp ODP
+application/vnd.oasis.opendocument.text odt Odt ODT
+application/vnd.oasis.opendocument.spreadsheet ods Ods ODS
+application/vnd.oasis.opendocument.spreadsheet-template ots Ots OTS
+application/vnd.sun.xml.calc sxc Sxc SXC
+application/vnd.sun.xml.writer sxw Sxw SXW
+
+text/x-java-source java Java JAVA
+
+application/pdf pdf Pdf PDF
