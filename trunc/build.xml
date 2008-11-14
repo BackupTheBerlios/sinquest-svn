@@ -21,6 +21,16 @@
         
         <pathelement path="${build.dir}"/>
     </path>
+	
+	<!-- path to the svnant libraries. Usually they will be located in ANT_HOME/lib -->
+	<path id="antSVN.classpath">
+		<pathelement location="${root.dir}/lib/svnjavahl.jar" />
+		<pathelement location="${root.dir}/lib/svnant.jar" />
+		<pathelement location="${root.dir}/lib/svnClientAdapter.jar" />
+	</path>
+		
+	<!-- load the svn task -->
+	<taskdef name="svn" classname="org.tigris.subversion.svnant.SvnTask" classpathref="antSVN.classpath"/>
 
 	<target name="clean">
 		<echo>Cleaning the ${build.dir}</echo>
@@ -39,6 +49,7 @@
             <src path="${src.dir}"/>
             <classpath refid="master-classpath"/>
         </javac>
+    	<buildnumber/>
     </target>
 
 	<target name="copy" depends="compile">
@@ -60,10 +71,31 @@
 		</copy>
 	</target>
 
-	<target name="war" depends="copy">
+	<target name="war" depends="copy, svnInfo">
+		<echo>Building the manifest</echo>
+		<manifest file="MANIFEST.MF">
+		    <attribute name="Built-By" value="${user.name}"/>
+		    <section name="common">
+		      <attribute name="Application-Title" value="SimpleInquest"/>
+		      <attribute name="Application-Version" value="SVN ${svn.revision} Build ${build.number}"/> 
+		    </section>
+		</manifest>
+
 		<echo>Building the war file</echo>
-		<war destfile="${build.dir}/${project.name}.war" webxml="${build.dir}/WEB-INF/web.xml">
+		<war destfile="${build.dir}/${project.name}.war" webxml="${build.dir}/WEB-INF/web.xml" manifest="MANIFEST.MF">
 			<fileset dir="${build.dir}" />
 		</war>
 	</target>
+	
+	<target name="svnInfo">
+		<input message="Please enter svn repo username:" addproperty="svn.username" />
+		<input message="Please enter svn repo password:" addproperty="svn.password" />
+		
+		<svn username="${svn.username}" password="${svn.password}">
+			<status path="${root.dir}" revisionProperty="svn.revision" />
+		</svn>
+		
+		<echo>Sandbox Revision: ${svn.revision}</echo>
+	</target>
+	
 </project>
