@@ -26,5 +26,11 @@
        <required>true</required>
     </attribute>
  </tag>
+ 
+ <tag>
+ 	<name>version</name>
+ 	<tag-class>de.u808.simpleinquest.web.tags.VersionInfoTag</tag-class>
+ 	<body-content>empty</body-content>
+ </tag>
 
 </taglib>

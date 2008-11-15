@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="st" uri="SimpleInquestTagsTags" %> 
 
 <h2>Admin Bereich - Home</h2>
 <p>
@@ -29,4 +30,4 @@ Weitere Konfigurationsm&ouml;glichkeiten, wie die zu indexierenden Verzeichnisse
 
 <h3>Build Informationen</h3>
 
-Simple Inquest 0.1 Beta
+Version: <st:version/>

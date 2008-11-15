@@ -52,7 +52,7 @@
     	<buildnumber/>
     </target>
 
-	<target name="copy" depends="compile">
+	<target name="copy" depends="compile, versionFile">
 		<copy todir="${build.dir}/WEB-INF/classes">
 			<fileset dir="${src.dir}">
 				<include name="*.properties"/>
@@ -77,7 +77,7 @@
 		    <attribute name="Built-By" value="${user.name}"/>
 		    <section name="common">
 		      <attribute name="Application-Title" value="SimpleInquest"/>
-		      <attribute name="Application-Version" value="SVN ${svn.revision} Build ${build.number}"/> 
+		      <attribute name="Application-Version" value="${svn.revision} : ${build.number}"/> 
 		    </section>
 		</manifest>
 
@@ -96,6 +96,22 @@
 		</svn>
 		
 		<echo>Sandbox Revision: ${svn.revision}</echo>
+	</target>
+	
+	<target name="versionFile" depends="svnInfo">
+		<propertyfile
+		    	file="${build.dir}/WEB-INF/classes/version.properties"
+		    	comment="SimpleInquest Version Info">
+			<entry  key="app.version" value="${project.version}"/>
+		  	<entry  key="build.number" value="${build.number}"/>
+			<entry  key="svn.revision" value="${svn.revision}"/>
+		</propertyfile>
+		
+		<copy todir="${src.dir}">
+			<fileset dir="${build.dir}/WEB-INF/classes/">
+				<include name="version.properties"/>
+			</fileset>
+		</copy>
 	</target>
 	
 </project>
