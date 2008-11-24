@@ -38,13 +38,12 @@
   		<property name="order" value="1"/>
   		<property name="location" value="/WEB-INF/views.xml"/>
 	</bean>
-
-	<bean id="messageSource"
-		class="org.springframework.context.support.ResourceBundleMessageSource">
-		<property name="basename">
-			<value>messages</value>
-		</property>
+	
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+    	<property name="basename" value="/WEB-INF/messages"/>
+    	<property name="cacheSeconds" value="1"/>
 	</bean>
+	
 
  	<bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
   		<property name="definitions">

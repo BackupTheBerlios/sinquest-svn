@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" >
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+	<meta name="author" content="Andreas Friedel" />
+	<meta name="keywords" content="Simple Inquest, Enterprise Search, Open Source" />
+	<meta name="description" content="Easy Enterprise Search" />
+	<meta name="robots" content="all" />
+	<title>Simple Inquest - Ducumentation</title>
+	<style type="text/css" media="all">
+		@import "main.css";
+	</style>
+</head>
+<body>
+<div id="body">
+	<div id="head">
+		<h1>Simple Inquest - Enterprise Search</h1>
+		<h2>Easy to use and Open Source</h2>
+	</div>
+	<div id="menu">
+		<a href='index.html'>Overview</a>
+		<a href='doc.html'>Doc</a>
+		<a href='#'>Download</a>
+	</div>
+	<div id="content">
+		<div class="section">
+		    <h1>Documentation</h1>
+			<p>
+			  Simple Inquest is, as the name implies, a simple to use enterprice search. 
+			  The primary objective of the Project is to build a reliable tool for the inquest in the intern document pool.
+			</p>
+			<h2>Simple in terms of</h2>
+			<ul>
+			<li>Ease of use</li>
+			<li>Easy to set up</li>
+			</ul>
+		</div>
+		<div class="section">
+			<h1>Starting Server</h1>
+			Default 8080 127.0.0.1:
+			<pre>python agoohttp.py</pre>
+			Change the port:
+			<pre>python agoohttp.py 8081</pre>
+			Change the port and the IP:
+			<pre>python agoohttp.py 8080 127.0.0.2</pre>
+			Browse on default:
+			<a href="#">http://localhost:8080/</a>
+		</div>
+		<div class="section">
+			<h1>Your Application</h1>
+			See myApp and to create yourApp:
+			<pre>agooApps/yourApp/__init__.py</pre>
+			For example:
+<pre>class AgooHttp:
+
+	# default function
+	defaultFun = 'hello'
+
+	def hello(self,req):
+		req.response('&lt;h1>Hello World&lt;/h1>')
+
+# reserved instance name
+agoohttp = AgooHttp()</pre>
+		</div>
+	</div>
+	<div id="foot">
+		Copyright (c) 2008, Andreas Friedel
+		- All rights reserved.
+	</div>
+</div>
+</body>
+</html>
