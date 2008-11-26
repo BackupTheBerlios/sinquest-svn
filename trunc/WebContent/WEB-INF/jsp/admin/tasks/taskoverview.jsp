@@ -84,5 +84,5 @@
 	 
 	YAHOO.util.Event.onDOMReady(init);
  </script>
-<h2>Admin Bereich - Jobs</h2>
+<h2><fmt:message key="admin.indexer.title"/></h2>
 <div id="json"></div>

@@ -1,7 +1,8 @@
 <%@ taglib uri="http://displaytag.sf.net" prefix="display" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<h2>Admin Bereich - Passwort</h2>
+<h2><fmt:message key="admin.userlist.title"/></h2>
 
 <div id="userTable" class="yui-dt">
   <display:table id="user" name="${model.users}">

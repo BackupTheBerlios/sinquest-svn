@@ -1,6 +1,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<h2>Admin Bereich - Benutzer &auml;ndern</h2>
+<h2><fmt:message key="admin.usermanagement.edit.title"/></h2>
 <form:form commandName="user">
             <font color="red">
             	<form:errors path="*" />
@@ -9,7 +10,7 @@
 			<table>
     			<tr>
     				<td>
-            			Benutzername:
+            			<fmt:message key="admin.usermanagement.edit.username" />
             			<font color="red">
             				<form:errors path="username" />
             			</font>
@@ -20,7 +21,7 @@
             	</tr>
             	<tr>
             		<td>
-            			Vorname:
+            			<fmt:message key="admin.usermanagement.edit.firstname" />
             			<font color="red">
             				<form:errors path="firstName" />
             			</font>
@@ -31,7 +32,7 @@
             	</tr>
             	<tr>
             		<td>
-            			Nachname:
+            			<fmt:message key="admin.usermanagement.edit.surname" />
             			<font color="red">
             				<form:errors path="lastName" />
             			</font>
@@ -42,7 +43,7 @@
             	</tr>
             	<tr>
             		<td>
-            			Password:
+            			<fmt:message key="admin.usermanagement.edit.password"/>
             			<font color="red">
             				<form:errors path="password" />
             			</font>
@@ -56,7 +57,7 @@
             	</tr>
             	<tr style="text-align: right;">
             		<td colspan="4">
-            			<input type="submit" value="Send"> <INPUT type="Reset"> <input type="submit" value="Cancel" name="_cancel">
+            			<input type="submit" value="<fmt:message key="common.button.ok.label"/>"> <INPUT type="<fmt:message key="common.button.reset.label"/>"> <input type="submit" value="<fmt:message key="common.button.cancel.label"/>" name="_cancel">
             		</td>
             	</tr>
 			</table>

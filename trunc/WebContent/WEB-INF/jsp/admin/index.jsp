@@ -2,14 +2,11 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="st" uri="SimpleInquestTagsTags" %> 
 
-<h2>Admin Bereich - Home</h2>
-<p>
-Der Funktionsumfang des Admin-Bereichs beschr&auml;nkt sich momentan auf die M&ouml;glichkeit, dass Passwort des Administrators zu setzen und die konfigurierten Indexer-Tasks zu starten und zu stoppen. 
-Weitere Konfigurationsm&ouml;glichkeiten, wie die zu indexierenden Verzeichnisse, sind nur &uuml;ber die Konfigurationsdatei .../WEB-INF/SimpleInquestConf.xml m&ouml;glich.
-</p>
+<h2><fmt:message key="admin.home.title"/></h2>
 
+<p><fmt:message key="admin.home.abstract.message"/></p>
 
-<h3>Admin Funktionen</h3>
+<h3><fmt:message key="admin.home.second_title"/></h3>
 
 <div id="buttons" style="border: 1px solid silver;">
 <table border="0" style="width: 100%">
@@ -17,17 +14,17 @@ Weitere Konfigurationsm&ouml;glichkeiten, wie die zu indexierenden Verzeichnisse
     <td>
       <a href="<c:url value="/admin/usermanager/userList.htm"/>">
         <img src="/SimpleInquest/img/system-users-big.jpg">
-      </a> Benutzernamen und Passwort des Administrators &auml;ndern. 
+      </a> <fmt:message key="admin.home.usermanager.message"/>
     </td>
     <td>
       <a href="<c:url value="/admin/tasks/taskOverview.htm"/>">
         <img src="/SimpleInquest/img/grey_wheel.jpg">
-      </a> Indexer Jobs starten und stoppen.
+      </a> <fmt:message key="admin.home.indexer.message"/>
     </td>
   </tr>
 </table>
 </div>
 
-<h3>Build Informationen</h3>
+<h3><fmt:message key="admin.home.version.title"/></h3>
 
-Version: <st:version/>
+<fmt:message key="admin.home.version.label"/> <st:version/>

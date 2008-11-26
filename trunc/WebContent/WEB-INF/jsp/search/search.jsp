@@ -33,7 +33,7 @@
             	</tr>
             	<tr style="text-align: right;">
             		<td>
-            			<input type="submit" value="Suche" style="margin-top: 10px; margin-right: 30px;">
+            			<input type="submit" value="<fmt:message key="button.search.label"/>" style="margin-top: 10px; margin-right: 30px;">
             		</td>
             	</tr>
 			</table>
@@ -61,13 +61,13 @@
             			<form:input path="searchString" size="80" cssStyle="width: 350px;"/>
             		</td>
             		<td align="left">
-            			<input type="submit" value="Suche">
+            			<input type="submit" value="<fmt:message key="button.search.label"/>">
             		</td>
             	</tr>            	
             	<tr>
             		<td colspan="3" style="background-color: gray;">
             		   <div style="color: white; margin: 3px;"> 
-            		      Ergebnisse <c:out value="${search.currentPage.first + 1}"/> - <c:out value="${search.currentPage.last + 1}"/> von <c:out value="${search.hitsCount}"/> f&uuml;r <c:out value="${search.searchString}"/>
+            		      <fmt:message key="search.results_summery.results"/>&nbsp;<c:out value="${search.currentPage.first + 1}"/> - <c:out value="${search.currentPage.last + 1}"/>&nbsp;<fmt:message key="search.results_summery.of"/>&nbsp;<c:out value="${search.hitsCount}"/>&nbsp;<fmt:message key="search.results_summery.for"/>&nbsp;<c:out value="${search.searchString}"/>
             		   </div>
             		</td>
             	</tr>
@@ -82,7 +82,7 @@
 			<c:forEach var="document" items="${search.currentPage.results}">
 			<tr>
 				<td rowspan="2"><a href="./download/fetchFile.htm?id=<c:out value="${document.id}"/>"><st:mimeIcon filename="${document.fileName}" /></a></td>
-				<td><a href="./download/fetchFile.htm?id=<c:out value="${document.id}"/>"> <c:out value="${document.fileName}"/> </a> - geändert am <fmt:formatDate pattern="dd.MM.yyyy - HH:mm" value="${document.lastModified}"/></td>
+				<td><a href="./download/fetchFile.htm?id=<c:out value="${document.id}"/>"> <c:out value="${document.fileName}"/> </a> - <fmt:message key="file.changed.message"/> <fmt:formatDate pattern="dd.MM.yyyy - HH:mm" value="${document.lastModified}"/></td>
 			</tr>																																		
 			<tr>
 				<td><div id="path"><c:out value="${document.path}"/></div></td>
@@ -103,6 +103,6 @@
 		</div>		
 	</c:if>
 	<c:if test="${search.hitsCount eq 0}">
-		Die Suche ergab keine Treffer
+		<fmt:message key="search.no_hits.message"/>
 	</c:if>
 </c:if>

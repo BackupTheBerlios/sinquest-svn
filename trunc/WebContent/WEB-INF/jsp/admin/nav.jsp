@@ -3,8 +3,8 @@
 <%@ taglib prefix="dt" uri="http://displaytag.sf.net"  %>
 
 <ul id="Navigation">	
-  <li><a href="<c:url value="/admin/index.htm"/>">Admin Bereich - Home</a></li>
-  <li><a href="<c:url value="/admin/usermanager/userList.htm"/>">Admin Passwort</a></li>
-  <li><a href="<c:url value="/admin/tasks/taskOverview.htm"/>">Indexer Jobs</a></li>
+  <li><a href="<c:url value="/admin/index.htm"/>"><fmt:message key="admin.nav.home.label"/></a></li>
+  <li><a href="<c:url value="/admin/usermanager/userList.htm"/>"><fmt:message key="admin.nav.usermanagement.label"/></a></li>
+  <li><a href="<c:url value="/admin/tasks/taskOverview.htm"/>"><fmt:message key="admin.nav.indexer.label"/></a></li>
   <li><div id="log"></div></li>
 </ul>

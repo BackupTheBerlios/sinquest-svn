@@ -3,6 +3,6 @@
 
 <table>
     <tr>
-      	<td><a href="<c:url value="/usermanager/editUser.htm"/>">Benutzer anlegen</a></td>
+      	<td><a href="<c:url value="/usermanager/editUser.htm"/>"><fmt:message key="admin.usermanagement.menu.create"/></a></td>
     </tr>
 </table>

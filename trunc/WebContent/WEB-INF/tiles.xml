@@ -6,14 +6,10 @@
 	
 <tiles-definitions>
 	
-	<definition name="home" template="/WEB-INF/tiles/tiles-std.jsp">
+	<definition name="searchForm" template="/WEB-INF/tiles/tiles-std.jsp">
 		<put-attribute name="top" value="/WEB-INF/jsp/empty.jsp"/>
 		<put-attribute name="navigation" value="/WEB-INF/jsp/empty.jsp"/>
-		<put-attribute name="adminContent" value="/WEB-INF/jsp/empty.jsp"/>		
-		<put-attribute name="content" value="/WEB-INF/jsp/home.jsp"/>
-	</definition>
-	
-	<definition name="searchForm" extends="home">
+		<put-attribute name="adminContent" value="/WEB-INF/jsp/empty.jsp"/>	
 		<put-attribute name="content" value="/WEB-INF/jsp/search/search.jsp"/>
 	</definition>
 	
