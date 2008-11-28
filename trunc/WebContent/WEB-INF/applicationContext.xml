@@ -90,6 +90,10 @@
 	<bean id="jobCommandController" class="de.u808.simpleinquest.web.tasks.JobCommandController">
 		<property name="schedulerManager" ref="schedulerManager"/>
 	</bean>
+	
+	<bean id="infoController" class="de.u808.simpleinquest.web.ConfigInfoController">
+		<property name="configBeanResource" ref="configBeanResource"/>
+	</bean>
 
 	<!-- Manager -->
 	<bean id="userManager"

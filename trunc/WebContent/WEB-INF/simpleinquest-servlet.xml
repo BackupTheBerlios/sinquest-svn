@@ -24,6 +24,7 @@
 				<prop key="/admin/tasks/taskOverview.htm">viewController</prop>
 				<prop key="/admin/tasks/jobCommand.htm">jobCommandController</prop>
 				<prop key="/admin/tasks/JSONState.htm">tasksStateController</prop>
+				<prop key="/config.htm">infoController</prop>
 			</props>
 		</property>
 	</bean>

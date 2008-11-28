@@ -13,6 +13,10 @@
 		<put-attribute name="content" value="/WEB-INF/jsp/search/search.jsp"/>
 	</definition>
 	
+	<definition name="configInfo" extends="searchForm">
+		<put-attribute name="content" value="/WEB-INF/jsp/configInfo.jsp"/>
+	</definition>
+	
 	<definition name="admin" template="/WEB-INF/tiles/tiles-admin.jsp">
 		<put-attribute name="top" value="/WEB-INF/jsp/admin/header.jsp"/>
 		<put-attribute name="navigation" value="/WEB-INF/jsp/admin/nav.jsp"/>
