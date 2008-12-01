@@ -289,6 +289,11 @@ public class IndexUpdater implements FileProcessor{
 				this.sessionSearchCache.invalidate();
 			}
 			log.info("Caches invalidated");
+			log.info("------------------Memory statistics------------------");
+			log.info("Total Memory "+Runtime.getRuntime().totalMemory());    
+		    log.info("Free Memory "+Runtime.getRuntime().freeMemory());
+		    log.info("Max Memory "+Runtime.getRuntime().maxMemory());
+		    log.info("------------------Memory statistics------------------");
 		} catch (CorruptIndexException e) {
 			log.error("Index corrupted", e);
 		} catch (IOException e) {
