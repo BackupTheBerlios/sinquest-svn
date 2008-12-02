@@ -3,6 +3,7 @@ package de.u808.simpleinquest.test.indexer.impl;
 import static org.junit.Assert.assertNull;
 
 import java.io.File;
+import java.util.List;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.xml.XmlBeanFactory;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 
+import de.u808.simpleinquest.config.DirectoryConfiguration;
 import de.u808.simpleinquest.indexer.impl.IndexUpdater;
 import de.u808.simpleinquest.util.DirectoryTraverser;
 import de.u808.simpleinquest.util.InvalidArgumentException;
@@ -33,9 +35,10 @@ public class IndexUpdaterTest {
 	@Test
 	public void testUpdate(){
 		Exception exception = null;
-		String[] dirs = CONFIG_BEAN.getSystemConfig().getConfiguration().getDirectoriesToIndexList();
+		List<DirectoryConfiguration> dirs = CONFIG_BEAN.getSystemConfig().getConfiguration().getDirectoriesToIndex();
 		try {
-			for(String dir : dirs){
+			for(DirectoryConfiguration directoryConfiguration : dirs){
+				String dir = directoryConfiguration.getPath();
 				new DirectoryTraverser(new File(dir), INDEX_UPDATER, DirectoryTraverser.TraversalMode.JustDirectories).startTraversal();
 			}
 		} catch (InvalidArgumentException e) {

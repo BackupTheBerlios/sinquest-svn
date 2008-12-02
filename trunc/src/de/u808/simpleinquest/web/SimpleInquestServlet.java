@@ -16,7 +16,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.servlet.DispatcherServlet;
 
-import de.u808.simpleinquest.config.ConfigError;
+import de.u808.simpleinquest.config.ConfigurationError;
 import de.u808.simpleinquest.config.SystemConfig;
 import de.u808.simpleinquest.domain.User;
 import de.u808.simpleinquest.service.UserManager;
@@ -51,10 +51,10 @@ public class SimpleInquestServlet extends DispatcherServlet {
 			this.testAndInitDB();
 		}
 		else{
-			List<ConfigError> errors = SystemConfig.getInstance().getConfigurationErrors();
+			List<ConfigurationError> errors = SystemConfig.getInstance().getConfigurationErrors();
 			log.error(errors.size() + " configuration errors:");
 			int index = 0;
-			for(ConfigError error : errors){
+			for(ConfigurationError error : errors){
 				index = index++;
 				log.error("Configuration error " + index + " : " + error);
 			}

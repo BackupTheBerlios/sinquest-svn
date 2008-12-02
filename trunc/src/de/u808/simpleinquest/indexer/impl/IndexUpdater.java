@@ -29,6 +29,7 @@ import org.quartz.JobExecutionContext;
 
 import de.u808.common.GlobalSearchCache;
 import de.u808.common.SessionSearchCache;
+import de.u808.simpleinquest.config.DirectoryConfiguration;
 import de.u808.simpleinquest.indexer.Indexer;
 import de.u808.simpleinquest.indexer.IndexerFactory;
 import de.u808.simpleinquest.service.search.IndexSearchBean;
@@ -44,6 +45,7 @@ public class IndexUpdater implements FileProcessor{
 	private IndexerFactory indexerFactory;
 	private GlobalSearchCache globalSearchCache;
 	private SessionSearchCache sessionSearchCache;
+	private DirectoryConfiguration directoryConfiguration;
 	
 	private List<File> newFiles = new LinkedList<File>();
 	private List<File> modifiedFiles = new LinkedList<File>();
@@ -334,6 +336,12 @@ public class IndexUpdater implements FileProcessor{
 
 	public void setJobExecutionContext(JobExecutionContext jobExecutionContext) {
 		this.jobExecutionContext = jobExecutionContext;
+	}
+
+	@Override
+	public void setDirectoryConfiguration(
+			DirectoryConfiguration directoryConfiguration) {
+		this.directoryConfiguration = directoryConfiguration;
 	}
 
 }

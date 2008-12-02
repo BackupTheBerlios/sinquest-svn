@@ -9,7 +9,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.ApplicationContext;
 
-import de.u808.simpleinquest.config.ConfigError.Severity;
+import de.u808.simpleinquest.config.ConfigurationError.Severity;
 
 public class SystemConfig {
 
@@ -21,7 +21,7 @@ public class SystemConfig {
 	
 	private Configuration configuration;
 	
-	private List<ConfigError> configurationErrors = null;
+	private List<ConfigurationError> configurationErrors = null;
 	
 	Log log = LogFactory.getLog(this.getClass());
 	
@@ -38,30 +38,30 @@ public class SystemConfig {
 	}
 	
 	private void checkConfiguration(){
-		this.configurationErrors = new LinkedList<ConfigError>();
+		this.configurationErrors = new LinkedList<ConfigurationError>();
 		//Is system home a dir and writable
 		String configDirString = configuration.getSimpleInquestHome();
 		if(StringUtils.isEmpty(configDirString)){
-			this.configurationErrors.add(new ConfigError("SimpleInquestHome is not set", ConfigError.Severity.FATAL));
+			this.configurationErrors.add(new ConfigurationError("SimpleInquestHome is not set", ConfigurationError.Severity.FATAL));
 		}
 		else{
 			File homeDir = new File(configDirString);
 			if(!homeDir.exists()){
-				this.configurationErrors.add(new ConfigError("SimpleInquestHome: directory " + homeDir + " can´t be found", ConfigError.Severity.FATAL));				
+				this.configurationErrors.add(new ConfigurationError("SimpleInquestHome: directory " + homeDir + " can´t be found", ConfigurationError.Severity.FATAL));				
 			}
 			else{
 				if(!homeDir.isDirectory()){
-					this.configurationErrors.add(new ConfigError("SimpleInquestHome: " + homeDir + " isn´t a directory", ConfigError.Severity.FATAL));
+					this.configurationErrors.add(new ConfigurationError("SimpleInquestHome: " + homeDir + " isn´t a directory", ConfigurationError.Severity.FATAL));
 				}
 				else{
 					if(!homeDir.canRead() && !homeDir.canWrite()){
-						this.configurationErrors.add(new ConfigError("SimpleInquestHome: insufficient access authorisation for directory " + homeDir, ConfigError.Severity.FATAL));
+						this.configurationErrors.add(new ConfigurationError("SimpleInquestHome: insufficient access authorisation for directory " + homeDir, ConfigurationError.Severity.FATAL));
 					}
 				}
 			}
 		}
 		if(configuration.getIndexerConfiguration().getMimeTypeIndexerMap().isEmpty()){
-			this.configurationErrors.add(new ConfigError("Missing indexer configuration", ConfigError.Severity.FATAL));
+			this.configurationErrors.add(new ConfigurationError("Missing indexer configuration", ConfigurationError.Severity.FATAL));
 		}
 	}
 
@@ -69,7 +69,7 @@ public class SystemConfig {
 		return configurationErrors == null ? true : this.configurationErrors.isEmpty();
 	}
 	
-	public List<ConfigError> getConfigurationErrors(){
+	public List<ConfigurationError> getConfigurationErrors(){
 		return this.configurationErrors;
 	}
 
@@ -93,7 +93,7 @@ public class SystemConfig {
 	}
 	
 	public boolean hasFatalErrors(){
-		for(ConfigError error : configurationErrors){
+		for(ConfigurationError error : configurationErrors){
 			if (error.getSeverity().compareTo(Severity.FATAL) == 0){
 				return true;
 			}
@@ -101,9 +101,9 @@ public class SystemConfig {
 		return false;
 	}
 	
-	public void addError(ConfigError error){
+	public void addError(ConfigurationError error){
 		if(this.configurationErrors == null){
-			configurationErrors = new LinkedList<ConfigError>();
+			configurationErrors = new LinkedList<ConfigurationError>();
 		}
 		configurationErrors.add(error);
 	}

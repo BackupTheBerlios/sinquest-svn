@@ -74,6 +74,7 @@
 	<bean id="downloadController"
 		class="de.u808.simpleinquest.web.download.DownloadController">
 		<property name="indexSearchBean" ref="indexSearchBean" />
+		<property name="mimeTypeRegistry" ref="mimeTypeRegistry"/>
 	</bean>
 
 	<bean id="userController"

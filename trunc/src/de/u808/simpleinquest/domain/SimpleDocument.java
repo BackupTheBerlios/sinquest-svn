@@ -70,4 +70,12 @@ public class SimpleDocument {
 		this.score = score;
 	}
 
+	public boolean getBlockDownload(){
+		if(document != null){
+			return Boolean.valueOf((document.get(Indexer.PREVENT_DIRECT_DOWNLOAD_FIELD_NAME)));
+		}
+		else {
+			return true;
+		}
+	}
 }

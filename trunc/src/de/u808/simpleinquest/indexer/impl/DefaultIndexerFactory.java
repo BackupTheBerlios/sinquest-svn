@@ -10,7 +10,7 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.InitializingBean;
 
-import de.u808.simpleinquest.config.ConfigError;
+import de.u808.simpleinquest.config.ConfigurationError;
 import de.u808.simpleinquest.config.SystemConfig;
 import de.u808.simpleinquest.indexer.Indexer;
 import de.u808.simpleinquest.indexer.IndexerFactory;
@@ -38,19 +38,19 @@ public class DefaultIndexerFactory implements IndexerFactory, InitializingBean {
 					this.indexerMap.put(typeKey, indexer);
 				}
 			} catch (ClassNotFoundException e) {
-				SystemConfig.getInstance().addError(new ConfigError("Indexer class " + indexerClassName + " not found in classpath.", ConfigError.Severity.WARNING, e));
+				SystemConfig.getInstance().addError(new ConfigurationError("Indexer class " + indexerClassName + " not found in classpath.", ConfigurationError.Severity.WARNING, e));
 			} catch (SecurityException e) {
-				SystemConfig.getInstance().addError(new ConfigError("SecurityException while instantiate class " + indexerClassName, ConfigError.Severity.WARNING, e));
+				SystemConfig.getInstance().addError(new ConfigurationError("SecurityException while instantiate class " + indexerClassName, ConfigurationError.Severity.WARNING, e));
 			} catch (NoSuchMethodException e) {
-				SystemConfig.getInstance().addError(new ConfigError("NoSuchMethodException while instantiate class " + indexerClassName, ConfigError.Severity.WARNING, e));
+				SystemConfig.getInstance().addError(new ConfigurationError("NoSuchMethodException while instantiate class " + indexerClassName, ConfigurationError.Severity.WARNING, e));
 			} catch (IllegalArgumentException e) {
-				SystemConfig.getInstance().addError(new ConfigError("IllegalArgumentException while instantiate class " + indexerClassName, ConfigError.Severity.WARNING, e));
+				SystemConfig.getInstance().addError(new ConfigurationError("IllegalArgumentException while instantiate class " + indexerClassName, ConfigurationError.Severity.WARNING, e));
 			} catch (InstantiationException e) {
-				SystemConfig.getInstance().addError(new ConfigError("InstantiationException while instantiate class " + indexerClassName, ConfigError.Severity.WARNING, e));
+				SystemConfig.getInstance().addError(new ConfigurationError("InstantiationException while instantiate class " + indexerClassName, ConfigurationError.Severity.WARNING, e));
 			} catch (IllegalAccessException e) {
-				SystemConfig.getInstance().addError(new ConfigError("IllegalAccessException while instantiate class " + indexerClassName, ConfigError.Severity.WARNING, e));
+				SystemConfig.getInstance().addError(new ConfigurationError("IllegalAccessException while instantiate class " + indexerClassName, ConfigurationError.Severity.WARNING, e));
 			} catch (InvocationTargetException e) {
-				SystemConfig.getInstance().addError(new ConfigError("InvocationTargetException while instantiate class " + indexerClassName, ConfigError.Severity.WARNING, e));
+				SystemConfig.getInstance().addError(new ConfigurationError("InvocationTargetException while instantiate class " + indexerClassName, ConfigurationError.Severity.WARNING, e));
 			}
 			
 		}

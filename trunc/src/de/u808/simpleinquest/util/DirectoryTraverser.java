@@ -5,9 +5,13 @@ import java.io.File;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import de.u808.simpleinquest.config.DirectoryConfiguration;
+
 public class DirectoryTraverser {
 	
 	private File rootDir;
+	
+	private DirectoryConfiguration directoryConfiguration;
 	
 	private FileProcessor fileProcessor;
 	
@@ -18,7 +22,12 @@ public class DirectoryTraverser {
 	private static Log log = LogFactory.getLog(DirectoryTraverser.class);
 	
 	public DirectoryTraverser(File directory, FileProcessor fileProcessor, TraversalMode traversalMode) throws InvalidArgumentException{
+		this(new DirectoryConfiguration(directory.getAbsolutePath()), fileProcessor, traversalMode);
+	}
+	
+	public DirectoryTraverser(DirectoryConfiguration directoryConfiguration, FileProcessor fileProcessor, TraversalMode traversalMode) throws InvalidArgumentException{
 		this.traversalMode = traversalMode;
+		File directory = new File(directoryConfiguration.getPath());
 		if (!directory.isDirectory()){
 			throw new InvalidArgumentException("File " + directory.getPath() + " is not a directory");
 		}
@@ -27,6 +36,7 @@ public class DirectoryTraverser {
 		}
 		this.rootDir = directory;
 		this.fileProcessor = fileProcessor;
+		fileProcessor.setDirectoryConfiguration(directoryConfiguration);
 	}
 	
 	private void processRootDirectory(File dir){

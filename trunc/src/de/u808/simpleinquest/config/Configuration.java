@@ -1,7 +1,9 @@
 package de.u808.simpleinquest.config;
 
+import java.util.List;
+
 import org.simpleframework.xml.Element;
-import org.simpleframework.xml.ElementArray;
+import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
 
 @Root
@@ -17,8 +19,8 @@ public class Configuration {
 	private MimeIconMap mimeIconMap;
 
 	
-	@ElementArray(entry="directoryToIndex")
-	private String[] directoriesToIndexList;
+	@ElementList
+	private List<DirectoryConfiguration> directoriesToIndex;
 
 	public String getSimpleInquestHome() {
 		return simpleInquestHome;
@@ -28,12 +30,13 @@ public class Configuration {
 		this.simpleInquestHome = simpleInquestHome;
 	}
 
-	public String[] getDirectoriesToIndexList() {
-		return directoriesToIndexList;
+	public List<DirectoryConfiguration> getDirectoriesToIndex() {
+		return directoriesToIndex;
 	}
 
-	public void setDirectoriesToIndexList(String[] directoriesToIndexList) {
-		this.directoriesToIndexList = directoriesToIndexList;
+	public void setDirectoriesToIndex(
+			List<DirectoryConfiguration> directoriesToIndex) {
+		this.directoriesToIndex = directoriesToIndex;
 	}
 
 	public IndexerConfiguration getIndexerConfiguration() {
@@ -57,9 +60,9 @@ public class Configuration {
 		stringBuilder.append("SimpleInquestHome: ");
 		stringBuilder.append(simpleInquestHome);
 		stringBuilder.append("; ");
-		for(String dir : directoriesToIndexList){
+		for(DirectoryConfiguration dirConfig : directoriesToIndex){
 			stringBuilder.append("Index directory: ");
-			stringBuilder.append(dir);
+			stringBuilder.append(dirConfig.getPath());
 			stringBuilder.append("; ");
 		}
 		return stringBuilder.toString();

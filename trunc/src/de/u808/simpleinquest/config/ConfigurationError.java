@@ -1,6 +1,6 @@
 package de.u808.simpleinquest.config;
 
-public class ConfigError {
+public class ConfigurationError {
 	
 	public enum Severity {FATAL, ERROR, WARNING};
 	
@@ -10,11 +10,11 @@ public class ConfigError {
 	
 	private Exception exception;
 
-	public ConfigError(String message, Severity severity){
+	public ConfigurationError(String message, Severity severity){
 		this(message, severity, null);
 	}
 	
-	public ConfigError(String message, Severity severity, Exception e){
+	public ConfigurationError(String message, Severity severity, Exception e){
 		this.severity = severity;
 		this.message = message;
 		this.exception = e;

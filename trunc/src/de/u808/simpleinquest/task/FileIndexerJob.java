@@ -9,6 +9,7 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.context.ApplicationContext;
 
+import de.u808.simpleinquest.config.DirectoryConfiguration;
 import de.u808.simpleinquest.config.SystemConfig;
 import de.u808.simpleinquest.indexer.impl.IndexUpdater;
 import de.u808.simpleinquest.util.DirectoryTraverser;
@@ -40,8 +41,9 @@ public class FileIndexerJob implements Task {
 	}
 
 	private void updateIndex() {
-		for (String rootDir : SystemConfig.getInstance().getConfiguration()
-				.getDirectoriesToIndexList()) {
+		for (DirectoryConfiguration directoryConfiguration : SystemConfig.getInstance().getConfiguration()
+				.getDirectoriesToIndex()) {
+			String rootDir = directoryConfiguration.getPath();
 			try {
 				if(StringUtils.isNotEmpty(rootDir)){
 					new DirectoryTraverser(new File(rootDir),

@@ -1,11 +1,13 @@
 package de.u808.simpleinquest.test.configuration;
 
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
@@ -13,6 +15,7 @@ import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.load.Persister;
 
 import de.u808.simpleinquest.config.Configuration;
+import de.u808.simpleinquest.config.DirectoryConfiguration;
 import de.u808.simpleinquest.config.IndexerConfiguration;
 import de.u808.simpleinquest.config.MimeIconMap;
 
@@ -23,8 +26,27 @@ public class ConfigurationTest {
 		Exception testE = null;
 		Configuration configuration = new Configuration();
 		configuration.setSimpleInquestHome("C:\\SimpleInquestHome");
-		String[] dirs = {"C:\\Users\\friedel\\workspace\\JKnowledgeMap\\Sample", "C:\\SimpleInquestHome"};
-		configuration.setDirectoriesToIndexList(dirs);
+		
+		DirectoryConfiguration directoryConfigurationA = new DirectoryConfiguration();
+		directoryConfigurationA.setBlockDirectDownload(false);
+		directoryConfigurationA.setPath("C:\\Users\\friedel\\workspace\\JKnowledgeMap\\Sample");
+		Map<String, String> prefixPathMapA = new LinkedHashMap<String, String>();
+		List<DirectoryConfiguration> directoriesToIndex = new LinkedList<DirectoryConfiguration>();
+		prefixPathMapA.put("Windows", "file://localhost/C|/Users/friedel/workspace/JKnowledgeMap/Sample");
+		prefixPathMapA.put("Linux", "file://localhost/home/friedel/workspace/JKnowledgeMap/Sample");
+		directoryConfigurationA.setSystemFetchPrefixUrlMap(prefixPathMapA);
+		
+		DirectoryConfiguration directoryConfigurationB = new DirectoryConfiguration();
+		directoryConfigurationB.setBlockDirectDownload(true);
+		directoryConfigurationB.setPath("C:\\SimpleInquestHome");
+		Map<String, String> prefixPathMapB = new LinkedHashMap<String, String>();
+		prefixPathMapB.put("Windows", "file://localhost/C|/Users/friedel/workspace/JKnowledgeMap/Sample");
+		prefixPathMapB.put("Linux", "file://localhost/home/friedel/workspace/JKnowledgeMap/Sample");
+		directoryConfigurationB.setSystemFetchPrefixUrlMap(prefixPathMapA);
+		
+		directoriesToIndex.add(directoryConfigurationA);
+		directoriesToIndex.add(directoryConfigurationB);
+		configuration.setDirectoriesToIndex(directoriesToIndex);
 		MimeIconMap mimeIconMap = new MimeIconMap();
 		Map<String, String> map = new LinkedHashMap<String, String>();
 		map.put("html", "bla.gif");

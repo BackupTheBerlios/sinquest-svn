@@ -20,8 +20,18 @@
       <property mimeType="text/x-java-source">/SimpleInquest/img/mime/22/java.gif</property>
       <property mimeType="application/unknown">/SimpleInquest/img/mime/22/text-generic.gif</property>
    </mimeIconMap>
-   <directoriesToIndexList length="2">
-      <directoryToIndex>C:\Documents and Settings\afriedel\My Documents\workspace\SimpleInquest\TestDocuments</directoryToIndex>
-      <directoryToIndex>C:\Documents and Settings\afriedel\My Documents\workspace\JKnowledgeMap\Sample</directoryToIndex>
-   </directoriesToIndexList>
+   <directoriesToIndex class="java.util.LinkedList">
+      <directoryConfiguration>
+         <path>C:\Documents and Settings\afriedel\My Documents\workspace\JKnowledgeMap\Sample</path>
+         <systemFetchPrefixUrl system="Windows">file://localhost/C|/Users/friedel/workspace/JKnowledgeMap/Sample</systemFetchPrefixUrl>
+         <systemFetchPrefixUrl system="Linux">file://localhost/home/friedel/workspace/JKnowledgeMap/Sample</systemFetchPrefixUrl>
+         <blockDirectDownload>false</blockDirectDownload>
+      </directoryConfiguration>
+      <directoryConfiguration>
+         <path>C:\Documents and Settings\afriedel\My Documents\workspace\SimpleInquest\TestDocuments</path>
+         <systemFetchPrefixUrl system="Windows">file://localhost/C|/Documents and Settings/afriedel/My Documents/workspace/SimpleInquest/TestDocuments</systemFetchPrefixUrl>
+         <systemFetchPrefixUrl system="Linux">file://localhost/home/friedel/afriedel/My Documents/workspace/SimpleInquest/TestDocuments</systemFetchPrefixUrl>
+         <blockDirectDownload>true</blockDirectDownload>
+      </directoryConfiguration>
+   </directoriesToIndex>
 </configuration>
