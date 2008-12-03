@@ -45,7 +45,7 @@ public class IndexUpdater implements FileProcessor{
 	private IndexerFactory indexerFactory;
 	private GlobalSearchCache globalSearchCache;
 	private SessionSearchCache sessionSearchCache;
-	private DirectoryConfiguration directoryConfiguration;
+	//private DirectoryConfiguration directoryConfiguration;
 	
 	private List<File> newFiles = new LinkedList<File>();
 	private List<File> modifiedFiles = new LinkedList<File>();
@@ -336,12 +336,6 @@ public class IndexUpdater implements FileProcessor{
 
 	public void setJobExecutionContext(JobExecutionContext jobExecutionContext) {
 		this.jobExecutionContext = jobExecutionContext;
-	}
-
-	@Override
-	public void setDirectoryConfiguration(
-			DirectoryConfiguration directoryConfiguration) {
-		this.directoryConfiguration = directoryConfiguration;
 	}
 
 }

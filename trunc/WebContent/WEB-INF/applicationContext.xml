@@ -144,6 +144,15 @@
 		class="de.u808.simpleinquest.repository.impl.UserDAOImpl">
 		<property name="sessionFactory" ref="mySessionFactory" />
 	</bean>
+	
+	<bean id="documentDirectoryDAO" 
+		class="de.u808.simpleinquest.repository.impl.DocumentDirectoryDAOImpl">
+		<property name="sessionFactory" ref="mySessionFactory" />
+	</bean>
+	
+	<bean id="documentDAO" class="de.u808.simpleinquest.repository.impl.DocumentDAOImpl">
+		<property name="sessionFactory" ref="mySessionFactory" />
+	</bean>
 
 	<!-- Resources -->
 	<bean id="configBeanResource"

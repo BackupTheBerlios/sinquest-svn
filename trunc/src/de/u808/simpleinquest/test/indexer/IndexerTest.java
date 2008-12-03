@@ -12,6 +12,7 @@ import org.springframework.beans.factory.xml.XmlBeanFactory;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 
+import de.u808.simpleinquest.config.DirectoryConfiguration;
 import de.u808.simpleinquest.indexer.Indexer;
 import de.u808.simpleinquest.indexer.IndexerFactory;
 

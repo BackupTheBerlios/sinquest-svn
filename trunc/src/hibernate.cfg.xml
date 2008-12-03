@@ -13,6 +13,8 @@
   <mapping package="de.u808.simpleinquest.domain"/>
   <mapping class="de.u808.simpleinquest.domain.Person"/>
   <mapping class="de.u808.simpleinquest.domain.User"/>
+  <mapping class="de.u808.simpleinquest.domain.Document"/>
+  <mapping class="de.u808.simpleinquest.domain.DocumentDirectory"/>
   
  </session-factory>
 </hibernate-configuration>

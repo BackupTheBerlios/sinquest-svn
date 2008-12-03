@@ -19,4 +19,7 @@ public interface Indexer {
 	public static String TITLE_FIELD_NAME = "Title";
 
 	public Document indexFile(File file) throws FileNotFoundException;
+	
+	//TODO Felder werden bei PDF´s nicht gesetzt! JSP Anzeige stimmt nicht
+	//public Document indexFile(File file, DirectoryConfiguration directoryConfiguration) throws FileNotFoundException;
 }
