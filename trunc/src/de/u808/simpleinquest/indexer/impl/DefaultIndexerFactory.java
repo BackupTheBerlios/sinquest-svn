@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -87,6 +88,10 @@ public class DefaultIndexerFactory implements IndexerFactory, InitializingBean {
 
 	public void setMimeTypeRegistry(MimeTypeRegistry mimeTypeRegistry) {
 		this.mimeTypeRegistry = mimeTypeRegistry;
+	}
+	
+	public Collection<String> getMappedMimeTypes(){
+		return this.indexerMap.keySet();
 	}
 
 }

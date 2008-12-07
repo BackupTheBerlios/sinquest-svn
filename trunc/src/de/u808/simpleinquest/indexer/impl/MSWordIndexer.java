@@ -19,6 +19,7 @@ public class MSWordIndexer extends AbstractIndexer {
 	public void setContentsFild(File file) throws IndexerException {
 		try {
 			this.document.add(new Field(Indexer.CONTENT_FIELD_NAME, new StringReader(wordContentHandler.extractContent(file))));
+			wordContentHandler.dispose();
 		} catch (Exception e) {
 			throw new IndexerException(e.getMessage(), e);
 		}

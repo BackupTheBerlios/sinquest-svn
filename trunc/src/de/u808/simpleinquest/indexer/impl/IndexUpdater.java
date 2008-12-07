@@ -30,9 +30,9 @@ import org.quartz.JobExecutionContext;
 
 import de.u808.common.GlobalSearchCache;
 import de.u808.common.SessionSearchCache;
-import de.u808.simpleinquest.config.DirectoryConfiguration;
 import de.u808.simpleinquest.indexer.Indexer;
 import de.u808.simpleinquest.indexer.IndexerFactory;
+import de.u808.simpleinquest.service.MimeTypeRegistry;
 import de.u808.simpleinquest.service.search.IndexSearchBean;
 import de.u808.simpleinquest.util.FileProcessor;
 import de.u808.simpleinquest.web.ConfigBeanResource;
@@ -46,7 +46,8 @@ public class IndexUpdater implements FileProcessor{
 	private IndexerFactory indexerFactory;
 	private GlobalSearchCache globalSearchCache;
 	private SessionSearchCache sessionSearchCache;
-	//private DirectoryConfiguration directoryConfiguration;
+	
+	private MimeTypeRegistry mimeTypeRegistry;
 	
 	private List<File> newFiles = new LinkedList<File>();
 	private List<File> modifiedFiles = new LinkedList<File>();
@@ -98,13 +99,11 @@ public class IndexUpdater implements FileProcessor{
 				}
 				else {
 					//New dir, add all
-					this.newFiles.add(file);
-					this.processFileCount();
+					this.addToNewFilesList(file);
 					File[] files = file.listFiles();
 					for(File f : files){
 						if(f.isFile()){
-							this.newFiles.add(f);
-							this.processFileCount();
+							this.addToNewFilesList(f);
 						}
 					}
 				}
@@ -126,8 +125,7 @@ public class IndexUpdater implements FileProcessor{
 				File fileToCheck = new File(file, s);
 				if(fileToCheck.exists()){
 					if(this.isDocumentIndexedAndModified(fileToCheck, new Term(Indexer.PATH_FIELD_NAME, fileToCheck.getPath()))){
-						this.modifiedFiles.add(fileToCheck);
-						this.processFileCount();
+						this.addTomodifiedFiles(fileToCheck);						
 					}
 				}
 				else{
@@ -141,8 +139,7 @@ public class IndexUpdater implements FileProcessor{
 				if(!fileSet.contains(s)){
 					//File is new
 					log.debug("New File : " + s);
-					this.newFiles.add(new File(file, s));
-					this.processFileCount();
+					this.addToNewFilesList(new File(file, s));					
 				}
 			}
 		}
@@ -229,11 +226,13 @@ public class IndexUpdater implements FileProcessor{
 		String msg = "Optimizing index";
 		this.setStatusMessage(msg);
 		log.info(msg);
+		indexWriter.flush();
 		indexWriter.optimize();
 		msg = "Index optimized";
 		this.setStatusMessage(msg);
 		log.info(msg);
 		indexWriter.close(true);
+		indexWriter = null;
 	}
 
 	public void dispose() {
@@ -271,6 +270,38 @@ public class IndexUpdater implements FileProcessor{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}		
+	}
+	
+	private void addToNewFilesList(File file){
+		if(file.isDirectory()) {
+			this.newFiles.add(file);
+		}
+		else {
+			String mimeType = mimeTypeRegistry.getMimeType(file);
+			if(this.indexerFactory.getMappedMimeTypes().contains(mimeType)){
+				this.newFiles.add(file);
+				this.processFileCount();
+			}
+			else{
+				log.debug("No indexer for file: " + file.getPath());
+			}
+		}
+	}
+	
+	private void addTomodifiedFiles(File file){
+		if(file.isDirectory()) {
+			this.modifiedFiles.add(file);
+		}
+		else{
+			String mimeType = mimeTypeRegistry.getMimeType(file);
+			if(this.indexerFactory.getMappedMimeTypes().contains(mimeType)){
+				this.modifiedFiles.add(file);
+				this.processFileCount();
+			}
+			else{
+				log.debug("No indexer for file: " + file.getPath());
+			}
+		}
 	}
 	
 	private void processFileCount(){
@@ -342,6 +373,10 @@ public class IndexUpdater implements FileProcessor{
 
 	public void setJobExecutionContext(JobExecutionContext jobExecutionContext) {
 		this.jobExecutionContext = jobExecutionContext;
+	}
+
+	public void setMimeTypeRegistry(MimeTypeRegistry mimeTypeRegistry) {
+		this.mimeTypeRegistry = mimeTypeRegistry;
 	}
 
 }
