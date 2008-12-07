@@ -26,6 +26,7 @@ public class DirectoryTraverser {
 		}
 		this.rootDir = directory;
 		this.fileProcessor = fileProcessor;
+		this.traversalMode = traversalMode;
 	}
 	
 	private void processRootDirectory(File dir){

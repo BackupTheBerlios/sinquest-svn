@@ -2,6 +2,7 @@ package de.u808.simpleinquest.indexer.impl;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.HashSet;
@@ -55,6 +56,8 @@ public class IndexUpdater implements FileProcessor{
 	
 	private int fileCount = 0;
 	private int refreschLimit;
+	
+	private DecimalFormat memoryFormater = new DecimalFormat("#,###,##0.00");
 	
 	private JobExecutionContext jobExecutionContext;
 	
@@ -291,10 +294,13 @@ public class IndexUpdater implements FileProcessor{
 				this.sessionSearchCache.invalidate();
 			}
 			log.info("Caches invalidated");
-			log.info("------------------Memory statistics------------------");
-			log.info("Total Memory "+Runtime.getRuntime().totalMemory());    
-		    log.info("Free Memory "+Runtime.getRuntime().freeMemory());
-		    log.info("Max Memory "+Runtime.getRuntime().maxMemory());
+			log.info("GC");
+			Runtime.getRuntime().gc();
+			log.info("GC end");
+			log.info("------------------Memory statistics------------------");			
+			log.info("Total Memory "+ memoryFormater.format(Runtime.getRuntime().totalMemory()/(1024*1024)) + " MB");
+		    log.info("Free Memory "+ memoryFormater.format(Runtime.getRuntime().freeMemory()/(1024*1024)) + " MB");
+		    log.info("Max Memory "+ memoryFormater.format(Runtime.getRuntime().maxMemory()/(1024*1024)) + " MB");
 		    log.info("------------------Memory statistics------------------");
 		} catch (CorruptIndexException e) {
 			log.error("Index corrupted", e);
