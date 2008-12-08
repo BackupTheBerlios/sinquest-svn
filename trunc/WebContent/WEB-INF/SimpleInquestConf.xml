@@ -33,5 +33,10 @@
          <systemFetchPrefixUrl system="Linux">file://localhost/home/friedel/afriedel/My Documents/workspace/SimpleInquest/TestDocuments</systemFetchPrefixUrl>
          <blockDirectDownload>true</blockDirectDownload>
       </directoryConfiguration>
+      <directoryConfiguration>
+         <path>U:\PS</path>
+         <systemFetchPrefixUrl system="Windows">file://localhost/U|/PS</systemFetchPrefixUrl>
+         <blockDirectDownload>true</blockDirectDownload>
+      </directoryConfiguration>
    </directoriesToIndex>
 </configuration>

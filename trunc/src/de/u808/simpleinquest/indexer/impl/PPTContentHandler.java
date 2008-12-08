@@ -17,17 +17,20 @@ import de.u808.simpleinquest.indexer.ContentHandler;
 
 public class PPTContentHandler implements ContentHandler, POIFSReaderListener{
 	
-	Log log = LogFactory.getLog(this.getClass());
+	private Log log = LogFactory.getLog(this.getClass());
+	
+	private POIFSReader reader = new POIFSReader();
 
     private ByteArrayOutputStream writer;
 
 	public String extractContent(File file) throws IOException {
-		String contents = "";
-    	POIFSReader reader = new POIFSReader();
+		String contents = "";    	
 		writer = new ByteArrayOutputStream();
 		reader.registerListener(this);
 		reader.read(new FileInputStream(file));
 		contents = writer.toString();
+		writer.close();
+		writer = null;
 		return contents;
 	}
 
@@ -46,6 +49,7 @@ public class PPTContentHandler implements ContentHandler, POIFSReaderListener{
 					i = i + 4 + 1 + (int) size - 1;
 				}
 			}
+			buffer = null;
 		} catch (Exception ex) {
 			log.error(ex.getMessage());
 		}		

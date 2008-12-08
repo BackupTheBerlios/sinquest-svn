@@ -101,9 +101,11 @@ public class IndexUpdater implements FileProcessor{
 					//New dir, add all
 					this.addToNewFilesList(file);
 					File[] files = file.listFiles();
-					for(File f : files){
-						if(f.isFile()){
-							this.addToNewFilesList(f);
+					if(files != null){
+						for(File f : files){
+							if(f.isFile()){
+								this.addToNewFilesList(f);
+							}
 						}
 					}
 				}

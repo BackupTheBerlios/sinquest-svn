@@ -16,7 +16,7 @@ public class WordContentHandler implements ContentHandler{
 			//WordTextExtractorFactory fab = new WordTextExtractorFactory();
 			wordExtractor = new WordExtractor(new FileInputStream(file));
 			//TextExtractor extractor = fab.textExtractor();
-			return wordExtractor.getText();
+			return wordExtractor.getText();			
 		} catch (Exception e) {
 			throw new IndexerException(e.getMessage(), e);
 		}

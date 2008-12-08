@@ -176,6 +176,7 @@
 		</constructor-arg>
 		<property name="indexerFactory" ref="indexerFactory" />
 		<property name="indexSearchBean" ref="indexSearchBean" />
+		<property name="mimeTypeRegistry" ref="mimeTypeRegistry" />
 	</bean>
 
 	<bean id="cacheManager"
