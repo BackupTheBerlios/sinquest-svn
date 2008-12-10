@@ -207,12 +207,17 @@ public class IndexUpdater implements FileProcessor{
 			else {
 				Indexer indexer = indexerFactory.getIndexer(file);
 				if(indexer != null){
-					Document document = indexer.indexFile(file);
-					if(document != null){
+					Document document = null;
+					try {
 						String msg = "Indexing file: " + file.getPath();
+						document = indexer.indexFile(file);
 						this.setStatusMessage(msg);
 						log.info(msg);
-						indexWriter.addDocument(indexer.indexFile(file));
+					} catch (IndexerException e) {
+						log.error("Error during indexing", e);
+					}
+					if(document != null){												
+						indexWriter.addDocument(document);
 					}
 					else{
 						String msg = "Indexer " + indexer.getClass() + " returned no content to index";
