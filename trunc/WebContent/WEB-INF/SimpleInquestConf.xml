@@ -3,12 +3,12 @@
    <indexerConfiguration>
       <indexSearchRefreshCount>50</indexSearchRefreshCount>
       <indexerClassName mimeType="text/plain">de.u808.simpleinquest.indexer.impl.PlainTextIndexer</indexerClassName>
-      <indexerClassName mimeType="application/pdf">de.u808.simpleinquest.indexer.impl.PDFIndexer</indexerClassName>
-      <indexerClassName mimeType="application/msword">de.u808.simpleinquest.indexer.impl.MSWordIndexer</indexerClassName>
-      <indexerClassName mimeType="application/mspowerpoint">de.u808.simpleinquest.indexer.impl.PPTIndexer</indexerClassName>
-      <indexerClassName mimeType="application/x-msexcel">de.u808.simpleinquest.indexer.impl.ExcelIndexer</indexerClassName>
-      <indexerClassName mimeType="application/vnd.sun.xml.writer">de.u808.simpleinquest.indexer.impl.OOIndexer</indexerClassName>
-      <indexerClassName mimeType="application/vnd.oasis.opendocument.text">de.u808.simpleinquest.indexer.impl.OOIndexer2</indexerClassName>
+      <indexerClassName mimeType="application/pdf">de.u808.simpleinquest.indexer.impl.DefaultIndexer</indexerClassName>
+      <indexerClassName mimeType="application/msword">de.u808.simpleinquest.indexer.impl.DefaultIndexer</indexerClassName>
+      <indexerClassName mimeType="application/mspowerpoint">de.u808.simpleinquest.indexer.impl.DefaultIndexer</indexerClassName>
+      <indexerClassName mimeType="application/x-msexcel">de.u808.simpleinquest.indexer.impl.DefaultIndexer</indexerClassName>
+      <indexerClassName mimeType="application/vnd.sun.xml.writer">de.u808.simpleinquest.indexer.impl.DefaultIndexer</indexerClassName>
+      <indexerClassName mimeType="application/vnd.oasis.opendocument.text">de.u808.simpleinquest.indexer.impl.DefaultIndexer</indexerClassName>
       <indexerClassName mimeType="text/x-java-source">de.u808.simpleinquest.indexer.impl.PlainTextIndexer</indexerClassName>
    </indexerConfiguration>
    <mimeIconMap>
@@ -33,10 +33,10 @@
          <systemFetchPrefixUrl system="Linux">file://localhost/home/friedel/afriedel/My Documents/workspace/SimpleInquest/TestDocuments</systemFetchPrefixUrl>
          <blockDirectDownload>true</blockDirectDownload>
       </directoryConfiguration>
-      <directoryConfiguration>
-         <path>U:\PS</path>
-         <systemFetchPrefixUrl system="Windows">file://localhost/U|/PS</systemFetchPrefixUrl>
+      <!-- directoryConfiguration>
+         <path>Z:\</path>
+         <systemFetchPrefixUrl system="Windows">file://localhost/Z|</systemFetchPrefixUrl>
          <blockDirectDownload>true</blockDirectDownload>
-      </directoryConfiguration>
+      </directoryConfiguration -->
    </directoriesToIndex>
 </configuration>

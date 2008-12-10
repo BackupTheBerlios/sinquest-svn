@@ -71,11 +71,13 @@ public class SimpleDocument {
 	}
 
 	public boolean getBlockDownload(){
-		if(document != null){
-			return Boolean.valueOf((document.get(Indexer.PREVENT_DIRECT_DOWNLOAD_FIELD_NAME)));
-		}
-		else {
-			return true;
-		}
+		//TODO block download ...
+//		if(document != null){
+//			return Boolean.valueOf((document.get(Indexer.PREVENT_DIRECT_DOWNLOAD_FIELD_NAME)));
+//		}
+//		else {
+//			return true;
+//		}
+		return false;
 	}
 }

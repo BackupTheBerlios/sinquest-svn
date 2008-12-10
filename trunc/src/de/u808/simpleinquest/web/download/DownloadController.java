@@ -41,16 +41,17 @@ public class DownloadController implements Controller{
 			if(hits.length() > 0){
 				Hit hit = (Hit) hits.iterator().next();
 				String filePath = hit.get(Indexer.PATH_FIELD_NAME);
-				String filePrefix = hit.get(Indexer.FILE_FETCH_PREFIX_FIELD_NAME);
-				boolean blockDirectDownload = Boolean.valueOf(hit.get(Indexer.PREVENT_DIRECT_DOWNLOAD_FIELD_NAME));
-				File file = new File(filePath);
+				//String filePrefix = hit.get(Indexer.FILE_FETCH_PREFIX_FIELD_NAME);
+				//boolean blockDirectDownload = Boolean.valueOf(hit.get(Indexer.PREVENT_DIRECT_DOWNLOAD_FIELD_NAME));
 				
-				if(!blockDirectDownload && StringUtils.isEmpty(filePrefix)){
-					handleDownload(response, file);
-				}
+				
+				//if(!blockDirectDownload && StringUtils.isEmpty(filePrefix)){
+					handleDownload(response, new File(filePath));
+				/*}
 				else{
 					
 				}
+				*/
 				
 				
 			}			
