@@ -42,7 +42,7 @@ public class IndexerTest {
 			Document document = indexer.indexFile(fileToIndex);
 			assertNotNull(document);
 			assertNotNull(document.getField(Indexer.CONTENT_FIELD_NAME));
-		} catch (IOException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

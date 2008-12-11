@@ -11,6 +11,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.lucene.document.DateTools;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
+import org.apache.tika.exception.TikaException;
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.parser.AutoDetectParser;
 import org.apache.tika.sax.BodyContentHandler;
@@ -50,6 +51,15 @@ public class DefaultIndexer implements Indexer {
 				document.add(new Field(Indexer.CONTENT_FIELD_NAME,
 						new StringReader(handler.toString())));
 			} catch (Exception e) {
+				if(e instanceof TikaException){
+					Throwable t = e.getCause();
+					if(t != null && t.getMessage() != null){
+						if (t.getMessage().startsWith("Error decrypting document")){
+							log.debug("Can´t index encrypted document.");
+							return document;
+						}
+					}
+				}
 				throw new IndexerException(e.getMessage(), e);
 			}
 		} else {
