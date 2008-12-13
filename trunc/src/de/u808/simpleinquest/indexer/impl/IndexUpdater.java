@@ -28,6 +28,7 @@ import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.store.LockObtainFailedException;
 import org.quartz.JobExecutionContext;
 
+import de.u808.common.Constants;
 import de.u808.common.GlobalSearchCache;
 import de.u808.common.SessionSearchCache;
 import de.u808.simpleinquest.indexer.Indexer;
@@ -120,7 +121,7 @@ public class IndexUpdater implements FileProcessor{
 	
 	private void processDirectoryList(File file, String storedDirectoryList) throws IOException{
 		if(StringUtils.isNotEmpty(storedDirectoryList)){
-			String[] fileNames = storedDirectoryList.split(";");
+			String[] fileNames = storedDirectoryList.split(Constants.SEMICOLON);
 			Set<String> fileSet = new HashSet<String>();
 			for(String s : fileNames){
 				fileSet.add(s);

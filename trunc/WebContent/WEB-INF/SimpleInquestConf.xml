@@ -33,10 +33,10 @@
          <systemFetchPrefixUrl system="Linux">file://localhost/home/friedel/afriedel/My Documents/workspace/SimpleInquest/TestDocuments</systemFetchPrefixUrl>
          <blockDirectDownload>true</blockDirectDownload>
       </directoryConfiguration>
-      <!-- directoryConfiguration>
-         <path>Z:\</path>
-         <systemFetchPrefixUrl system="Windows">file://localhost/Z|</systemFetchPrefixUrl>
+      <directoryConfiguration>
+         <path>Z:\Dokumente\IHK</path>
+         <systemFetchPrefixUrl system="Windows">file://localhost/Z|/Dokumente/IHK</systemFetchPrefixUrl>
          <blockDirectDownload>true</blockDirectDownload>
-      </directoryConfiguration -->
+      </directoryConfiguration>
    </directoriesToIndex>
 </configuration>

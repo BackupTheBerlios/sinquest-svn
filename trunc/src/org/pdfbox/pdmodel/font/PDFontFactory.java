@@ -44,7 +44,15 @@ import org.pdfbox.cos.COSName;
  */
 public class PDFontFactory
 {
-    /**
+    private static final String CIDFONT_TYPE2 = "CIDFontType2";
+	private static final String CIDFONT_TYPE0 = "CIDFontType0";
+	private static final String TYPE0 = "Type0";
+	private static final String TYPE3 = "Type3";
+	private static final String TRUE_TYPE = "TrueType";
+	private static final String MMTYPE1 = "MMType1";
+	private static final String TYPE1 = "Type1";
+
+	/**
      * private constructor, should only use static methods in this class.
      */
     private PDFontFactory()
@@ -98,31 +106,31 @@ public class PDFontFactory
         }
 
         COSName subType = (COSName)dic.getDictionaryObject( COSName.SUBTYPE );
-        if( subType.equals( COSName.getPDFName( "Type1" ) ) )
+        if( subType.equals( COSName.getPDFName( TYPE1 ) ) )
         {
             retval = new PDType1Font( dic );
         }
-        else if( subType.equals( COSName.getPDFName( "MMType1" ) ) )
+        else if( subType.equals( COSName.getPDFName( MMTYPE1 ) ) )
         {
             retval = new PDMMType1Font( dic );
         }
-        else if( subType.equals( COSName.getPDFName( "TrueType" ) ) )
+        else if( subType.equals( COSName.getPDFName( TRUE_TYPE ) ) )
         {
             retval = new PDTrueTypeFont( dic );
         }
-        else if( subType.equals( COSName.getPDFName( "Type3" ) ) )
+        else if( subType.equals( COSName.getPDFName( TYPE3 ) ) )
         {
             retval = new PDType3Font( dic );
         }
-        else if( subType.equals( COSName.getPDFName( "Type0" ) ) )
+        else if( subType.equals( COSName.getPDFName( TYPE0 ) ) )
         {
             retval = new PDType0Font( dic );
         }
-        else if( subType.equals( COSName.getPDFName( "CIDFontType0" ) ) )
+        else if( subType.equals( COSName.getPDFName( CIDFONT_TYPE0 ) ) )
         {
             retval = new PDCIDFontType0Font( dic );
         }
-        else if( subType.equals( COSName.getPDFName( "CIDFontType2" ) ) )
+        else if( subType.equals( COSName.getPDFName( CIDFONT_TYPE2 ) ) )
         {
             retval = new PDCIDFontType2Font( dic );
         }

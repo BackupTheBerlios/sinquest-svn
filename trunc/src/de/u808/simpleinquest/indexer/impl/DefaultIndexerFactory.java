@@ -20,6 +20,8 @@ import de.u808.simpleinquest.web.ConfigBeanResource;
 
 public class DefaultIndexerFactory implements IndexerFactory, InitializingBean {
 	
+	private static final String COMMA = ",";
+	private static final String DE_U808_SIMPLEINQUEST_INDEXER_INDEXER = "de.u808.simpleinquest.indexer.Indexer";
 	static Logger log = Logger.getLogger(DefaultIndexerFactory.class);
 	private Map<String, Indexer> indexerMap = null;
 	private ConfigBeanResource configBeanResource;
@@ -33,7 +35,7 @@ public class DefaultIndexerFactory implements IndexerFactory, InitializingBean {
 			String indexerClassName = mimeTypeIndexerMap.get(typeKey);
 			try {
 				Class indexerClass = Class.forName(indexerClassName);
-				if (indexerClass.getClass().isInstance(Class.forName("de.u808.simpleinquest.indexer.Indexer"))) {
+				if (indexerClass.getClass().isInstance(Class.forName(DE_U808_SIMPLEINQUEST_INDEXER_INDEXER))) {
 					Constructor<Indexer> ctor = indexerClass.getConstructor();
 					Indexer indexer = ctor.newInstance();
 					this.indexerMap.put(typeKey, indexer);
@@ -64,8 +66,8 @@ public class DefaultIndexerFactory implements IndexerFactory, InitializingBean {
 
 	public Indexer getIndexer(File file) throws IOException {
 		String mimeType = this.mimeTypeRegistry.getMimeType(file);
-		if(mimeType.contains(",")){
-			String[] mimeTypes= mimeType.split(",");
+		if(mimeType.contains(COMMA)){
+			String[] mimeTypes= mimeType.split(COMMA);
 			for(String type : mimeTypes){
 				if(indexerMap.containsKey(type)){
 					return indexerMap.get(type);

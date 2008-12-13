@@ -56,7 +56,8 @@ public abstract class Encoding implements COSObjectable
 {
 
 
-    /**
+    private static final String RESOURCES_GLYPHLIST_TXT = "Resources/glyphlist.txt";
+	/**
      * This is a mapping from a character code to a character name.
      */
     protected Map codeToName = new HashMap();
@@ -73,7 +74,7 @@ public abstract class Encoding implements COSObjectable
         BufferedReader glyphStream = null;
         try
         {
-            InputStream resource = ResourceLoader.loadResource( "Resources/glyphlist.txt" );
+            InputStream resource = ResourceLoader.loadResource( RESOURCES_GLYPHLIST_TXT );
             glyphStream = new BufferedReader( new InputStreamReader( resource ) );
             String line = null;
             while( (line = glyphStream.readLine()) != null )

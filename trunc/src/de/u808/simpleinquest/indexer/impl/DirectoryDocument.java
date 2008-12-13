@@ -9,6 +9,8 @@ import de.u808.simpleinquest.indexer.Indexer;
 
 public class DirectoryDocument extends FileDocument {
 
+	private static final String SEMICOLON = ";";
+
 	private DirectoryDocument() {
 		super();
 	}
@@ -21,7 +23,7 @@ public class DirectoryDocument extends FileDocument {
 			String[] fileList = f.list();
 			for(String fileName : fileList){
 				stringBuilder.append(fileName);
-				stringBuilder.append(";");
+				stringBuilder.append(SEMICOLON);
 			}
 		}
 		doc.add(new Field(Indexer.DIRECTORY_LIST_FIELD_NAME, stringBuilder.toString(), Field.Store.YES, Field.Index.UN_TOKENIZED));
