@@ -215,7 +215,7 @@ public class IndexUpdater implements FileProcessor{
 						document = indexer.indexFile(file);
 						this.setStatusMessage(msg);
 						log.info(msg);
-						log.debug("Memory after indexing in MB (M: " + memoryFormater.format(Runtime.getRuntime().maxMemory()/(1024*1024)) + " T: " + memoryFormater.format(Runtime.getRuntime().totalMemory()/(1024*1024)) + "F: " + memoryFormater.format(Runtime.getRuntime().freeMemory()/(1024*1024)) + ")");
+						log.debug("Memory after indexing in MB (M: " + memoryFormater.format(Runtime.getRuntime().maxMemory()/(1024*1024)) + " T: " + memoryFormater.format(Runtime.getRuntime().totalMemory()/(1024*1024)) + " F: " + memoryFormater.format(Runtime.getRuntime().freeMemory()/(1024*1024)) + ")");
 					} catch (IndexerException e) {
 						log.error("Error during indexing", e);
 					}
