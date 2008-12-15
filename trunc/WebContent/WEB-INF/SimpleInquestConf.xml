@@ -1,7 +1,7 @@
 <configuration>
    <simpleInquestHome>C:\SimpleInquestHome</simpleInquestHome>
    <indexerConfiguration>
-      <indexSearchRefreshCount>50</indexSearchRefreshCount>
+      <indexSearchRefreshCount>20</indexSearchRefreshCount>
       <indexerClassName mimeType="text/plain">de.u808.simpleinquest.indexer.impl.PlainTextIndexer</indexerClassName>
       <indexerClassName mimeType="application/pdf">de.u808.simpleinquest.indexer.impl.DefaultIndexer</indexerClassName>
       <indexerClassName mimeType="application/msword">de.u808.simpleinquest.indexer.impl.DefaultIndexer</indexerClassName>
@@ -31,11 +31,6 @@
          <path>C:\Documents and Settings\afriedel\My Documents\workspace\SimpleInquest\TestDocuments</path>
          <systemFetchPrefixUrl system="Windows">file://localhost/C|/Documents and Settings/afriedel/My Documents/workspace/SimpleInquest/TestDocuments</systemFetchPrefixUrl>
          <systemFetchPrefixUrl system="Linux">file://localhost/home/friedel/afriedel/My Documents/workspace/SimpleInquest/TestDocuments</systemFetchPrefixUrl>
-         <blockDirectDownload>true</blockDirectDownload>
-      </directoryConfiguration>
-      <directoryConfiguration>
-         <path>Z:\Dokumente\IHK</path>
-         <systemFetchPrefixUrl system="Windows">file://localhost/Z|/Dokumente/IHK</systemFetchPrefixUrl>
          <blockDirectDownload>true</blockDirectDownload>
       </directoryConfiguration>
    </directoriesToIndex>
