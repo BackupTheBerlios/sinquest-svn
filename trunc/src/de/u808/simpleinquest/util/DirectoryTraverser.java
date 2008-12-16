@@ -31,9 +31,15 @@ public class DirectoryTraverser {
 	
 	private void processRootDirectory(File dir){
 		String[] files = dir.list();
-		for(String fileName : files){
-			File file = new File(dir, fileName);
-			this.processFile(file);
+		if(files != null){
+			for(String fileName : files){
+				File file = new File(dir, fileName);
+				this.processFile(file);
+			}
+		}
+		else {
+			String rootDDir = (dir == null ? "Null" : dir.getAbsolutePath());
+			log.info("No files fount to process in directory: " + rootDDir);
 		}
 	}
 	

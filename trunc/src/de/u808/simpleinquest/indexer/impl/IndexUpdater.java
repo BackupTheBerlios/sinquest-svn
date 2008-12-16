@@ -148,12 +148,6 @@ public class IndexUpdater implements FileProcessor{
 		}
 	}
 	
-	private void indexFile(File file) throws IOException{
-		if(file.canRead()){
-			String[] fileList = file.list();
-		}
-	}
-	
 	private boolean isDocumentIndexedAndModified(File file, Term uidTerm) throws IOException{
 		TermQuery query = new TermQuery(uidTerm);
 		Hits hits = this.indexSearcher.search(query);
