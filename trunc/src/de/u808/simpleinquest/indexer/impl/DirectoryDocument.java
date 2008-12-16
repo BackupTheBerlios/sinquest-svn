@@ -21,9 +21,11 @@ public class DirectoryDocument extends FileDocument {
 		StringBuilder stringBuilder = new StringBuilder();
 		if(f != null && f.canRead()){
 			String[] fileList = f.list();
-			for(String fileName : fileList){
-				stringBuilder.append(fileName);
-				stringBuilder.append(SEMICOLON);
+			if(fileList != null){
+				for(String fileName : fileList){
+					stringBuilder.append(fileName);
+					stringBuilder.append(SEMICOLON);
+				}
 			}
 		}
 		doc.add(new Field(Indexer.DIRECTORY_LIST_FIELD_NAME, stringBuilder.toString(), Field.Store.YES, Field.Index.UN_TOKENIZED));
