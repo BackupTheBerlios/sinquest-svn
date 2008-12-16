@@ -212,6 +212,11 @@ public class IndexUpdater implements FileProcessor{
 						log.debug("Memory after indexing in MB (M: " + memoryFormater.format(Runtime.getRuntime().maxMemory()/(1024*1024)) + " T: " + memoryFormater.format(Runtime.getRuntime().totalMemory()/(1024*1024)) + " F: " + memoryFormater.format(Runtime.getRuntime().freeMemory()/(1024*1024)) + ")");
 					} catch (IndexerException e) {
 						log.error("Error during indexing", e);
+					} catch (OutOfMemoryError outOfMemoryError) {
+						log.warn("File seems to be to big for the actual free heap. Try to increase availible memory with vm option -Xmx if this is a recurring error message");
+						log.info("Try to free memory");
+						document = null;
+						System.gc();
 					}
 					if(document != null){												
 						indexWriter.addDocument(document);
