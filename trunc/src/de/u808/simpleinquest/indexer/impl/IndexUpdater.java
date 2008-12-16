@@ -205,6 +205,7 @@ public class IndexUpdater implements FileProcessor{
 					Document document = null;
 					try {
 						log.debug("Memory before indexing in MB (M: " + memoryFormater.format(Runtime.getRuntime().maxMemory()/(1024*1024)) + " T: " + memoryFormater.format(Runtime.getRuntime().totalMemory()/(1024*1024)) + "F: " + memoryFormater.format(Runtime.getRuntime().freeMemory()/(1024*1024)) + ")");
+						this.ensureEnoughHeapMemory();
 						String msg = "Indexing file: " + file.getPath();
 						document = indexer.indexFile(file);
 						this.setStatusMessage(msg);
@@ -217,6 +218,7 @@ public class IndexUpdater implements FileProcessor{
 						log.info("Try to free memory");
 						document = null;
 						System.gc();
+						this.refreschIndex();
 					}
 					if(document != null){												
 						indexWriter.addDocument(document);
@@ -289,7 +291,7 @@ public class IndexUpdater implements FileProcessor{
 			String mimeType = mimeTypeRegistry.getMimeType(file);
 			if(this.indexerFactory.getMappedMimeTypes().contains(mimeType)){
 				this.newFiles.add(file);
-				this.processFileCount();
+				this.checkUpdateCondition();
 			}
 			else{
 				log.debug("No indexer for file: " + file.getPath());
@@ -305,7 +307,7 @@ public class IndexUpdater implements FileProcessor{
 			String mimeType = mimeTypeRegistry.getMimeType(file);
 			if(this.indexerFactory.getMappedMimeTypes().contains(mimeType)){
 				this.modifiedFiles.add(file);
-				this.processFileCount();
+				this.checkUpdateCondition();
 			}
 			else{
 				log.debug("No indexer for file: " + file.getPath());
@@ -313,8 +315,9 @@ public class IndexUpdater implements FileProcessor{
 		}
 	}
 	
-	private void processFileCount(){
+	private void checkUpdateCondition(){
 		this.fileCount = fileCount + 1;
+		this.ensureEnoughHeapMemory();
 		if(fileCount >= this.refreschLimit){
 			this.refreschIndex();
 			this.fileCount = 0;
@@ -333,19 +336,24 @@ public class IndexUpdater implements FileProcessor{
 			if(this.sessionSearchCache != null){
 				this.sessionSearchCache.invalidate();
 			}
-			log.info("Caches invalidated");
-			log.info("GC");
-			Runtime.getRuntime().gc();
-			log.info("GC end");
-			log.info("------------------Memory statistics------------------");			
-			log.info("Total Memory "+ memoryFormater.format(Runtime.getRuntime().totalMemory()/(1024*1024)) + " MB");
-		    log.info("Free Memory "+ memoryFormater.format(Runtime.getRuntime().freeMemory()/(1024*1024)) + " MB");
-		    log.info("Max Memory "+ memoryFormater.format(Runtime.getRuntime().maxMemory()/(1024*1024)) + " MB");
-		    log.info("------------------Memory statistics------------------");
+			log.info("Caches invalidated");			
 		} catch (CorruptIndexException e) {
 			log.error("Index corrupted", e);
 		} catch (IOException e) {
 			log.error("IOException while opening index", e);
+		}
+	}
+	
+	private void ensureEnoughHeapMemory(){
+		if(Runtime.getRuntime().freeMemory()/(1024*1024) < 2){
+			log.debug("Start garbage collection");
+			Runtime.getRuntime().gc();
+			log.debug("Garbage collection completed");
+			log.debug("------------------Memory statistics------------------");			
+			log.debug("Total Memory "+ memoryFormater.format(Runtime.getRuntime().totalMemory()/(1024*1024)) + " MB");
+		    log.debug("Free Memory "+ memoryFormater.format(Runtime.getRuntime().freeMemory()/(1024*1024)) + " MB");
+		    log.debug("Max Memory "+ memoryFormater.format(Runtime.getRuntime().maxMemory()/(1024*1024)) + " MB");
+		    log.debug("------------------Memory statistics------------------");
 		}
 	}
 
