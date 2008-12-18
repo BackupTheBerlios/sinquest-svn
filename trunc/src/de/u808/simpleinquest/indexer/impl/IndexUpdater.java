@@ -6,6 +6,7 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -194,7 +195,9 @@ public class IndexUpdater implements FileProcessor{
 	
 	private void indexDocuments(List<File> files) throws CorruptIndexException, LockObtainFailedException, IOException {
 		IndexWriter indexWriter = new IndexWriter(indexDirectory, new StandardAnalyzer());
-		for(File file: files){
+		Iterator<File> iterator = files.iterator();
+		while (iterator.hasNext()) {
+			File file = (File) iterator.next();					
 			if(file.isDirectory()){
 				Document doc = DirectoryDocument.Document(file);
 				indexWriter.addDocument(doc);
@@ -211,6 +214,7 @@ public class IndexUpdater implements FileProcessor{
 						this.setStatusMessage(msg);
 						log.info(msg);
 						log.debug("Memory after indexing in MB (M: " + memoryFormater.format(Runtime.getRuntime().maxMemory()/(1024*1024)) + " T: " + memoryFormater.format(Runtime.getRuntime().totalMemory()/(1024*1024)) + " F: " + memoryFormater.format(Runtime.getRuntime().freeMemory()/(1024*1024)) + ")");
+						iterator.remove();
 					} catch (IndexerException e) {
 						log.error("Error during indexing", e);
 					} catch (OutOfMemoryError outOfMemoryError) {
