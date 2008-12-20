@@ -22,21 +22,10 @@
    </mimeIconMap>
    <directoriesToIndex class="java.util.LinkedList">
       <directoryConfiguration>
-         <path>C:\Documents and Settings\afriedel\My Documents\workspace\JKnowledgeMap\Sample</path>
-         <systemFetchPrefixUrl system="Windows">file://localhost/C|/Users/friedel/workspace/JKnowledgeMap/Sample</systemFetchPrefixUrl>
-         <systemFetchPrefixUrl system="Linux">file://localhost/home/friedel/workspace/JKnowledgeMap/Sample</systemFetchPrefixUrl>
-         <blockDirectDownload>false</blockDirectDownload>
+         <path>C:\Users\friedel\workspace\JKnowledgeMap\Sample</path>         
       </directoryConfiguration>
       <directoryConfiguration>
-         <path>C:\Documents and Settings\afriedel\My Documents\workspace\SimpleInquest\TestDocuments</path>
-         <systemFetchPrefixUrl system="Windows">file://localhost/C|/Documents and Settings/afriedel/My Documents/workspace/SimpleInquest/TestDocuments</systemFetchPrefixUrl>
-         <systemFetchPrefixUrl system="Linux">file://localhost/home/friedel/afriedel/My Documents/workspace/SimpleInquest/TestDocuments</systemFetchPrefixUrl>
-         <blockDirectDownload>true</blockDirectDownload>
-      </directoryConfiguration>
-      <directoryConfiguration>
-         <path>U:\Project</path>
-         <systemFetchPrefixUrl system="Windows">file://localhost/U|/Project</systemFetchPrefixUrl>
-         <blockDirectDownload>true</blockDirectDownload>
+         <path>C:\Users\friedel\workspace\SimpleInquest\TestDocuments</path>
       </directoryConfiguration>
    </directoriesToIndex>
 </configuration>
