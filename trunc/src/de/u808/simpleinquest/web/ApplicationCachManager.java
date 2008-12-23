@@ -19,9 +19,15 @@ package de.u808.simpleinquest.web;
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 
+/**
+ * This manager is used for the global search cache.
+ * 
+ * @author Andreas Friedel
+ *
+ */
 public class ApplicationCachManager {
 	
-	CacheManager manager = null;
+	private CacheManager manager = null;
 	
 	public ApplicationCachManager (){
 		this.manager = CacheManager.create();

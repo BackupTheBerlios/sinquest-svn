@@ -23,6 +23,11 @@ import java.security.NoSuchAlgorithmException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+/**
+ * Utility class to create MD5 hashes.
+ * @author Andreas Friedel
+ *
+ */
 public class MD5Util {
 	
 	private MessageDigest md = null;
@@ -39,6 +44,11 @@ public class MD5Util {
 		}
 	}
 	
+	/**
+	 * Singleton instantiate method.
+	 * 
+	 * @return The singleton instance of the class.
+	 */
 	public static MD5Util getInstance(){
 		if(INSTANCE == null){
 			INSTANCE = new MD5Util();
@@ -46,6 +56,12 @@ public class MD5Util {
 		return INSTANCE;
 	}
 	
+	/**
+	 * Creates MD5 Hex String for the input.  
+	 * 
+	 * @param s The string to create the hash for.
+	 * @return The MD5 Hex String for the input string.
+	 */
 	public String getMD5Hex(String s){
 		md.update(s.getBytes(),0,s.length());
 		String md5Hex = new BigInteger(1,md.digest()).toString(16);

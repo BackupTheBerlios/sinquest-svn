@@ -23,6 +23,9 @@ import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
 
 @Root
+/**
+ * This class is used to handle the XML configuration file SimpleInquestConf.xml
+ */
 public class Configuration {
 
 	@Element
@@ -38,27 +41,49 @@ public class Configuration {
 	@ElementList
 	private List<DirectoryConfiguration> directoriesToIndex;
 
+	/**
+	 * Getter for the SimpleInquestHome.
+	 * @return The root directory for the database and index files.
+	 */
 	public String getSimpleInquestHome() {
 		return simpleInquestHome;
 	}
 
+	/**
+	 * Setter for the SimpleInquestHome.
+	 * @param simpleInquestHome
+	 */
 	public void setSimpleInquestHome(String simpleInquestHome) {
 		this.simpleInquestHome = simpleInquestHome;
 	}
 
+	/**
+	 * @return A list of all DirectoryConfigurations
+	 * @see de.u808.simpleinquest.config.DirectoryConfiguration
+	 */
 	public List<DirectoryConfiguration> getDirectoriesToIndex() {
 		return directoriesToIndex;
 	}
 
+	/**
+	 * @param directoriesToIndex The DirectoryConfigurations for the IndexUpdater.
+	 */
 	public void setDirectoriesToIndex(
 			List<DirectoryConfiguration> directoriesToIndex) {
 		this.directoriesToIndex = directoriesToIndex;
 	}
 
+	/**
+	 * Default getter for the IndexerConfiguration.
+	 * @return The actual configuration.
+	 */
 	public IndexerConfiguration getIndexerConfiguration() {
 		return indexerConfiguration;
 	}
 
+	/**
+	 * @param indexerConfiguration
+	 */
 	public void setIndexerConfiguration(IndexerConfiguration indexerConfiguration) {
 		this.indexerConfiguration = indexerConfiguration;
 	}
