@@ -82,20 +82,28 @@ public class Configuration {
 	}
 
 	/**
-	 * @param indexerConfiguration
+	 * @param indexerConfiguration.
 	 */
 	public void setIndexerConfiguration(IndexerConfiguration indexerConfiguration) {
 		this.indexerConfiguration = indexerConfiguration;
 	}
-	
+	/**
+	 * @return Map for the mime type icons.
+	 */
 	public MimeIconMap getMimeIconMap() {
 		return mimeIconMap;
 	}
 
+	/**
+	 * @param mimeIconMap The mime icon map to set.
+	 */
 	public void setMimeIconMap(MimeIconMap mimeIconMap) {
 		this.mimeIconMap = mimeIconMap;
 	}
 
+	/**
+	 * Returnes a string representation of the configuration.
+	 */
 	public String toString(){
 		StringBuilder stringBuilder = new StringBuilder();
 		stringBuilder.append("SimpleInquestHome: ");

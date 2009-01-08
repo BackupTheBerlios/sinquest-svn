@@ -16,8 +16,18 @@
 
 package de.u808.simpleinquest.config;
 
+/**
+ * This class is used to indicate configuration errors
+ * @author Andreas Friedel
+ *
+ */
 public class ConfigurationError {
 	
+	/**
+	 * 
+	 * @author Andreas Ffriedel
+	 *
+	 */
 	public enum Severity {FATAL, ERROR, WARNING};
 	
 	private Severity severity;
@@ -26,6 +36,11 @@ public class ConfigurationError {
 	
 	private Exception exception;
 
+	/**
+	 * 
+	 * @param message
+	 * @param severity
+	 */
 	public ConfigurationError(String message, Severity severity){
 		this(message, severity, null);
 	}
