@@ -17,6 +17,7 @@
 package de.u808.simpleinquest.util;
 
 import java.io.File;
+import java.io.IOException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -33,12 +34,15 @@ public class DirectoryTraverser {
 	
 	private static Log log = LogFactory.getLog(DirectoryTraverser.class);
 	
-	public DirectoryTraverser(File directory, FileProcessor fileProcessor, TraversalMode traversalMode) throws InvalidArgumentException{
+	public DirectoryTraverser(File directory, FileProcessor fileProcessor, TraversalMode traversalMode) throws InvalidArgumentException, IOException{
+		if(directory == null){
+			throw new InvalidArgumentException("Directory must not be null");
+		}
+		else if(!directory.canRead()){
+			throw new IOException("Can not read directory " + directory.getAbsolutePath());
+		}
 		if (!directory.isDirectory()){
 			throw new InvalidArgumentException("File " + directory.getPath() + " is not a directory");
-		}
-		else if(directory == null){
-			throw new InvalidArgumentException("Directory must not be null");
 		}
 		this.rootDir = directory;
 		this.fileProcessor = fileProcessor;

@@ -16,7 +16,7 @@
 //-->
 </script>
 
-<c:if test="${search.hits eq null}">
+<c:if test="${!search.searchPerformed}">
 <div id="Centerbox">
 	<form:form commandName="search" method="get">
 			<table style="width: 500px; table-layout: fixed; border-style: none; padding:0px; margin: 0px; border-spacing: 0px;">
@@ -40,7 +40,7 @@
        </form:form>
 </div>
 </c:if>
-<c:if test="${search.hits ne null}">
+<c:if test="${search.searchPerformed}">
        <form:form commandName="search" method="get">
 			<table style="width: 100%; border-style: none; border-spacing: 0;">
 				<colgroup>
@@ -73,21 +73,34 @@
             	</tr>
 			</table>
        </form:form>	
+       <c:if test="${!empty search.errors}">
+  				<tr>
+  					<td colspan="2">
+  						<div class="errorBox">
+  							<ul>
+  								<c:forEach var="error" items="${search.errors}">
+  									<li><fmt:message key="${error.value}"/></li>
+  								</c:forEach>  								
+  							</ul>
+  						</div>
+  					</td>
+  				</tr>
+  		</c:if>
 	<c:if test="${search.hitsCount gt 0}">
 		<table id="results">
 			<colgroup>
 				<col width="20px">
     			<col width="*">
-  			</colgroup>
+  			</colgroup>  			
 			<c:forEach var="document" items="${search.currentPage.results}">
 			<tr>
-				<td rowspan="2"><a href="./download/fetchFile.htm?id=<c:out value="${document.id}"/>"><st:mimeIcon filename="${document.fileName}" /></a></td>
+				<td rowspan="2"><a href="./download/fetchFile.htm?fileId=<c:out value="${document.id}"/>"><st:mimeIcon filename="${document.fileName}" /></a></td>
 				<td>
 					<c:if test="${document.blockDownload}">
 						<c:out value="${document.fileName}"/> - <fmt:message key="file.changed.message"/> <fmt:formatDate pattern="dd.MM.yyyy - HH:mm" value="${document.lastModified}"/>
 					</c:if>
 					<c:if test="${!document.blockDownload}">
-						<a href="./download/fetchFile.htm?id=<c:out value="${document.id}"/>"> <c:out value="${document.fileName}"/> </a> - <fmt:message key="file.changed.message"/> <fmt:formatDate pattern="dd.MM.yyyy - HH:mm" value="${document.lastModified}"/>
+						<a href="./download/fetchFile.htm?fileId=<c:out value="${document.id}"/>&searchString=<c:out value="${search.searchString}"/>&pageIndex=<c:out value="${search.pageIndex}"/>"> <c:out value="${document.fileName}"/> </a> - <fmt:message key="file.changed.message"/> <fmt:formatDate pattern="dd.MM.yyyy - HH:mm" value="${document.lastModified}"/>
 					</c:if>
 				</td>
 			</tr>																																		
@@ -107,7 +120,7 @@
             		</td>
             	</tr>
 			</table>
-		</div>		
+		</div>	
 	</c:if>
 	<c:if test="${search.hitsCount eq 0}">
 		<fmt:message key="search.no_hits.message"/>

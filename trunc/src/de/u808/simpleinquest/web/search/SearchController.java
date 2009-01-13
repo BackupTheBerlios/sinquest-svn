@@ -20,43 +20,58 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.lucene.queryParser.ParseException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
-import de.u808.simpleinquest.domain.Search;
+import de.u808.simpleinquest.domain.SearchResult;
 import de.u808.simpleinquest.service.search.SearchManager;
 
 public class SearchController extends SimpleFormController {
+
+	private static final String PAGE_INDEX = "pageIndex";
+
+	private static final String SEARCH_STRING = "searchString";
 
 	private SearchManager searchManager;
 	
 	private static Log log = LogFactory.getLog(SearchController.class);
 
 	public SearchController() {
-		setCommandClass(Search.class);
+		setCommandClass(SearchResult.class);
 		setCommandName("search");
 	}
 
 	protected boolean isFormSubmission(HttpServletRequest request) {
-		if (request.getParameter("searchString") != null || request.getParameter("pageIndex") != null ){
+		if (StringUtils.isNotEmpty(request.getParameter(SEARCH_STRING)) || StringUtils.isNotEmpty(request.getParameter(PAGE_INDEX)) ){
 			return true;
 		}
 		return false;
 	}
 
 	protected ModelAndView onSubmit(Object command) {
-		Search search = (Search) command;
+		SearchResult search = (SearchResult) command;		
+		SearchResult searchResult = new SearchResult();
+		searchResult.setSearchString(search.getSearchString());
+		searchResult.setSearchPerformed(true);
 		try {
-			search.setHits(searchManager.search(search.getSearchString()));
+			searchResult = searchManager.search(search.getSearchString());
+			if(searchResult != null && searchResult.getPageIndex() != search.getPageIndex()){
+				searchResult.setPageIndex(search.getPageIndex());
+				searchResult.getErrors().clear();
+			}			
 		} catch (ParseException e) {
-			log.error("Can´t execute search", e);
+			log.error("Canï¿½t execute search", e);
+			if(e.getMessage() != null && e.getMessage().contains("not allowed as first")){
+				searchResult.addErrorMessage("search.ParseException", "error.search.invalidFirstCharacter");
+			}
 		} catch (IOException e) {
-			log.error("Can´t execute search", e);
-		}
-		return new ModelAndView("searchForm", "search", search);
+			log.error("Canï¿½t execute search", e);
+		} 
+		return new ModelAndView("searchForm", "search", searchResult);
 	}
 
 	public SearchManager getSearchManager() {

@@ -17,6 +17,7 @@
 package de.u808.simpleinquest.task;
 
 import java.io.File;
+import java.io.IOException;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -72,6 +73,8 @@ public class FileIndexerJob implements Task {
 				}
 			} catch (InvalidArgumentException e) {
 				log.error("Error during directory traversal", e);
+			} catch (IOException e) {
+				log.error(e.getMessage());
 			}
 		}
 	}

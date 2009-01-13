@@ -16,21 +16,29 @@
 
 package de.u808.simpleinquest.domain;
 
+import java.io.Serializable;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.lucene.search.Hits;
 
-public class Search {
+public class SearchResult implements Serializable{
 	
-	private static Log log = LogFactory.getLog(Search.class);
+	private static Log log = LogFactory.getLog(SearchResult.class);
 	
-	private String searchString;
+	private String searchString = "";
+	
+	private boolean searchPerformed;
 	
 	private Hits hits;
 	
 	private int pageIndex = 0;
 	
 	private int resultsPerPage = 15;
+	
+	private Map<String, Object> errors = new LinkedHashMap<String, Object>();
 
 	public String getSearchString() {
 		return searchString;
@@ -46,6 +54,25 @@ public class Search {
 
 	public void setHits(Hits hits) {
 		this.hits = hits;
+	}
+	public Map<String, Object> getErrors() {
+		return errors;
+	}
+
+	public void setErrors(Map<String, Object> errors) {
+		this.errors = errors;
+	}
+
+	public void addErrorMessage(String key, String errorMessage){		
+		errors.put(key, errorMessage);
+	}
+	
+	public boolean isSearchPerformed() {
+		return searchPerformed;
+	}
+
+	public void setSearchPerformed(boolean searchPerformed) {
+		this.searchPerformed = searchPerformed;
 	}
 
 	public int getHitsCount(){
@@ -73,9 +100,9 @@ public class Search {
 		this.pageIndex = pageIndex;
 	}
 
-	public PageModel getCurrentPage(){
+	public PageModel getCurrentPage() {
 		int first = pageIndex * resultsPerPage;
-		if(first < this.hits.length()){
+		if(hits != null && first < this.hits.length()){
 			return new PageModel(this.hits, first, this.resultsPerPage);
 		}
 		else return null;
@@ -88,5 +115,4 @@ public class Search {
 	public void setResultsPerPage(int resultsPerPage) {
 		this.resultsPerPage = resultsPerPage;
 	}
-
 }

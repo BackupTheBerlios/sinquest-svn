@@ -24,15 +24,15 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import de.u808.simpleinquest.domain.Search;
+import de.u808.simpleinquest.domain.SearchResult;
 
 public class HitsNavigationTag extends SimpleTagSupport {
 	
-	private Search search;
+	private SearchResult search;
 	
 	private static Log log = LogFactory.getLog(HitsNavigationTag.class);
 
-	public void setSearch(Search search) {
+	public void setSearch(SearchResult search) {
 		this.search = search;
 	}
 

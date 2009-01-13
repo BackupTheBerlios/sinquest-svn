@@ -57,7 +57,7 @@ public class IndexUpdaterTest {
 				String dir = directoryConfiguration.getPath();
 				new DirectoryTraverser(new File(dir), INDEX_UPDATER, DirectoryTraverser.TraversalMode.JustDirectories).startTraversal();
 			}
-		} catch (InvalidArgumentException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			exception = e;
 		}

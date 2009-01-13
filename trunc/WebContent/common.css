@@ -120,3 +120,12 @@ img {
 .XHRRequest {
 	cursor: pointer;
 }
+
+.errorBox {
+	border-width:1px;
+  	border-style:solid;
+  	border-color:red;
+  	padding:0.5em;
+  	text-align:left;
+  	font-size: 0.8em;	
+}

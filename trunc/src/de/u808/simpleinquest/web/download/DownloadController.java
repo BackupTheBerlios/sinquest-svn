@@ -26,54 +26,34 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.lucene.index.Term;
+import org.apache.lucene.queryParser.ParseException;
 import org.apache.lucene.search.Hit;
 import org.apache.lucene.search.Hits;
 import org.apache.lucene.search.TermQuery;
+import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.AbstractCommandController;
 import org.springframework.web.servlet.mvc.Controller;
 
+import de.u808.simpleinquest.domain.SearchResult;
 import de.u808.simpleinquest.indexer.Indexer;
 import de.u808.simpleinquest.service.MimeTypeRegistry;
 import de.u808.simpleinquest.service.search.IndexSearchBean;
+import de.u808.simpleinquest.service.search.SearchManager;
 
-public class DownloadController implements Controller{
-	
+public class DownloadController extends AbstractCommandController{
+
 	private IndexSearchBean indexSearchBean;
-	
+
+	private SearchManager searchManager;
+
 	private MimeTypeRegistry mimeTypeRegistry;
-	
+
 	private byte[] buf = new byte[18000];
-
-
-	public ModelAndView handleRequest(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-		String fileId = request.getParameter("id");
-		
-		if(StringUtils.isNotEmpty(fileId)){
-			//Search document
-			TermQuery query = new TermQuery(new Term(Indexer.ID_FIELD_NAME, fileId));
-			Hits hits = indexSearchBean.getIndexSearcher().search(query);
-			if(hits.length() > 0){
-				Hit hit = (Hit) hits.iterator().next();
-				String filePath = hit.get(Indexer.PATH_FIELD_NAME);
-				//String filePrefix = hit.get(Indexer.FILE_FETCH_PREFIX_FIELD_NAME);
-				//boolean blockDirectDownload = Boolean.valueOf(hit.get(Indexer.PREVENT_DIRECT_DOWNLOAD_FIELD_NAME));
-				
-				
-				//if(!blockDirectDownload && StringUtils.isEmpty(filePrefix)){
-					handleDownload(response, new File(filePath));
-				/*}
-				else{
-					
-				}
-				*/
-				
-				
-			}			
-			return null;
-		}
-		//TODO create View
-		return new ModelAndView("fileNotFound");
+	
+	public DownloadController(){
+		setCommandClass(DownloadCommand.class);
+		setCommandName("download");
 	}
 
 	public IndexSearchBean getIndexSearchBean() {
@@ -88,23 +68,74 @@ public class DownloadController implements Controller{
 		this.mimeTypeRegistry = mimeTypeRegistry;
 	}
 
-	private void handleDownload(HttpServletResponse response, File file) throws IOException{
+	private void handleDownload(HttpServletResponse response, File file)
+			throws IOException {
 		response.reset();
 		response.setContentType(mimeTypeRegistry.getMimeType(file));
 		response.setHeader("Pragma", "private");
 		response.setHeader("Cache-Control", "private, must-revalidate");
 		response.setHeader("Content-Disposition", "attachment; filename=\""
-		+ file.getName() + "\"");
-		
+				+ file.getName() + "\"");
+
 		FileInputStream fis = new FileInputStream(file);
-        OutputStream os = response.getOutputStream();
-        int len = -1;
-        int x = 0;
-        while((len = fis.read(buf)) != -1) {
-            os.write(buf, 0, len);
-        }
-		
+		OutputStream os = response.getOutputStream();
+		int len = -1;
+		int x = 0;
+		while ((len = fis.read(buf)) != -1) {
+			os.write(buf, 0, len);
+		}
+
 		response.getOutputStream().flush();
 		response.getOutputStream().close();
+	}
+
+	@Override
+	protected ModelAndView handle(HttpServletRequest request,
+			HttpServletResponse response, Object commandObject, BindException bindException)
+			throws Exception {
+		
+		DownloadCommand downloadCommand = (DownloadCommand) commandObject;
+		TermQuery query = new TermQuery(new Term(Indexer.ID_FIELD_NAME,
+				downloadCommand.getFileId()));
+		Hits hits = indexSearchBean.getIndexSearcher().search(query);
+		if (hits.length() > 0) {
+			Hit hit = (Hit) hits.iterator().next();
+			String filePath = hit.get(Indexer.PATH_FIELD_NAME);
+			// String filePrefix =
+			// hit.get(Indexer.FILE_FETCH_PREFIX_FIELD_NAME);
+			// boolean blockDirectDownload =
+			// Boolean.valueOf(hit.get(Indexer.PREVENT_DIRECT_DOWNLOAD_FIELD_NAME));
+
+			// if(!blockDirectDownload && StringUtils.isEmpty(filePrefix)){
+			File downloadFile = new File(filePath);
+			if (downloadFile != null && downloadFile.canRead()) {
+				handleDownload(response, downloadFile);
+			} else {
+				return this.handleError(response, downloadCommand, "download.file", "error.download.cannotAccessFile");
+			}
+			/*
+			 * } else{
+			 * 
+			 * }
+			 */
+
+		}
+		return this.handleError(response, downloadCommand, "download.file", "error.download.noFileWithIdIsStoredInTheIndex");
+	}
+
+	public SearchManager getSearchManager() {
+		return searchManager;
+	}
+
+	public void setSearchManager(SearchManager searchManager) {
+		this.searchManager = searchManager;
+	}
+	
+	private ModelAndView handleError(HttpServletResponse response, DownloadCommand downloadCommand, String errorKey, String errorMessage) throws ParseException, IOException{
+		SearchResult searchResult = this.searchManager.search(downloadCommand.getSearchString());
+		searchResult.setPageIndex(downloadCommand.getPageIndex());
+		searchResult.addErrorMessage(errorKey, errorMessage);
+		response.sendRedirect("../search.htm?searchString=" + downloadCommand.getSearchString() + "&pageIndex=" + downloadCommand.getPageIndex());
+		return null;
 	}
 }

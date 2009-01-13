@@ -66,14 +66,15 @@
 		<property name="searchManager" ref="searchManager" />
 		<property name="commandName" value="search" />
 		<property name="commandClass"
-			value="de.u808.simpleinquest.domain.Search" />
+			value="de.u808.simpleinquest.domain.SearchResult" />
 		<property name="formView" value="searchForm" />
-		<property name="successView" value="self" />
+		<property name="successView" value="searchForm" />
 	</bean>
 
 	<bean id="downloadController"
 		class="de.u808.simpleinquest.web.download.DownloadController">
 		<property name="indexSearchBean" ref="indexSearchBean" />
+		<property name="searchManager" ref="searchManager"/>
 		<property name="mimeTypeRegistry" ref="mimeTypeRegistry"/>
 	</bean>
 

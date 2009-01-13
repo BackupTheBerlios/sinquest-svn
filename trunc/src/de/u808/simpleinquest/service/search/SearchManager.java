@@ -17,6 +17,7 @@
 package de.u808.simpleinquest.service.search;
 
 import java.io.IOException;
+import java.util.LinkedHashMap;
 
 import net.sf.ehcache.Element;
 
@@ -34,6 +35,7 @@ import org.apache.lucene.search.Query;
 
 import de.u808.common.GlobalSearchCache;
 import de.u808.common.SessionSearchCache;
+import de.u808.simpleinquest.domain.SearchResult;
 import de.u808.simpleinquest.indexer.Indexer;
 
 public class SearchManager {
@@ -42,12 +44,15 @@ public class SearchManager {
 
 	private IndexSearchBean indexSearchBean;
 
-	private SessionSearchCache<String, Hits> searchCach;
+	private SessionSearchCache<String, SearchResult> searchCach;
 
 	private GlobalSearchCache globalSearchCache;
 
-	public Hits search(String searchString) throws ParseException, IOException{
+	public SearchResult search(String searchString) throws ParseException, IOException{
 		Hits hits = null;
+		SearchResult searchResult = new SearchResult();
+		searchResult.setSearchString(searchString);
+		searchResult.setSearchPerformed(true);
 		if(StringUtils.isNotEmpty(searchString)){
 			if(searchCach.containsKey(searchString)){
 				return searchCach.get(searchString);
@@ -55,8 +60,9 @@ public class SearchManager {
 			else{ 
 				Element element = globalSearchCache.getCache().get(searchString);
 				if(element != null ){
-					hits = (Hits) element.getObjectValue();
-					searchCach.put(searchString, hits);
+					hits = (Hits) element.getObjectValue();										
+					searchResult.setHits(hits);
+					searchCach.put(searchString, searchResult);
 				}
 				else{
 					// Query query = new QueryParser(Indexer.CONTENT_FIELD_NAME, new
@@ -72,8 +78,9 @@ public class SearchManager {
 						QueryParser qp = new MultiFieldQueryParser(fields, analyzer);
 						qp.setDefaultOperator(QueryParser.Operator.AND);
 						Query query = qp.parse(searchString);
-						hits = indexSearchBean.getIndexSearcher().search(query);
-						searchCach.put(searchString, hits);
+						hits = indexSearchBean.getIndexSearcher().search(query);						
+						searchResult.setHits(hits);
+						searchCach.put(searchString, searchResult);
 						globalSearchCache.getCache().put(new Element(searchString, hits));
 					}
 					else{
@@ -84,7 +91,7 @@ public class SearchManager {
 				}
 			}
 		}
-		return hits;
+		return searchResult;
 	}
 
 	public IndexSearchBean getIndexSearchBean() {
@@ -95,11 +102,11 @@ public class SearchManager {
 		this.indexSearchBean = indexSearchBean;
 	}
 
-	public SessionSearchCache<String, Hits> getSearchCach() {
+	public SessionSearchCache<String, SearchResult> getSearchCach() {
 		return searchCach;
 	}
 
-	public void setSearchCach(SessionSearchCache<String, Hits> searchCach) {
+	public void setSearchCach(SessionSearchCache<String, SearchResult> searchCach) {
 		this.searchCach = searchCach;
 	}
 
