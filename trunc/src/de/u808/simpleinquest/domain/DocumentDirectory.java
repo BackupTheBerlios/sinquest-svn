@@ -37,6 +37,8 @@ public class DocumentDirectory {
 	
 	protected Boolean blockDirectDownload;
 	
+	protected Boolean documentRoot;
+	
 	protected String defaultFetchPrefixUrl;
 	
 	protected Set<Document> documents;
@@ -87,6 +89,16 @@ public class DocumentDirectory {
 
 	public void setDocuments(Set<Document> documents) {
 		this.documents = documents;
+	}
+
+	@Basic
+	@Column (nullable=false)
+	public Boolean getDocumentRoot() {
+		return documentRoot;
+	}
+
+	public void setDocumentRoot(Boolean documentRoot) {
+		this.documentRoot = documentRoot;
 	}
 
 }

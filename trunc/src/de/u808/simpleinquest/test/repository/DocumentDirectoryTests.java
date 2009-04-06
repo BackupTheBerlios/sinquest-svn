@@ -16,32 +16,29 @@
 
 package de.u808.simpleinquest.test.repository;
 
-import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import de.u808.simpleinquest.domain.Document;
 import de.u808.simpleinquest.domain.DocumentDirectory;
 import de.u808.simpleinquest.repository.DocumentDirectoryDAO;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations={"../test-applicationContext.xml"})
 public class DocumentDirectoryTests {
 	
-    private ApplicationContext ctx = null;
+	@Autowired
+	private ApplicationContext applicationContext;
     
+	@Autowired
     private DocumentDirectoryDAO documentDirectoryDAO;
-    
-    @Before
-	public void prepare(){
-		String[] paths = {"./WebContent/WEB-INF/applicationContext.xml"};
-        ctx = new ClassPathXmlApplicationContext(paths);
-        
-        documentDirectoryDAO = (DocumentDirectoryDAO) ctx.getBean("documentDirectoryDAO");
-	}
     
     @Test
     public void testInsert(){

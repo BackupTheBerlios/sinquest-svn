@@ -16,6 +16,8 @@
 
 package de.u808.simpleinquest.domain;
 
+import java.util.Date;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,6 +33,8 @@ public class Document {
 	protected Long id;
 	
 	protected String hash;
+	
+	protected Date lastIndexUpdate;
 	
 	protected DocumentDirectory documentDirectory;
 
@@ -61,6 +65,16 @@ public class Document {
 
 	public void setDocumentDirectory(DocumentDirectory documentDirectory) {
 		this.documentDirectory = documentDirectory;
+	}
+
+	@Basic
+	@Column (nullable=true)
+	public Date getLastIndexUpdate() {
+		return lastIndexUpdate;
+	}
+
+	public void setLastIndexUpdate(Date lastIndexUpdate) {
+		this.lastIndexUpdate = lastIndexUpdate;
 	}
 	
 }
