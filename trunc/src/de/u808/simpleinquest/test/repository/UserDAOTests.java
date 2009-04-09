@@ -18,44 +18,43 @@ package de.u808.simpleinquest.test.repository;
 
 import static org.junit.Assert.assertNotNull;
 
-import org.junit.After;
-import org.junit.Before;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import de.u808.simpleinquest.domain.User;
 import de.u808.simpleinquest.repository.UserDAO;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations={"../test-applicationContext.xml"})
 public class UserDAOTests {
 	
-    private ApplicationContext ctx = null;
-    private User user = null;
-    private UserDAO userDAO = null;
-    private String TEST_USER_NAME = "andy";
+	@Autowired
+	private static ApplicationContext applicationContext;
     
-	@Before
-	public void prepare(){
-		String[] paths = {"de/u808/simpleinquest/applicationContext.xml"};
-        ctx = new ClassPathXmlApplicationContext(paths);
-        
-        userDAO = (UserDAO) ctx.getBean("userDAO");
-        user = new User();
+    @Autowired
+    private static UserDAO userDAO;
+    private static String TEST_USER_NAME = "test";
+    private static User user;
+    
+	@BeforeClass
+	public static void prepare(){
+        User user = new User();
         user.setFirstName("Andreas");
         user.setLastName("Friedel");
         user.setUsername(TEST_USER_NAME);
         user.setPassword("123");
-        userDAO.makePersistent(user);
-	}
-	
-	public void setUserDAO(UserDAO userDAO) {
-		this.userDAO = userDAO;
+        UserDAOTests.user = userDAO.makePersistent(user);
 	}
 
-	@After
-	public void discard(){
-		//userDAO.makeTransient(user);
-		//userDAO = null;
+	@AfterClass
+	public static void discard(){
+		userDAO.makeTransient(user);
 	}
 	
 	@Test

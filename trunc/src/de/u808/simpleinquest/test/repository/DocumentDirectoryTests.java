@@ -16,6 +16,8 @@
 
 package de.u808.simpleinquest.test.repository;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -27,6 +29,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import de.u808.simpleinquest.domain.Document;
+import de.u808.simpleinquest.domain.DocumentConfig;
 import de.u808.simpleinquest.domain.DocumentDirectory;
 import de.u808.simpleinquest.repository.DocumentDirectoryDAO;
 
@@ -39,20 +42,25 @@ public class DocumentDirectoryTests {
     
 	@Autowired
     private DocumentDirectoryDAO documentDirectoryDAO;
-    
+	
     @Test
     public void testInsert(){
+    	DocumentConfig config = new DocumentConfig();
+    	config.setBlockDirectDownload(false);
+    	config.setFetchPrefix("c:/testtest");
     	DocumentDirectory documentDirectory = new DocumentDirectory();
-    	documentDirectory.setBlockDirectDownload(false);
-    	documentDirectory.setDefaultFetchPrefixUrl("TestBlaBla");
-    	documentDirectory.setPath("c:\\SimpleInquest\\docs");
+    	documentDirectory.setHash("123456");
+    	documentDirectory.setDocumentConfig(config);
     	Set<Document> testSet = new HashSet<Document>();
     	Document document = new Document();
-    	document.setDocumentDirectory(documentDirectory);
+    	document.setParent(documentDirectory);
     	document.setHash("12345");
     	testSet.add(document);
     	documentDirectory.setDocuments(testSet);
-    	documentDirectoryDAO.makePersistent(documentDirectory);
+    	documentDirectory.setId(7l);
+    	DocumentDirectory testDirectory = documentDirectoryDAO.makePersistent(documentDirectory);
+    	assertNotNull(testDirectory);
+    	assertNotNull(testDirectory.getId());
     }
 
 }

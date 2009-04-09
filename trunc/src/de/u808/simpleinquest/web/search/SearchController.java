@@ -40,11 +40,6 @@ public class SearchController extends SimpleFormController {
 	
 	private static Log log = LogFactory.getLog(SearchController.class);
 
-	public SearchController() {
-		setCommandClass(SearchResult.class);
-		setCommandName("search");
-	}
-
 	protected boolean isFormSubmission(HttpServletRequest request) {
 		if (StringUtils.isNotEmpty(request.getParameter(SEARCH_STRING)) || StringUtils.isNotEmpty(request.getParameter(PAGE_INDEX)) ){
 			return true;

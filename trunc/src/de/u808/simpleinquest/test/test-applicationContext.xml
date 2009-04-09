@@ -66,7 +66,7 @@
 		<property name="searchManager" ref="searchManager" />
 		<property name="commandName" value="search" />
 		<property name="commandClass"
-			value="de.u808.simpleinquest.domain.Search" />
+			value="de.u808.simpleinquest.domain.SearchResult" />
 		<property name="formView" value="searchForm" />
 		<property name="successView" value="self" />
 	</bean>
@@ -157,7 +157,16 @@
 	<!-- Resources -->
 	<bean id="configBeanResource"
 		class="de.u808.simpleinquest.web.ConfigBeanResource">
-		<constructor-arg value="WEB-INF/SimpleInquestConf.xml" />
+		<constructor-arg value="de/u808/simpleinquest/test/SimpleInquestConf.xml" />
+	</bean>
+	
+	<bean id="jndiTemplate" class="org.springframework.jndi.JndiTemplate">
+		<property name="environment">
+			<props>
+				<prop key="java.naming.factory.initial">com.sun.jndi.fscontext.RefFSContextFactory</prop>
+				<prop key="java.naming.provider.url">file:/src/de/u808/simpleinquest/test</prop>
+			</props>
+		</property>
 	</bean>
 
 	<!-- FactoryBeans -->
