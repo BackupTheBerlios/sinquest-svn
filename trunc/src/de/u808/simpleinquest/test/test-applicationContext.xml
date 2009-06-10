@@ -10,7 +10,7 @@
 
 	<bean id="dataBase" class="org.springmodules.db.hsqldb.ServerBean"
 		scope="singleton" lazy-init="false">
-		<property name="configBeanResource" ref="configBeanResource" />
+		<property name="systemProperties" ref="systemProperties" />
 		<property name="dataSource">
 			<ref local="myDataSource" />
 		</property>
@@ -93,7 +93,7 @@
 	</bean>
 	
 	<bean id="infoController" class="de.u808.simpleinquest.web.ConfigInfoController">
-		<property name="configBeanResource" ref="configBeanResource"/>
+		<property name="configurationValidatorBean" ref="configurationValidatorBean"/>
 	</bean>
 
 	<!-- Manager -->
@@ -112,13 +112,13 @@
 
 	<bean id="indexSearchBean"
 		class="de.u808.simpleinquest.service.search.IndexSearchBean"
-		depends-on="configBeanResource">
-		<property name="configBeanResource" ref="configBeanResource" />
+		depends-on="systemProperties">
+		<property name="systemProperties" ref="systemProperties" />
 	</bean>
 
 	<bean id="mimeIconRegistry"
 		class="de.u808.simpleinquest.service.impl.DefaultMimeIconRegistry">		
-		<property name="configBeanResource" ref="configBeanResource" />
+		<property name="mimeIconMapBean" ref="mimeIconMapBean" />
 		<property name="mimeTypeRegistry" ref="mimeTypeRegistry"/>
 	</bean>
 	
@@ -153,12 +153,6 @@
 	<bean id="documentDAO" class="de.u808.simpleinquest.repository.impl.DocumentDAOImpl">
 		<property name="sessionFactory" ref="mySessionFactory" />
 	</bean>
-
-	<!-- Resources -->
-	<bean id="configBeanResource"
-		class="de.u808.simpleinquest.web.ConfigBeanResource">
-		<constructor-arg value="de/u808/simpleinquest/test/SimpleInquestConf.xml" />
-	</bean>
 	
 	<bean id="jndiTemplate" class="org.springframework.jndi.JndiTemplate">
 		<property name="environment">
@@ -172,7 +166,7 @@
 	<!-- FactoryBeans -->
 	<bean id="indexerFactory"
 		class="de.u808.simpleinquest.indexer.impl.DefaultIndexerFactory">
-		<property name="configBeanResource" ref="configBeanResource" />
+		<property name="indexerConfigurationBean" ref="indexerConfigurationBean" />
 		<property name="mimeTypeRegistry" ref="mimeTypeRegistry" />
 	</bean>
 
@@ -180,12 +174,10 @@
 	<bean id="indexUpdater"
 		class="de.u808.simpleinquest.indexer.impl.IndexUpdater"
 		depends-on="indexerFactory">
-		<constructor-arg>
-			<ref bean="configBeanResource" />
-		</constructor-arg>
 		<property name="indexerFactory" ref="indexerFactory" />
 		<property name="indexSearchBean" ref="indexSearchBean" />
 		<property name="mimeTypeRegistry" ref="mimeTypeRegistry" />
+		<property name="indexerConfigurationBean" ref="indexerConfigurationBean"/>
 	</bean>
 
 	<bean id="cacheManager"

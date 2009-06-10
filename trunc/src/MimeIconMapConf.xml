@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mimeIconMap>
+   <property mimeType="application/msword">/SimpleInquest/img/mime/22/office-document.gif</property>
+   <property mimeType="application/pdf">/SimpleInquest/img/mime/22/pdf.gif</property>
+   <property mimeType="application/vnd.ms-excel">/SimpleInquest/img/mime/22/office-spreadsheet.gif</property>
+   <property mimeType="application/vnd.ms-outlook">/SimpleInquest/img/mime/22/internet-mail.gif</property>
+   <property mimeType="application/vnd.ms-powerpoint">/SimpleInquest/img/mime/22/office-presentation.gif</property>
+   <property mimeType="application/vnd.visio">/SimpleInquest/img/mime/22/visio.gif</property>
+   <property mimeType="application/vnd.sun.xml.writer">/SimpleInquest/img/mime/22/office-document.gif</property>
+   <property mimeType="application/vnd.oasis.opendocument.text">/SimpleInquest/img/mime/22/office-document.gif</property>
+   <property mimeType="text/plain">/SimpleInquest/img/mime/22/text-generic.gif</property>
+   <property mimeType="text/x-java-source">/SimpleInquest/img/mime/22/java.gif</property>
+   <property mimeType="application/unknown">/SimpleInquest/img/mime/22/text-generic.gif</property>
+</mimeIconMap>

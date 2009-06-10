@@ -28,13 +28,10 @@ import org.apache.commons.logging.LogFactory;
 import org.hsqldb.ServerConfiguration;
 import org.hsqldb.ServerConstants;
 import org.hsqldb.persist.HsqlProperties;
-import org.simpleframework.xml.Serializer;
-import org.simpleframework.xml.load.Persister;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 
-import de.u808.simpleinquest.config.Configuration;
-import de.u808.simpleinquest.web.ConfigBeanResource;
+import de.u808.simpleinquest.config.ConfigurationConstants;
 
 /**
  * Bean that will start an instance of an HSQL database.  This class is primarily intended
@@ -63,7 +60,7 @@ import de.u808.simpleinquest.web.ConfigBeanResource;
 
 public class ServerBean implements InitializingBean, DisposableBean {
 	
-	private static String HSQL_SERVER_DATABASE_KEY = "server.database.0";
+    private static String HSQL_SERVER_DATABASE_KEY = "server.database.0";
 
     /**
      * Commons Logging instance.
@@ -85,7 +82,7 @@ public class ServerBean implements InitializingBean, DisposableBean {
      */
     private DataSource dataSource;
     
-    private ConfigBeanResource configBeanResource;
+    private Properties systemProperties;
 
     public Properties getServerProperties() {
         return serverProperties;
@@ -105,10 +102,11 @@ public class ServerBean implements InitializingBean, DisposableBean {
 
     public void afterPropertiesSet() throws Exception {
     	//change DB Path to be relative to SimpleInquestHome
-    	String systemHomet = this.getConfiguration().getSimpleInquestHome();
+    	//String systemHomet = this.getConfiguration().getSimpleInquestHome();
     	String dbLocation = serverProperties.getProperty(HSQL_SERVER_DATABASE_KEY);
     	//change property
-    	serverProperties.setProperty(HSQL_SERVER_DATABASE_KEY, new File(systemHomet, dbLocation).getPath());
+    	String simpleInquestHome = this.systemProperties.getProperty(ConfigurationConstants.SIMPLE_INQUEST_HOME_DIR);
+    	serverProperties.setProperty(HSQL_SERVER_DATABASE_KEY, new File(simpleInquestHome, dbLocation).getPath());
         HsqlProperties configProps = new HsqlProperties(serverProperties);
         if (configProps == null) {
             configProps = new HsqlProperties();
@@ -171,24 +169,33 @@ public class ServerBean implements InitializingBean, DisposableBean {
         server = null;
 
     }
-    
-    private Configuration getConfiguration(){
-    	try {
-    		File configFile = this.configBeanResource.getConfigFile();
-			Serializer serializer = new Persister();
-			return serializer.read(Configuration.class, configFile);
-		} catch (Exception e) {
-			log.error("Can´t get config file", e);
-			return null;
-		}
+
+    public Properties getSystemProperties() {
+        return systemProperties;
     }
 
-	public ConfigBeanResource getConfigBeanResource() {
-		return configBeanResource;
-	}
+    public void setSystemProperties(Properties systemProperties) {
+        this.systemProperties = systemProperties;
+    }
 
-	public void setConfigBeanResource(ConfigBeanResource configBeanResource) {
-		this.configBeanResource = configBeanResource;
-	}
+    
+//    private Configuration getConfiguration(){
+//    	try {
+//    		File configFile = this.configBeanResource.getConfigFile();
+//			Serializer serializer = new Persister();
+//			return serializer.read(Configuration.class, configFile);
+//		} catch (Exception e) {
+//			log.error("Canï¿½t get config file", e);
+//			return null;
+//		}
+//    }
+
+//	public ConfigBeanResource getConfigBeanResource() {
+//		return configBeanResource;
+//	}
+//
+//	public void setConfigBeanResource(ConfigBeanResource configBeanResource) {
+//		this.configBeanResource = configBeanResource;
+//	}
 
 }

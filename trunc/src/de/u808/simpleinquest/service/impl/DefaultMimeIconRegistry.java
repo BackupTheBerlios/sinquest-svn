@@ -21,58 +21,57 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 
+import de.u808.simpleinquest.config.MimeIconMapBean;
 import de.u808.simpleinquest.service.MimeIconRegistry;
 import de.u808.simpleinquest.service.MimeTypeRegistry;
-import de.u808.simpleinquest.web.ConfigBeanResource;
 
-public class DefaultMimeIconRegistry implements MimeIconRegistry{
-	
-	private ConfigBeanResource configBeanResource;
-	
-	private MimeTypeRegistry mimeTypeRegistry;
+public class DefaultMimeIconRegistry implements MimeIconRegistry {
 
-	public String getMimeIcon(String filename) {		
-		String mimeType = this.mimeTypeRegistry.getMimeType(filename);
-		return getIcon(mimeType);
-	}
+    private MimeIconMapBean mimeIconMapBean;
 
-	public String getMimeIcon(File file) {
-		String mimeType = this.mimeTypeRegistry.getMimeType(file);
-		return getIcon(mimeType);
-	}
-	
-	private String getSuitableType(String[] types){
-		Map iconMap = configBeanResource.getSystemConfig().getConfiguration().getMimeIconMap().getMap();
-		for(String type : types){
-			if (iconMap.containsKey(type)){
-				return type;
-			}
-		}
-		return null;
-	}
-	
-	private String getIcon(String mimeType){
-		String singleType = null; 
-		if(StringUtils.isNotEmpty(mimeType) && mimeType.contains(",")){
-			String[] types = mimeType.split(",");
-			singleType = this.getSuitableType(types);
-		}
-		else{
-			singleType = mimeType;
-		}
-		return configBeanResource.getSystemConfig().getConfiguration().getMimeIconMap().getIconURI(singleType);
-	}
+    private MimeTypeRegistry mimeTypeRegistry;
 
-	public ConfigBeanResource getConfigBeanResource() {
-		return configBeanResource;
-	}
+    public String getMimeIcon(String filename) {
+        String mimeType = this.mimeTypeRegistry.getMimeType(filename);
+        return getIcon(mimeType);
+    }
 
-	public void setConfigBeanResource(ConfigBeanResource configBeanResource) {
-		this.configBeanResource = configBeanResource;
-	}
+    public String getMimeIcon(File file) {
+        String mimeType = this.mimeTypeRegistry.getMimeType(file);
+        return getIcon(mimeType);
+    }
 
-	public void setMimeTypeRegistry(MimeTypeRegistry mimeTypeRegistry) {
-		this.mimeTypeRegistry = mimeTypeRegistry;
-	}
+    private String getSuitableType(String[] types) {
+        Map iconMap = this.mimeIconMapBean.getMimeIconMap().getMap();
+        for (String type : types) {
+            if (iconMap.containsKey(type)) {
+                return type;
+            }
+        }
+        return null;
+    }
+
+    private String getIcon(String mimeType) {
+        String singleType = null;
+        if (StringUtils.isNotEmpty(mimeType) && mimeType.contains(",")) {
+            String[] types = mimeType.split(",");
+            singleType = this.getSuitableType(types);
+        } else {
+            singleType = mimeType;
+        }
+        return this.mimeIconMapBean.getMimeIconMap().getIconURI(singleType);
+    }
+
+    public MimeIconMapBean getMimeIconMapBean() {
+        return mimeIconMapBean;
+    }
+
+    public void setMimeIconMapBean(MimeIconMapBean mimeIconMapBean) {
+        this.mimeIconMapBean = mimeIconMapBean;
+    }
+
+    public void setMimeTypeRegistry(MimeTypeRegistry mimeTypeRegistry) {
+        this.mimeTypeRegistry = mimeTypeRegistry;
+    }
 
 }

@@ -19,7 +19,8 @@ package de.u808.simpleinquest.config;
 import java.util.Map;
 
 import org.simpleframework.xml.ElementMap;
-
+import org.simpleframework.xml.Root;
+@Root
 public class MimeIconMap {
 	
 	public static final String UNKNOWN_MIME_TYPE = "application/unknown";

@@ -19,26 +19,29 @@ package de.u808.simpleinquest.web;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
-public class ConfigInfoController extends AbstractController{
-	
-	ConfigBeanResource configBeanResource;
+import de.u808.simpleinquest.config.ConfigurationValidatorBean;
 
-	public ConfigBeanResource getConfigBeanResource() {
-		return configBeanResource;
-	}
+public class ConfigInfoController extends AbstractController implements ApplicationContextAware {
 
-	public void setConfigBeanResource(ConfigBeanResource configBeanResource) {
-		this.configBeanResource = configBeanResource;
-	}
+    private ConfigurationValidatorBean configurationValidatorBean;
 
-	@Override
-	protected ModelAndView handleRequestInternal(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-		return new ModelAndView("configInfo", "errors", configBeanResource.getSystemConfig().getConfigurationErrors()) {
-		};
-	}
+    public ConfigurationValidatorBean getConfigurationValidatorBean() {
+        return configurationValidatorBean;
+    }
+
+    public void setConfigurationValidatorBean(ConfigurationValidatorBean configurationValidatorBean) {
+        this.configurationValidatorBean = configurationValidatorBean;
+    }
+
+    @Override
+    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
+        return new ModelAndView("configInfo", "errors", configurationValidatorBean.validate()) {
+        };
+    }
 
 }
