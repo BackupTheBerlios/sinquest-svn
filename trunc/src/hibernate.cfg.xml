@@ -15,6 +15,7 @@
   <mapping class="de.u808.simpleinquest.domain.Document"/>
   <mapping class="de.u808.simpleinquest.domain.DocumentDirectory"/>
   <mapping class="de.u808.simpleinquest.domain.DocumentConfig"/>
+  <mapping class="de.u808.simpleinquest.domain.File"/>
   
  </session-factory>
 </hibernate-configuration>
