@@ -8,7 +8,7 @@
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-2.0.1.xsd">
 
-	<bean id="dataBase" class="org.springmodules.db.hsqldb.ServerBean"
+	<bean id="dataBase" class="de.u808.simpleinquest.util.CustomServerBean"
 		scope="singleton" lazy-init="false">
 		<!-- TODO ref home in SimpleInquestConfig -->
 		<property name="systemProperties" ref="systemProperties"/>
