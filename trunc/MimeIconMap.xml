@@ -1,0 +1,5 @@
+<mimeIconMap>
+   <property mimeType="htm">img/test.gif</property>
+   <property mimeType="pdf">img/test.gif</property>
+   <property mimeType="doc">img/test.gif</property>
+</mimeIconMap>

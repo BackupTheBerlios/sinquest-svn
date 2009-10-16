@@ -1,0 +1,26 @@
+<configuration>
+   <simpleInquestHome>C:\SimpleInquestHome</simpleInquestHome>
+   <indexerConfiguration>
+      <indexSearchRefreshCount>50</indexSearchRefreshCount>
+      <indexerClassName mimeType="application/pdf">de.ex.PDFIndexer</indexerClassName>
+      <indexerClassName mimeType="application/msword">de.exe.MSWordIndexer</indexerClassName>
+   </indexerConfiguration>
+   <mimeIconMap>
+      <property mimeType="html">bla.gif</property>
+      <property mimeType="pdf">blub.gif</property>
+   </mimeIconMap>
+   <directoriesToIndex class="java.util.LinkedList">
+      <directoryConfiguration>
+         <path>C:\Users\friedel\workspace\JKnowledgeMap\Sample</path>
+         <systemFetchPrefixUrl system="Windows">file://localhost/C|/Users/friedel/workspace/JKnowledgeMap/Sample</systemFetchPrefixUrl>
+         <systemFetchPrefixUrl system="Linux">file://localhost/home/friedel/workspace/JKnowledgeMap/Sample</systemFetchPrefixUrl>
+         <blockDirectDownload>false</blockDirectDownload>
+      </directoryConfiguration>
+      <directoryConfiguration>
+         <path>C:\SimpleInquestHome</path>
+         <systemFetchPrefixUrl system="Windows">file://localhost/C|/Users/friedel/workspace/JKnowledgeMap/Sample</systemFetchPrefixUrl>
+         <systemFetchPrefixUrl system="Linux">file://localhost/home/friedel/workspace/JKnowledgeMap/Sample</systemFetchPrefixUrl>
+         <blockDirectDownload>true</blockDirectDownload>
+      </directoryConfiguration>
+   </directoriesToIndex>
+</configuration>
