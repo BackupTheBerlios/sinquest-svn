@@ -15,6 +15,8 @@
 <link type="text/css" rel="stylesheet" 
 	href="/SimpleInquest/scripts/yui/build/logger/assets/skins/sam/logger.css"> 
 
+<script type="text/javascript"
+	src="/SimpleInquest/scripts/jquery/jquery-1.3.2.min.js"></script>
 <!-- Dependencies -->
 <script type="text/javascript"
 	src="/SimpleInquest/scripts/yui/build/yahoo-dom-event/yahoo-dom-event.js"></script>
@@ -49,9 +51,6 @@
 	
 <script type="text/javascript" 
 	src="/SimpleInquest/scripts/yui/build/logger/logger-min.js"></script>
-	
-<script type="text/javascript"
-	src="/SimpleInquest/scripts/jquery/jquery-1.3.2.min.js"></script>
 
 <link rel="stylesheet" type="text/css" href="/SimpleInquest/common.css" />
 </head>

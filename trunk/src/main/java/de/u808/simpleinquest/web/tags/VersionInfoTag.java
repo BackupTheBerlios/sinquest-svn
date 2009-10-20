@@ -16,8 +16,11 @@
 
 package de.u808.simpleinquest.web.tags;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Properties;
+import java.util.jar.Attributes;
+import java.util.jar.Manifest;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
@@ -26,26 +29,26 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.core.io.ClassPathResource;
 
-public class VersionInfoTag extends SimpleTagSupport{
-	
+public class VersionInfoTag extends SimpleTagSupport {
+
 	private static Log log = LogFactory.getLog(VersionInfoTag.class);
-	
+
 	@Override
 	public void doTag() throws JspException, IOException {
 		PageContext pageContext = (PageContext) getJspContext();
 		JspWriter out = pageContext.getOut();
-		try {			
-			ClassPathResource classPathResource = new ClassPathResource("version.properties");
-			if(classPathResource.exists()){
-				Properties properties = new Properties();
-				properties.load(classPathResource.getInputStream());
-				out.println("<span id=\"version\"> " + properties.getProperty("app.version") + " (Revision " + properties.getProperty("svn.revision") + " Build " + properties.getProperty("build.number") + ")</span>");
-			}
-			else {
-				log.warn("Version properties not found");
-			}
+		try {
+			String appServerHome = pageContext.getServletContext().getRealPath("/");
+
+			File manifestFile = new File(appServerHome, "META-INF/MANIFEST.MF");
+
+			Manifest mf = new Manifest();
+			mf.read(new FileInputStream(manifestFile));
+
+			Attributes atts = mf.getMainAttributes();
+
+			out.println("<span id=\"version\"> (Revision " + atts.getValue("Implementation-Version") + " Build " + atts.getValue("Implementation-Build") + " Built-By " + atts.getValue("Built-By") +")</span>");
 		} catch (Exception e) {
 			log.error("Tag error", e);
 		}
