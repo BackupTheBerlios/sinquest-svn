@@ -15,6 +15,25 @@
   <mapping class="de.u808.simpleinquest.domain.Document"/>
   <mapping class="de.u808.simpleinquest.domain.DocumentDirectory"/>
   <mapping class="de.u808.simpleinquest.domain.DocumentConfig"/>
+  <mapping class="de.u808.simpleinquest.domain.QrtzBlobTriggers"/>
+  <mapping class="de.u808.simpleinquest.domain.QrtzBlobTriggersId"/>
+  <mapping class="de.u808.simpleinquest.domain.QrtzCalendars"/>
+  <mapping class="de.u808.simpleinquest.domain.QrtzCronTriggers"/>
+  <mapping class="de.u808.simpleinquest.domain.QrtzCronTriggersId"/>
+  <mapping class="de.u808.simpleinquest.domain.QrtzFiredTriggers"/>
+  <mapping class="de.u808.simpleinquest.domain.QrtzJobDetails"/>
+  <mapping class="de.u808.simpleinquest.domain.QrtzJobDetailsId"/>
+  <mapping class="de.u808.simpleinquest.domain.QrtzJobListeners"/>
+  <mapping class="de.u808.simpleinquest.domain.QrtzJobListenersId"/>
+  <mapping class="de.u808.simpleinquest.domain.QrtzLocks"/>
+  <mapping class="de.u808.simpleinquest.domain.QrtzPausedTriggerGrps"/>
+  <mapping class="de.u808.simpleinquest.domain.QrtzSchedulerState"/>
+  <mapping class="de.u808.simpleinquest.domain.QrtzSimpleTriggers"/>
+  <mapping class="de.u808.simpleinquest.domain.QrtzSimpleTriggersId"/>
+  <mapping class="de.u808.simpleinquest.domain.QrtzTriggerListeners"/>
+  <mapping class="de.u808.simpleinquest.domain.QrtzTriggerListenersId"/>
+  <mapping class="de.u808.simpleinquest.domain.QrtzTriggers"/>
+  <mapping class="de.u808.simpleinquest.domain.QrtzTriggersId"/>
   
  </session-factory>
 </hibernate-configuration>

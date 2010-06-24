@@ -20,10 +20,12 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.orm.hibernate3.HibernateCallback;
+import org.springframework.stereotype.Service;
 
 import de.u808.simpleinquest.domain.User;
 import de.u808.simpleinquest.repository.UserDAO;
 
+@Service("userDAO")
 public class UserDAOImpl extends GenericHibernateDAO<User, Long> implements UserDAO {
 
 	public User findByUsername(final String username) {

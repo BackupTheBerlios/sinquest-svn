@@ -16,7 +16,7 @@
 
 package de.u808.simpleinquest.test.indexer;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 import java.io.File;
 
@@ -48,6 +48,9 @@ public class IndexerTest {
 			//File fileToIndex = new File(sampleDir, "Geboren_vor_1978.pps");
 			//File fileToIndex = new File(sampleDir, "testOO2.odt");
 			File fileToIndex = new File(sampleDir, "TestAlpha.java");
+			assertNotNull("File to index is null", fileToIndex);
+			assertTrue("File to index does not exist", fileToIndex.exists());
+			assertNotNull("IndexerFactory is null", indexerFactory);
 			Indexer indexer = indexerFactory.getIndexer(fileToIndex);
 			assertNotNull(indexer);
 			Document document = indexer.indexFile(fileToIndex);

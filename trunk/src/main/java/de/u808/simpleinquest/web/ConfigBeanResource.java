@@ -42,24 +42,27 @@ public class ConfigBeanResource implements InitializingBean, ApplicationContextA
     
     private final static Log log = LogFactory.getLog(ConfigBeanResource.class);
 	
-	public ConfigBeanResource(Resource resource) {
-		this.configResource = resource;
+	public ConfigBeanResource() {
 		
 	}
 	
+	public void setConfigResource(Resource configResource) {
+		this.configResource = configResource;
+	}
+
 	private void readSystemConfig(){
 		Serializer serializer = new Persister();
 		try {
 			File configFile;
 			if(!configResource.exists()){
-				configFile = this.compensateDifferentContext();
+				log.error("Can not find config file!");
 			}
 			else{
 				configFile = configResource.getFile();
-			}
-			Configuration conf = serializer.read(Configuration.class, configFile);
-			this.systemConfig = new SystemConfig(conf);
-			this.systemConfig.setApplicationContext(this.applicationContext);
+				Configuration conf = serializer.read(Configuration.class, configFile);
+				this.systemConfig = new SystemConfig(conf);
+				this.systemConfig.setApplicationContext(this.applicationContext);
+			}			
 		} catch (Exception e) {
 			log.error("Can�t load system config", e);
 		}
@@ -73,12 +76,12 @@ public class ConfigBeanResource implements InitializingBean, ApplicationContextA
 		return systemConfig;
 	}
 	
-	private File compensateDifferentContext() throws IOException{
-		File parent = new File("WebContent/WEB-INF");
-		File file = new File(parent, this.configResource.getFilename());
-		String pwd = file.getAbsolutePath();
-		return file;
-	}
+//	private File compensateDifferentContext() throws IOException{
+//		File parent = new File("./src/main/webapp/WEB-INF");
+//		File file = new File(parent, this.configResource.getFilename());
+//		String pwd = file.getAbsolutePath();
+//		return file;
+//	}
 
 	public void afterPropertiesSet() throws Exception {
 		this.readSystemConfig();

@@ -24,36 +24,32 @@ import javax.activation.MimetypesFileTypeMap;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.core.io.Resource;
 
 import de.u808.simpleinquest.service.MimeTypeRegistry;
 
-public class DefaultMimeTypeRegistry implements MimeTypeRegistry {
-	
+public class DefaultMimeTypeRegistry implements MimeTypeRegistry,
+		InitializingBean {
+
 	private MimetypesFileTypeMap mimetypesFileTypeMap;
-	
+
+	private Resource customMimeTypesConfigFile;
+
 	private static Log log = LogFactory.getLog(DefaultMimeTypeRegistry.class);
-	
-	public DefaultMimeTypeRegistry(File customMimeTypes){
-		try {
-			if(!customMimeTypes.exists()){
-				File parent = new File("WebContent");
-				File metaInfDir = new File(parent, "META-INF");
-				customMimeTypes = new File(metaInfDir, customMimeTypes.getName());
-			}
-			mimetypesFileTypeMap = new MimetypesFileTypeMap(new FileInputStream(customMimeTypes));
-		} catch (FileNotFoundException e) {
-			log.error("Can�t create MimetypesFileTypeMap. Custom MimeType-File not found", e);
-		}
+
+	public void setCustomMimeTypesConfigFile(Resource customMimeTypesConfigFile) {
+		this.customMimeTypesConfigFile = customMimeTypesConfigFile;
 	}
 
 	public String getMimeType(String fileName) {
-		//TODO use magic bits
+		// TODO use magic bits
 		String mimeType = mimetypesFileTypeMap.getContentType(fileName);
 		return mimeType;
 	}
 
 	public String getMimeType(File file) {
-		//TODO use magic bits
+		// TODO use magic bits
 		String mimeType = mimetypesFileTypeMap.getContentType(file);
 		return mimeType;
 	}
@@ -66,6 +62,22 @@ public class DefaultMimeTypeRegistry implements MimeTypeRegistry {
 	public String getFileExtension(String fileName) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public void afterPropertiesSet() throws Exception {
+		try {
+			if (!this.customMimeTypesConfigFile.exists()) {
+				log.error(
+						"Can�t create MimetypesFileTypeMap. Custom MimeType-File not found");
+			} else {
+				mimetypesFileTypeMap = new MimetypesFileTypeMap(
+						new FileInputStream(customMimeTypesConfigFile.getFile()));
+			}
+		} catch (FileNotFoundException e) {
+			log.error(
+					"Can�t create MimetypesFileTypeMap. Custom MimeType-File not found",
+					e);
+		}
 	}
 
 }

@@ -30,7 +30,7 @@
 	</bean>
 
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
-  		<property name="viewClass" value="org.springframework.web.servlet.view.tiles2.TilesView"/>
+  		<property name="viewClass" value="org.springframework.web.servlet.view.tiles.TilesView"/>
 	</bean>
 	
 	<bean id="viewController" class="org.springframework.web.servlet.mvc.UrlFilenameViewController"/>
@@ -47,8 +47,5 @@
                 </list>    
             </property>
     </bean>
-	
-
- 	<bean id="tilesConfigurer" class="de.u808.simpleinquest.util.SpringTilesConfigurer" />
 
 </beans>

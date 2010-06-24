@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+<type-mapping>
+	<sql-type jdbc-type="VARCHAR" hibernate-type="string"></sql-type>
+	<sql-type jdbc-type="VARCHAR" hibernate-type="string"></sql-type>
+	<sql-type jdbc-type="VARCHAR" hibernate-type="string"></sql-type>
+	<sql-type jdbc-type="VARCHAR" hibernate-type="string"></sql-type>
+	<sql-type jdbc-type="VARCHAR" hibernate-type="string"></sql-type>
+	<sql-type jdbc-type="VARCHAR" hibernate-type="string"></sql-type>
+	<sql-type jdbc-type="VARCHAR" hibernate-type="string"></sql-type>
+	<sql-type jdbc-type="VARCHAR" hibernate-type="string"></sql-type>
+	<sql-type jdbc-type="VARCHAR" hibernate-type="string"></sql-type>
+	<sql-type jdbc-type="VARCHAR" hibernate-type="string"></sql-type>
+	<sql-type jdbc-type="VARCHAR" hibernate-type="string"></sql-type>
+	<sql-type jdbc-type="VARCHAR" hibernate-type="string"></sql-type>
+</type-mapping>
+<table-filter match-schema="PUBLIC" match-name="QRTZ_BLOB_TRIGGERS"/>
+  <table-filter match-schema="PUBLIC" match-name="QRTZ_CALENDARS"/>
+  <table-filter match-schema="PUBLIC" match-name="QRTZ_CRON_TRIGGERS"/>
+  <table-filter match-schema="PUBLIC" match-name="QRTZ_FIRED_TRIGGERS"/>
+  <table-filter match-schema="PUBLIC" match-name="QRTZ_JOB_DETAILS"/>
+  <table-filter match-schema="PUBLIC" match-name="QRTZ_JOB_LISTENERS"/>
+  <table-filter match-schema="PUBLIC" match-name="QRTZ_LOCKS"/>
+  <table-filter match-schema="PUBLIC" match-name="QRTZ_PAUSED_TRIGGER_GRPS"/>
+  <table-filter match-schema="PUBLIC" match-name="QRTZ_SCHEDULER_STATE"/>
+  <table-filter match-schema="PUBLIC" match-name="QRTZ_SIMPLE_TRIGGERS"/>
+  <table-filter match-schema="PUBLIC" match-name="QRTZ_TRIGGERS"/>
+  <table-filter match-schema="PUBLIC" match-name="QRTZ_TRIGGER_LISTENERS"/>
+</hibernate-reverse-engineering>

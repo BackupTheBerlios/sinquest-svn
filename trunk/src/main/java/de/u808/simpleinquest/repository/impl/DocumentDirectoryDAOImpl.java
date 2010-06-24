@@ -16,9 +16,12 @@
 
 package de.u808.simpleinquest.repository.impl;
 
+import org.springframework.stereotype.Service;
+
 import de.u808.simpleinquest.domain.DocumentDirectory;
 import de.u808.simpleinquest.repository.DocumentDirectoryDAO;
 
+@Service
 public class DocumentDirectoryDAOImpl extends GenericHibernateDAO<DocumentDirectory, Long> implements DocumentDirectoryDAO {
 
 //	@Override

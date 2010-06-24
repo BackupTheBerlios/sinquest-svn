@@ -19,11 +19,11 @@ package de.u808.simpleinquest.service.impl;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.dao.DataAccessException;
-import org.springframework.security.GrantedAuthority;
-import org.springframework.security.GrantedAuthorityImpl;
-import org.springframework.security.userdetails.UserDetails;
-import org.springframework.security.userdetails.UserDetailsService;
-import org.springframework.security.userdetails.UsernameNotFoundException;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.GrantedAuthorityImpl;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import de.u808.simpleinquest.domain.User;
 import de.u808.simpleinquest.service.UserManager;
@@ -45,7 +45,7 @@ public class HibernateDAOUserDetailsService implements UserDetailsService{
 			throw new UsernameNotFoundException("user not found in database");
 		}
 		else{
-			return new org.springframework.security.userdetails.User(user.getUsername(), user.getPassword(), true, true, true, true, new GrantedAuthority[] { new GrantedAuthorityImpl("ROLE_USER") });
+			return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), true, true, true, true, new GrantedAuthority[] { new GrantedAuthorityImpl("ROLE_USER") });
 		}
 		
 	}

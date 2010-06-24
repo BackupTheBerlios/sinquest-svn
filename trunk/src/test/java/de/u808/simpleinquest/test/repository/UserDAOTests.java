@@ -31,7 +31,7 @@ import de.u808.simpleinquest.domain.User;
 import de.u808.simpleinquest.repository.UserDAO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"../test-applicationContext.xml"})
+@ContextConfiguration(locations={"classpath:test-applicationContext.xml"}) 
 public class UserDAOTests {
 	
 	@Autowired

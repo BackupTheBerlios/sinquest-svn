@@ -18,12 +18,18 @@ package de.u808.simpleinquest.service.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+
 import de.u808.simpleinquest.domain.User;
 import de.u808.simpleinquest.repository.UserDAO;
 import de.u808.simpleinquest.service.UserManager;
 
+@Service("userManager")
 public class HibernateUserManager implements UserManager {
 	
+	@Autowired
 	private UserDAO userDAO;
 
 	public User fetchUser(long id) {
